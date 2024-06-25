@@ -1,0 +1,12 @@
+{
+  "name": "bankboard",
+  "version": "0.0.1",
+  "main": "main.ts",
+  "repository": "https://github.com/nexryai/BankBoard",
+  "author": "nexryai <nexryai@sda1.net>",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "eslint": "^9.5.0"
+  }
+}
