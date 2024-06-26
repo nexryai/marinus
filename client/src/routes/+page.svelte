@@ -47,11 +47,28 @@
 
 	.welcome {
 		display: block;
-		position: relative;
 		width: 100%;
 		height: 0;
 		padding: 0 0 calc(100% * 495 / 2048) 0;
+        position: relative;
+        z-index: 0;
+        margin-bottom: 20px;
 	}
+
+    .welcome:before {
+        content: "";
+        background-image: url("https://s3.sda1.net/nnm/contents/7fc1ef20-229a-44c5-b4f1-0d5f45451f8a.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: 50%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        filter: opacity(70%) blur(64px);
+        z-index: -1;
+    }
 
 	.welcome img {
 		position: absolute;
