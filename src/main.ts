@@ -1,18 +1,10 @@
-import fastify from "fastify"
-import {logInfo} from "@/utils/log"
+import { NestFactory } from "@nestjs/core"
+import {AppModule} from "@/app.module.js"
 
-const server = fastify()
+async function bootstrap() {
+    const app = await NestFactory.createApplicationContext(AppModule)
+    const main = app.get(AppModule)
+    main.startServer(8080)
+}
 
-server.get("/ping", async (request, reply) => {
-    console.log(request.ip)
-    console.log(reply.log)
-    return "pong\n"
-})
-
-server.listen({ port: 8080 }, (err, address) => {
-    if (err) {
-        console.error(err)
-        process.exit(1)
-    }
-    logInfo(`Server listening at ${address}`)
-})
+bootstrap()
