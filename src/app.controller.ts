@@ -1,7 +1,9 @@
 /* eslint no-unused-vars: 0 */
+import * as path from "path"
 import { Controller } from "@nestjs/common"
 import { AppService } from "./app.service"
 import { FastifyInstance } from "fastify"
+import { fastifyStatic } from "@fastify/static"
 
 @Controller()
 export class AppController {
@@ -19,6 +21,13 @@ export class AppController {
             console.log(request.ip)
             console.log(reply.log)
             return "pong\n"
+        })
+    }
+
+    configClientRouter() {
+        console.log(path.join(path.dirname(import.meta.dirname), "client/public"))
+        this.router.register(fastifyStatic, {
+            root: path.join(path.dirname(import.meta.dirname), "client/public"),
         })
     }
 }
