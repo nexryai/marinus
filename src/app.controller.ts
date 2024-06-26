@@ -25,9 +25,9 @@ export class AppController {
     }
 
     configClientRouter() {
-        console.log(path.join(path.dirname(import.meta.dirname), "client/public"))
+        console.log(path.join(path.dirname(import.meta.dirname), "client/build"))
         this.router.register(fastifyStatic, {
-            root: path.join(path.dirname(import.meta.dirname), "client/public"),
+            root: path.join(path.dirname(import.meta.dirname), "client/build"),
         })
     }
 }
