@@ -19,7 +19,7 @@ export class AppModule {
             server
         )
 
-        //mainController.configApiRouter()
+        mainController.configApiRouter()
         mainController.configClientRouter()
 
         server.listen({ port: port }, (err, address) => {
