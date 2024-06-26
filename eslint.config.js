@@ -28,6 +28,6 @@ export default [
             "quotes": ["error", "double"],
             "semi": ["error", "never"]
         },
-        ignores: ["client/src/lib/*"]
+        ignores: ["client/*"]
     }
 ]

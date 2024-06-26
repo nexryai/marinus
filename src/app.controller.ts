@@ -25,8 +25,23 @@ export class AppController {
     }
 
     configClientRouter() {
+        const clientBasePath = path.join(path.dirname(import.meta.dirname), "client/build")
+        console.log(path.join(clientBasePath, "index.html"))
+
         this.router.register(fastifyStatic, {
-            root: path.join(path.dirname(import.meta.dirname), "client/build"),
+            root: path.join(clientBasePath, "_app"),
+            prefix: "/_app",
+            decorateReply: false
+        })
+
+        this.router.register(fastifyStatic, {
+            root: path.join(clientBasePath),
+            prefix: "/index.html",
+            decorateReply: true
+        })
+
+        this.router.get("*", async (request, reply) => {
+            return reply.sendFile("index.html")
         })
     }
 }
