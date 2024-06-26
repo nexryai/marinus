@@ -4,7 +4,7 @@ import typescriptESLintParser from "@typescript-eslint/parser"
 
 export default [
     {
-        files: ["**/*.js", "**/*.ts", "**/*.svelte"],
+        files: ["**/*.js", "**/*.ts"],
         languageOptions: {
             ecmaVersion: 2020,
             sourceType: "module",
@@ -27,6 +27,7 @@ export default [
             "indent": ["error", 4],
             "quotes": ["error", "double"],
             "semi": ["error", "never"]
-        }
+        },
+        ignores: ["client/src/lib/*"]
     }
 ]
