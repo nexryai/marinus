@@ -40,6 +40,14 @@ export class AppController {
             decorateReply: true
         })
 
+        this.router.get("/favicon.png", async (request, reply) => {
+            return reply.sendFile("favicon.png")
+        })
+
+        this.router.get("/robots.txt", async (request, reply) => {
+            return reply.sendFile("robots.txt")
+        })
+
         this.router.get("*", async (request, reply) => {
             return reply.sendFile("index.html")
         })
