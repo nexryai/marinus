@@ -1,7 +1,7 @@
 /* eslint no-unused-vars: 0 */
 import { Controller } from "@nestjs/common"
 import { AppService } from "./app.service"
-import {FastifyInstance} from "fastify"
+import { FastifyInstance } from "fastify"
 
 @Controller()
 export class AppController {

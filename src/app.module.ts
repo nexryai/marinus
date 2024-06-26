@@ -1,8 +1,8 @@
 import { Module } from "@nestjs/common"
 import { AppController } from "./app.controller"
 import { AppService } from "./app.service"
-import fastify from "fastify"
-import {logInfo, logWarn, logError} from "@/utils/log"
+import { fastify } from "fastify"
+import { logInfo, logWarn, logError } from "@/utils/log"
 
 @Module({
     imports: [],
