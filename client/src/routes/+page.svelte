@@ -66,7 +66,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        filter: opacity(70%) blur(64px);
+        filter: opacity(30%) blur(64px);
         z-index: -1;
     }
 

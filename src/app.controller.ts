@@ -3,7 +3,14 @@ import * as path from "path"
 import { Controller } from "@nestjs/common"
 import { AppService } from "./app.service"
 import { FastifyInstance } from "fastify"
+import { fastifyOauth2, OAuth2Namespace } from "@fastify/oauth2"
 import { fastifyStatic } from "@fastify/static"
+
+declare module "fastify" {
+    interface FastifyInstance {
+        googleOAuth2: OAuth2Namespace
+    }
+}
 
 @Controller()
 export class AppController {
@@ -21,6 +28,38 @@ export class AppController {
             console.log(request.ip)
             console.log(reply.log)
             return "pong\n"
+        })
+    }
+
+    configOauthRouter() {
+        if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
+            throw new Error("GOOGLE_CLIENT_ID or GOOGLE_CLIENT_SECRET is not set")
+        }
+
+        if (!process.env.APP_URL) {
+            throw new Error("APP_URL is not set")
+        }
+
+        this.router.register((instance, opts, done) => {
+            fastifyOauth2(instance, opts, done)
+        }, {
+            name: "googleOAuth2",
+            scope: ["profile"],
+            credentials: {
+                client: {
+                    id: process.env.GOOGLE_CLIENT_ID,
+                    secret: process.env.GOOGLE_CLIENT_SECRET,
+                },
+                auth: fastifyOauth2.GOOGLE_CONFIGURATION,
+            },
+            startRedirectPath: "/login/google",
+            callbackUri: process.env.APP_URL + "/login/google/callback",
+        })
+
+        this.router.get("/login/google/callback", async (request, reply) => {
+            const token = await this.router.googleOAuth2.getAccessTokenFromAuthorizationCodeFlow(request)
+            const uid =
+            reply.redirect("/")
         })
     }
 
