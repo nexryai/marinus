@@ -6,6 +6,6 @@ export class AuthService {
     constructor(private readonly identService: IdentService) {}
 
     signIn(serviceToken: string): string {
-        return this.identService.getUniqueOauthId(serviceToken)
+        return this.identService.getUniqueUserId(serviceToken)
     }
 }

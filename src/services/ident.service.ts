@@ -11,14 +11,14 @@ export interface IdentService {
     // ユーザーを一意に識別するためのIDを取得する
     // メールアドレスは変動する場合があるので極力使わない
     // ex. Googleの場合: "google:[googleのユーザーID]"
-    getUniqueOauthId(token: string): string
+    getUniqueUserId(token: string): string
 }
 
 @Injectable()
 export class GoogleIdentService implements IdentService {
     private readonly googleApiUserInfoUrl: string = "https://www.googleapis.com/oauth2/v2/userinfo"
 
-    getUniqueOauthId(token: string): string {
+    getUniqueUserId(token: string): string {
         let oauthId: string = ""
 
         fetch(this.googleApiUserInfoUrl, {

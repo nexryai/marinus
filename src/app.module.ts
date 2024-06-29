@@ -1,12 +1,10 @@
-// @ts-ignore
-
 import { Module } from "@nestjs/common"
 import { AppController } from "./app.controller"
 import { AppService } from "./app.service"
 import { fastify } from "fastify"
 import { logInfo, logWarn, logError } from "@/utils/log"
 import { GoogleIdentService } from "@/services/ident.service.js"
-import {OAuth2Namespace} from "@fastify/oauth2"
+import { OAuth2Namespace } from "@fastify/oauth2"
 
 declare module "fastify" {
     interface FastifyInstance {
