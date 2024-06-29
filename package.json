@@ -9,7 +9,7 @@
     "type": "module",
     "scripts": {
         "build": "cd client && yarn build && cd .. && tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
-        "start": "node built/main.js"
+        "start": "node  --env-file=.env built/main.js"
     },
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^7.14.1",

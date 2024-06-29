@@ -2,19 +2,16 @@
 import * as path from "path"
 import { Controller } from "@nestjs/common"
 import { AppService } from "./app.service"
-import { FastifyInstance } from "fastify"
+import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify"
 import { fastifyOauth2, OAuth2Namespace } from "@fastify/oauth2"
 import { fastifyStatic } from "@fastify/static"
-
-declare module "fastify" {
-    interface FastifyInstance {
-        googleOAuth2: OAuth2Namespace
-    }
-}
+import { AuthService } from "@/services/auth.service.js"
+import { GoogleIdentService } from "@/services/ident.service.js"
 
 @Controller()
 export class AppController {
     constructor(private readonly appService: AppService,
+                private readonly googleIdentService: GoogleIdentService,
                 private readonly router: FastifyInstance) {}
 
     getHello(): string {
@@ -40,9 +37,7 @@ export class AppController {
             throw new Error("APP_URL is not set")
         }
 
-        this.router.register((instance, opts, done) => {
-            fastifyOauth2(instance, opts, done)
-        }, {
+        this.router.register( fastifyOauth2, {
             name: "googleOAuth2",
             scope: ["profile"],
             credentials: {
@@ -58,7 +53,9 @@ export class AppController {
 
         this.router.get("/login/google/callback", async (request, reply) => {
             const token = await this.router.googleOAuth2.getAccessTokenFromAuthorizationCodeFlow(request)
-            const uid =
+            const googleAuth = new AuthService(this.googleIdentService)
+            const uid = googleAuth.signIn(token.token.access_token)
+
             reply.redirect("/")
         })
     }

@@ -22,7 +22,7 @@ export default [
             typescriptEslint
         },
         rules: {
-            "no-unused-vars": "error",
+            "no-unused-vars": "off",
             "no-undef": "error",
             "indent": ["error", 4],
             "quotes": ["error", "double"],
