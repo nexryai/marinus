@@ -2,6 +2,9 @@ import { Injectable } from "@nestjs/common"
 
 interface googleUserInfoApiResponse {
     id: string
+    name: string
+    given_name: string
+    picture: string
 }
 
 export interface IdentService {
@@ -25,7 +28,6 @@ export class GoogleIdentService implements IdentService {
         }).then(async response => {
             if (response.ok && response.body) {
                 const body = await response.text()
-                console.log(`body: ${body}`)
                 const data = JSON.parse(body) as googleUserInfoApiResponse
                 if (!data.id) {
                     throw new Error("Failed to get user info")
