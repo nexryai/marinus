@@ -28,6 +28,10 @@ export class GoogleAuthService implements AuthService {
                 const body = await response.text()
                 console.log(`body: ${body}`)
                 const data = JSON.parse(body) as googleUserInfoApiResponse
+                if (!data.id) {
+                    throw new Error("Failed to get user info")
+                }
+
                 oauthId = `google:${data.id}`
                 console.log(`oauthId: ${oauthId}`)
             } else {
