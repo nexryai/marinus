@@ -17,7 +17,7 @@ datasource db {
 model users {
     id            String          @id @default(cuid())
     name          String
-    oauthUniqueId String          @unique
+    authUid       String          @unique
     createdAt     DateTime        @default(now())
     updatedAt     DateTime        @updatedAt
     subscriptions Subscriptions[]
@@ -25,19 +25,29 @@ model users {
 
 model Subscriptions {
     id        String   @id @default(cuid())
-    user      users    @relation(fields: [userId], references: [id])
     userId    String
+    user      users    @relation(fields: [userId], references: [id])
     name      String
-    detail    String
-    currency  Currency
-    price     Int
+    feedId    String
+    feed      Feeds    @relation(fields: [feedId], references: [id])
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
 
-enum Currency {
-    CNY
-    EUR
-    JPY
-    USD
+model Feeds {
+    id            String          @id @default(cuid())
+    url           String          @unique
+    createdAt     DateTime        @default(now())
+    updatedAt     DateTime        @updatedAt
+    Subscriptions Subscriptions[]
+}
+
+model Articles {
+    id          String   @id @default(cuid())
+    url         String
+    title       String
+    imageUrl    String
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    publishedAt DateTime
 }
