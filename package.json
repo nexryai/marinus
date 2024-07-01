@@ -1,8 +1,8 @@
 {
-    "name": "bankboard",
+    "name": "newsboard",
     "version": "0.0.1",
     "main": "main.ts",
-    "repository": "https://github.com/nexryai/BankBoard",
+    "repository": "https://github.com/nexryai/NewsBoard",
     "author": "nexryai <nexryai@sda1.net>",
     "license": "MIT",
     "private": true,
