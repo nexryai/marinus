@@ -14,37 +14,39 @@ datasource db {
     shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
-model users {
-    id            String          @id @default(cuid())
+model User {
+    id            String         @id @default(cuid())
     name          String
-    authUid       String          @unique
-    createdAt     DateTime        @default(now())
-    updatedAt     DateTime        @updatedAt
-    subscriptions Subscriptions[]
+    authUid       String         @unique
+    createdAt     DateTime       @default(now())
+    updatedAt     DateTime       @updatedAt
+    subscriptions Subscription[]
 }
 
-model Subscriptions {
+model Subscription {
     id        String   @id @default(cuid())
     userId    String
-    user      users    @relation(fields: [userId], references: [id])
+    user      User     @relation(fields: [userId], references: [id])
     name      String
     feedId    String
-    feed      Feeds    @relation(fields: [feedId], references: [id])
+    feed      Feed     @relation(fields: [feedId], references: [id])
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
 
-model Feeds {
-    id            String          @id @default(cuid())
-    url           String          @unique
-    createdAt     DateTime        @default(now())
-    updatedAt     DateTime        @updatedAt
-    Subscriptions Subscriptions[]
+model Feed {
+    id            String         @id @default(cuid())
+    url           String         @unique
+    createdAt     DateTime       @default(now())
+    updatedAt     DateTime       @updatedAt
+    Subscriptions Subscription[]
+    Articles      Article[]
 }
 
-model Articles {
+model Article {
     id          String   @id @default(cuid())
-    url         String
+    feedId      String
+    feed        Feed     @relation(fields: [feedId], references: [id])
     title       String
     imageUrl    String
     createdAt   DateTime @default(now())

@@ -7,12 +7,14 @@ import { fastifyOauth2 } from "@fastify/oauth2"
 import { fastifyStatic } from "@fastify/static"
 import { AuthService } from "@/services/auth.service.js"
 import { GoogleIdentService } from "@/services/ident.service.js"
+import { UserService } from "@/services/user.service.js"
 
 @Controller()
 export class AppController {
     constructor(
         private readonly appService: AppService,
         private readonly googleIdentService: GoogleIdentService,
+        private readonly userService: UserService,
         private readonly router: FastifyInstance
     ) {}
 
@@ -55,8 +57,8 @@ export class AppController {
 
         this.router.get("/login/google/callback", async (request, reply) => {
             const token = await this.router.googleOAuth2.getAccessTokenFromAuthorizationCodeFlow(request)
-            const googleAuth = new AuthService(this.googleIdentService)
-            const uid = googleAuth.signIn(token.token.access_token)
+            const googleAuth = new AuthService(this.googleIdentService, this.userService)
+            const uid = await googleAuth.signIn(token.token.access_token)
 
             reply.redirect("/")
         })

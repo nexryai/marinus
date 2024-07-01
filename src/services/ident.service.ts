@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common"
+import {Injectable} from "@nestjs/common"
 
 interface googleUserInfoApiResponse {
     id: string
@@ -11,35 +11,44 @@ export interface IdentService {
     // ユーザーを一意に識別するためのIDを取得する
     // メールアドレスは変動する場合があるので極力使わない
     // ex. Googleの場合: "google:[googleのユーザーID]"
-    getUniqueUserId(token: string): string
+    getUniqueUserId(token: string): Promise<string>
+
+    // ユーザーの表示名を取得する
+    // 一意である必要はない
+    getDisplayName(token: string):  Promise<string>
 }
 
 @Injectable()
 export class GoogleIdentService implements IdentService {
     private readonly googleApiUserInfoUrl: string = "https://www.googleapis.com/oauth2/v2/userinfo"
 
-    getUniqueUserId(token: string): string {
-        let oauthId: string = ""
-
-        fetch(this.googleApiUserInfoUrl, {
+    private async requestUserInfo(token: string): Promise<googleUserInfoApiResponse> {
+        const response = await fetch(this.googleApiUserInfoUrl, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
-        }).then(async response => {
-            if (response.ok && response.body) {
-                const body = await response.text()
-                const data = JSON.parse(body) as googleUserInfoApiResponse
-                if (!data.id) {
-                    throw new Error("Failed to get user info")
-                }
-
-                oauthId = `google:${data.id}`
-                console.log(`oauthId: ${oauthId}`)
-            } else {
+        })
+        if (response.ok && response.body) {
+            const body = await response.text()
+            const data = JSON.parse(body) as googleUserInfoApiResponse
+            if (!data.id) {
                 throw new Error("Failed to get user info")
             }
-        })
 
-        return oauthId
+            return data
+        } else {
+            throw new Error("Failed to get user info")
+        }
+    }
+
+    async getUniqueUserId(token: string): Promise<string> {
+        const user = await this.requestUserInfo(token)
+        return `google:${user.id}`
+    }
+
+    async getDisplayName(token: string): Promise<string> {
+        const user = await this.requestUserInfo(token)
+        // 空ならNew Userとする
+        return user.name || "New User"
     }
 }

@@ -3,7 +3,9 @@ import { AppController } from "./app.controller"
 import { AppService } from "./app.service"
 import { fastify } from "fastify"
 import { logInfo, logWarn, logError } from "@/utils/log"
+import { PrismaService } from "@/prisma.service.js"
 import { GoogleIdentService } from "@/services/ident.service.js"
+import { UserService } from "@/services/user.service.js"
 import { OAuth2Namespace } from "@fastify/oauth2"
 
 declare module "fastify" {
@@ -12,18 +14,16 @@ declare module "fastify" {
     }
 }
 
-@Module({
-    imports: [],
-    providers: [AppService, GoogleIdentService],
-})
-
+@Module({})
 export class AppModule {
     startServer(port: number) {
         const server = fastify({logger: { level: "info" }})
+        const prisma = new PrismaService()
 
         const mainController = new AppController(
             new AppService(),
             new GoogleIdentService(),
+            new UserService(prisma),
             server
         )
 
