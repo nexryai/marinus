@@ -10,9 +10,11 @@ import { GoogleIdentService } from "@/services/ident.service.js"
 
 @Controller()
 export class AppController {
-    constructor(private readonly appService: AppService,
-                private readonly googleIdentService: GoogleIdentService,
-                private readonly router: FastifyInstance) {}
+    constructor(
+        private readonly appService: AppService,
+        private readonly googleIdentService: GoogleIdentService,
+        private readonly router: FastifyInstance
+    ) {}
 
     getHello(): string {
         return this.appService.getHello()
