@@ -42,10 +42,6 @@
 </div>
 
 <style>
-    .text-column {
-        margin-top: 140px;
-    }
-
     .title {
         margin-bottom: 10px;
         text-align: center;

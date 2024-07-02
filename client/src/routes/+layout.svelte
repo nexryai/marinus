@@ -32,7 +32,7 @@
 		padding: 1rem;
 		width: 100%;
 		max-width: 64rem;
-		margin: 0 auto;
+		margin: 140px auto 0 auto;
 		box-sizing: border-box;
 	}
 

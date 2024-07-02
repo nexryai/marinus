@@ -161,7 +161,6 @@
 		height: 320px;
         position: relative;
         z-index: 0;
-        margin-top: 70px;
 	}
 
     .welcome:before {
