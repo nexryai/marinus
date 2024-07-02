@@ -58,8 +58,11 @@
         margin: auto;
     }
 
-    .welcome img {
-        height: 256px;
+    .welcome {
         margin: 0 auto 20px auto;
+    }
+
+    .welcome img {
+        height: 174px;
     }
 </style>
