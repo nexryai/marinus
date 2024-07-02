@@ -1,5 +1,6 @@
 @import '@fontsource/fira-mono';
 @import url(https://fonts.bunny.net/css?family=noto-sans-jp:400|noto-sans-sc:400|noto-sans-kr:400|outfit:400|poppins:400|ubuntu:400);
+@import url(https://cdn.jsdelivr.net/npm/misans@4.0.0/lib/Latin/MiSansLatin-Medium.min.css);
 
 :root {
 	--font-mono: 'Fira Mono', monospace;
@@ -39,7 +40,7 @@ body {
 	min-height: 100vh;
 	margin: 0;
 	background-attachment: fixed;
-    font-family: "Poppins", "Noto Sans JP", "Noto Sans SC", "Noto Sans KR", sans-serif;
+    font-family: "MiSansLatin", "Noto Sans JP", "Noto Sans SC", "Noto Sans KR", sans-serif;
 }
 
 h1,
