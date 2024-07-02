@@ -84,6 +84,34 @@
         margin-top: 50px;
 	}
 
+    .welcome {
+        display: block;
+        width: 100%;
+        height: 320px;
+        position: relative;
+        z-index: 0;
+    }
+
+    .welcome:before {
+        content: "";
+        background-image: url("https://s3.sda1.net/nnm/contents/7fc1ef20-229a-44c5-b4f1-0d5f45451f8a.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: 50%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        filter: opacity(30%) blur(64px);
+        z-index: -1;
+    }
+
+    .welcome img {
+        height: 70%;
+        margin: auto;
+    }
+
     .greet-box {
         display: inline-block;
         vertical-align: top;
@@ -155,34 +183,6 @@
             top: -13.5em;
         }
     }
-
-	.welcome {
-		display: block;
-		width: 100%;
-		height: 320px;
-        position: relative;
-        z-index: 0;
-	}
-
-    .welcome:before {
-        content: "";
-        background-image: url("https://s3.sda1.net/nnm/contents/7fc1ef20-229a-44c5-b4f1-0d5f45451f8a.jpg");
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: 50%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        filter: opacity(30%) blur(64px);
-        z-index: -1;
-    }
-
-	.welcome img {
-		height: 70%;
-        margin: auto;
-	}
 
     .start-actions {
         margin-bottom: 50px;
