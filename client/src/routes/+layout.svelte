@@ -15,8 +15,8 @@
 	<main>
         {#key data.pathname}
             <div
-                in:fly={{ easing: cubicOut, y: 10, duration: 300, delay: 400 }}
-                out:fly={{ easing: cubicIn, y: -10, duration: 300 }}
+                in:fly={{ easing: cubicOut, y: 10, duration: 200, delay: 300 }}
+                out:fly={{ easing: cubicIn, y: -10, duration: 200 }}
             >
 		        <slot></slot>
             </div>
