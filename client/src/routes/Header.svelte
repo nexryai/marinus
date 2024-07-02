@@ -11,6 +11,8 @@
 	<div class="corner">
 		<a href="https://kit.svelte.dev">
 			<img src={logo} alt="SvelteKit" />
+            <span class="logo-text">NewsBoard</span>
+            <span class="logo-text logo-beta">beta</span>
 		</a>
 	</div>
 
@@ -47,6 +49,20 @@
 		height: 3em;
 	}
 
+    .logo-text {
+        margin-left: 10px;
+        font-size: 20px;
+        color: #353535;
+    }
+
+    .logo-beta {
+        background: #2d77fd;
+        color: white;
+        padding: 0 4px 0 4px;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+
     .header-button {
         font-size: 12px;
         color: #444444;
@@ -55,14 +71,18 @@
 	.corner a {
 		display: flex;
 		align-items: center;
-		justify-content: center;
 		width: 100%;
 		height: 100%;
 	}
 
+    .corner a:hover {
+        text-decoration: none;
+    }
+
 	.corner img {
 		width: 2em;
 		height: 2em;
+        margin-left: 15px;
 		object-fit: contain;
 	}
 
