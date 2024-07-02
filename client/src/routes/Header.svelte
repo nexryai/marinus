@@ -9,7 +9,7 @@
 
 <header>
 	<div class="corner">
-		<a href="https://kit.svelte.dev">
+		<a href="/">
 			<img src={logo} alt="SvelteKit" />
             <span class="logo-text">NewsBoard</span>
             <span class="logo-text logo-beta">beta</span>
