@@ -8,6 +8,7 @@
 <svelte:head>
 	<title>Home</title>
 	<meta name="description" content="Svelte demo app" />
+    <link rel="preconnect" href="https://fonts.bunny.net">
 </svelte:head>
 
 <section>
@@ -19,11 +20,14 @@
 			</picture>
 		</span>
 
-		to your new<br />SvelteKit app
+		Simple and Open-Source modern RSS reader
 	</h1>
 
 	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
+		Welcome<br>
+        欢迎<br>
+        ようこそ<br>
+        환영합니다<br>
 	</h2>
 
 	<Counter />
@@ -44,6 +48,12 @@
 	h1 {
 		width: 100%;
 	}
+
+    h2 {
+        font-size: 1.5em;
+        margin-top: 20px;
+        text-align: center;
+    }
 
 	.welcome {
 		display: block;
