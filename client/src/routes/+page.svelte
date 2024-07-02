@@ -14,25 +14,50 @@
 <section>
 	<h1>
 		<span class="welcome">
-			<picture>
-				<source srcset={welcome} type="image/webp" />
-				<img src={welcome_fallback} alt="Welcome" />
-			</picture>
+			<img src="https://s3.sda1.net/nnm/contents/b6bcec6c-cb93-4e88-a6d0-46e41260ae20.png" alt="Welcome" />
 		</span>
 
 		Simple and Open-Source modern RSS reader
 	</h1>
 
-	<h2>
-		Welcome<br>
-        欢迎<br>
-        ようこそ<br>
-        환영합니다<br>
-	</h2>
+	<div class="greet-box">
+        <span>
+            Welcome
+        </span>
+		<span>
+            欢迎
+        </span>
+        <span>
+            ようこそ
+        </span>
+        <span>
+            환영합니다
+        </span>
+        <span>
+            Willkommen
+        </span>
+        <span>
+            Bienvenue
+        </span>
+        <span>
+            Hoş geldin
+        </span>
+        <span>
+            Chào mừng
+        </span>
+        <span>
+            добро пожаловать
+        </span>
+        <span>
+            bienvenido
+        </span>
+	</div>
 
 	<Counter />
 
     <Button>Click me</Button>
+
+    Illustration by <a href="https://icons8.com/illustrations/author/zD2oqC8lLBBA">Icons 8</a> from <a href="https://icons8.com/illustrations">Ouch!</a>
 
 </section>
 
@@ -50,20 +75,85 @@
         font-size: 1.7em;
 	}
 
-    h2 {
+    .greet-box {
+        display: inline-block;
+        vertical-align: top;
+
         font-size: 1.5em;
-        margin-top: 20px;
+        margin-top: 90px;
+        margin-bottom: 100px;
+        width: 280px;
+
+        border-bottom: 1px solid #d0d0d0;
+        padding-bottom: 38px;
+
+        height: 1.5em;
         text-align: center;
+        overflow-y: hidden;
+    }
+
+    .greet-box span {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        animation: ShiftText 25s linear infinite;
+    }
+
+    @keyframes ShiftText{
+        0%{
+            opacity: 0;
+        }
+
+        1%,10%{
+            top: 0;
+            opacity: 1;
+        }
+
+        11%,20%{
+            top: -1.5em;
+        }
+
+        21%,30%{
+            top: -3em;
+        }
+
+        31%,40%{
+            top: -4.5em;
+        }
+
+        41%,50%{
+            top: -6em;
+        }
+
+        51%,60%{
+            top: -7.5em;
+        }
+
+        61%,70%{
+            top: -9em;
+        }
+
+        71%,80%{
+            top: -10.5em;
+        }
+
+        81%,90%{
+            top: -12em;
+        }
+
+        91%,100%{
+            top: -13.5em;
+        }
     }
 
 	.welcome {
 		display: block;
 		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
+		height: 320px;
         position: relative;
         z-index: 0;
-        margin-bottom: 20px;
+        margin-top: 70px;
 	}
 
     .welcome:before {
@@ -82,10 +172,7 @@
     }
 
 	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
+		height: 70%;
+        margin: auto;
 	}
 </style>
