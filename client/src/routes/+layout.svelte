@@ -1,22 +1,32 @@
+<script>
+    import "../app.css"
+    import Header from "./Header.svelte"
+    import "./styles.css"
 
+    import { fly } from "svelte/transition"
+    import { cubicIn, cubicOut } from "svelte/easing"
+
+    export let data
+</script>
 
 <div class="app">
 	<Header></Header>
 
 	<main>
-		<slot></slot>
+        {#key data.pathname}
+            <div
+                in:fly={{ easing: cubicOut, y: 10, duration: 300, delay: 400 }}
+                out:fly={{ easing: cubicIn, y: -10, duration: 300 }}
+            >
+		        <slot></slot>
+            </div>
+        {/key}
 	</main>
 
 	<footer>
         <p>Illustration by <a href="https://icons8.com/illustrations/author/zD2oqC8lLBBA">Icons 8</a> from <a href="https://icons8.com/illustrations">Ouch!</a></p>
 	</footer>
 </div>
-
-<script>
-    import "../app.css";
-    import Header from "./Header.svelte";
-    import "./styles.css";
-</script>
 
 <style>
 	.app {
