@@ -1,7 +1,4 @@
 <script>
-	import Counter from './Counter.svelte';
-	import welcome from '$lib/images/svelte-welcome.webp';
-	import welcome_fallback from '$lib/images/svelte-welcome.png';
     import { Button } from "$lib/components/ui/button";
 </script>
 
@@ -53,11 +50,16 @@
         </span>
 	</div>
 
-	<Counter />
+    <div class="start-actions">
+        <Button>
+            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-login"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" /><path d="M21 12h-13l3 -3" /><path d="M11 15l-3 -3" /></svg>
+            　Login and continue
+        </Button>
+    </div>
 
-    <Button>Click me</Button>
-
-    Illustration by <a href="https://icons8.com/illustrations/author/zD2oqC8lLBBA">Icons 8</a> from <a href="https://icons8.com/illustrations">Ouch!</a>
+    <div class="credits">
+        <p>Illustration by <a href="https://icons8.com/illustrations/author/zD2oqC8lLBBA">Icons 8</a> from <a href="https://icons8.com/illustrations">Ouch!</a></p>
+    </div>
 
 </section>
 
@@ -175,4 +177,8 @@
 		height: 70%;
         margin: auto;
 	}
+
+    .start-actions {
+        margin-bottom: 50px;
+    }
 </style>

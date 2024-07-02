@@ -8,7 +8,7 @@
 	</main>
 
 	<footer>
-		<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
+		<p>©2024 nexryai All rights reserved.</p>
 	</footer>
 </div>
 
