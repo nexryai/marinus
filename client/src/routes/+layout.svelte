@@ -6,7 +6,30 @@
     import { fly } from "svelte/transition"
     import { cubicIn, cubicOut } from "svelte/easing"
 
+    // @ts-ignore
+    import NProgress from "nprogress"
+    import 'nprogress/nprogress.css'
+    import { beforeNavigate, afterNavigate } from "$app/navigation"
+
     export let data
+
+    let isLoading = false
+
+    NProgress.configure({
+        showSpinner: false // スピナーを表示しない
+    })
+
+    beforeNavigate(() => (isLoading = true))
+    afterNavigate(() => (isLoading = false))
+
+    $: {
+        if (isLoading) {
+            NProgress.start()
+        } else {
+            NProgress.done()
+        }
+    }
+
 </script>
 
 <div class="app">
