@@ -1,6 +1,10 @@
 <script lang="ts">
 	import { page } from "$app/stores"
 	import logo from "$lib/images/svelte-logo.svg"
+
+    function isLoggedIn() {
+        return false;
+    }
 </script>
 
 <header>
@@ -10,28 +14,32 @@
 		</a>
 	</div>
 
-	<nav>
-		<ul>
-			<li aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
-				<a href="/">OVERVIEW</a>
-			</li>
-			<li aria-current={$page.url.pathname === '/about' ? 'page' : undefined}>
-				<a href="/about">DETAIL</a>
-			</li>
-		</ul>
-	</nav>
-
 	<div class="corner">
-		<a href="/signin" class="signin-button">
-            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-login"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" /><path d="M21 12h-13l3 -3" /><path d="M11 15l-3 -3" /></svg>
-		</a>
+        {#if (isLoggedIn())}
+            <a href="/signin" class="header-button">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-user-circle"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 10m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" /></svg>
+            </a>
+        {:else}
+            <a href="/signin" class="header-button">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-login"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" /><path d="M21 12h-13l3 -3" /><path d="M11 15l-3 -3" /></svg>
+            </a>
+        {/if}
 	</div>
 </header>
 
 <style>
 	header {
 		display: flex;
-		justify-content: space-between;
+        justify-content: space-between;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+        padding: 4px;
+        background: #fffc;
+        backdrop-filter: blur(128px);
+        border-bottom: #d9d9d9 solid 1px;
 	}
 
 	.corner {
@@ -39,7 +47,7 @@
 		height: 3em;
 	}
 
-    .signin-button {
+    .header-button {
         font-size: 12px;
         color: #444444;
     }
@@ -60,7 +68,6 @@
 
 	nav {
 		display: flex;
-		justify-content: center;
 		--background: rgba(255, 255, 255, 0.7);
 	}
 
