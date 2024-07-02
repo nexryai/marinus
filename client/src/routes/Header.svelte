@@ -86,11 +86,6 @@
 		object-fit: contain;
 	}
 
-	nav {
-		display: flex;
-		--background: rgba(255, 255, 255, 0.7);
-	}
-
 	svg {
 		width: 2em;
 		height: 3em;
@@ -99,52 +94,6 @@
 
 	path {
 		fill: var(--background);
-	}
-
-	ul {
-		position: relative;
-        padding: 0 10px 0 10px;
-		margin: 0;
-		height: 3em;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		list-style: none;
-        background: rgba(255, 255, 255, 0.36);
-        backdrop-filter: blur(18px);
-		background-size: contain;
-        border-radius: 10px;
-	}
-
-	li {
-		position: relative;
-		height: 100%;
-	}
-
-	li[aria-current='page']::before {
-		--size: 6px;
-		content: '';
-		width: 0;
-		height: 0;
-		position: absolute;
-		top: 0;
-		left: calc(50% - var(--size));
-		border: var(--size) solid transparent;
-		border-top: var(--size) solid #000;
-	}
-
-	nav a {
-		display: flex;
-		height: 100%;
-		align-items: center;
-		padding: 0 0.5rem;
-		color: var(--color-text);
-		font-weight: 700;
-		font-size: 0.8rem;
-		text-transform: uppercase;
-		letter-spacing: 0.1em;
-		text-decoration: none;
-		transition: color 0.2s linear;
 	}
 
 	a:hover {
