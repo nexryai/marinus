@@ -8,7 +8,7 @@
 	</main>
 
 	<footer>
-		<p>©2024 nexryai All rights reserved.</p>
+        <p>Illustration by <a href="https://icons8.com/illustrations/author/zD2oqC8lLBBA">Icons 8</a> from <a href="https://icons8.com/illustrations">Ouch!</a></p>
 	</footer>
 </div>
 

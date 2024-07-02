@@ -12,12 +12,17 @@
 </script>
 
 <div class="text-column">
-	<h1>Sign in</h1>
+    <div class="title">
+        <h1>Sign in</h1>
 
-	<p>
-		This is a <a href="https://kit.svelte.dev">SvelteKit</a> app. You can make your own by typing the
-		following into your command line and following the prompts:
-	</p>
+        <p>
+            Sign in using one of the following services to continue.
+        </p>
+    </div>
+
+    <span class="welcome">
+        <img src="https://s3.sda1.net/nnm/contents/5f1a0393-27a4-4c5b-8e6a-4be9d5df1e71.png" alt="Welcome" />
+    </span>
 
     <div class="login-buttons">
         <Button on:click={loginWithGoogle}>
@@ -35,15 +40,27 @@
             　Sign in with Microsoft
         </Button>
     </div>
-
 </div>
 
 <style>
+    .text-column {
+        margin-top: 140px;
+    }
+
+    .title {
+        margin-bottom: 10px;
+    }
+
     .login-buttons {
         display: flex;
         flex-direction: column;
         gap: 1rem;
         text-align: center;
         margin: auto;
+    }
+
+    .welcome img {
+        height: 256px;
+        margin: 0 auto 20px auto;
     }
 </style>

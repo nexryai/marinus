@@ -58,7 +58,9 @@
     </div>
 
     <div class="credits">
-        <p>Illustration by <a href="https://icons8.com/illustrations/author/zD2oqC8lLBBA">Icons 8</a> from <a href="https://icons8.com/illustrations">Ouch!</a></p>
+        <p>
+            This is a demo app for SvelteKit. It is a simple and open-source modern RSS reader.
+        </p>
     </div>
 
 </section>
