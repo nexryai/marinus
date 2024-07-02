@@ -47,6 +47,7 @@
 
 	h1 {
 		width: 100%;
+        font-size: 1.7em;
 	}
 
     h2 {
