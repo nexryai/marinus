@@ -59,7 +59,7 @@ export class AppController {
             throw new Error("APP_URL is not set")
         }
 
-        this.router.register( fastifyOauth2, {
+        this.router.register(fastifyOauth2, {
             name: "googleOAuth2",
             scope: ["profile"],
             credentials: {
