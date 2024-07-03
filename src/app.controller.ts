@@ -86,7 +86,7 @@ export class AppController {
             request.session.set("uid", uid)
 
             // SPA側でログインしていることを識別するためのCookieを設定
-            reply.header("Set-Cookie", "isLogin=true; Secure").redirect("/")
+            reply.header("Set-Cookie", "isLoggedIn=true; Secure").redirect("/")
         })
     }
 
