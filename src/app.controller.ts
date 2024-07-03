@@ -3,7 +3,6 @@ import * as path from "path"
 import { randomBytes } from "crypto"
 
 import { Controller } from "@nestjs/common"
-import { AppService } from "./app.service"
 import { FastifyInstance } from "fastify"
 import { fastifyOauth2 } from "@fastify/oauth2"
 import { fastifySecureSession } from "@fastify/secure-session"
@@ -21,7 +20,6 @@ declare module "@fastify/secure-session" {
 @Controller()
 export class AppController {
     constructor(
-        private readonly appService: AppService,
         private readonly googleIdentService: GoogleIdentService,
         private readonly userService: UserService,
         private readonly router: FastifyInstance
@@ -34,10 +32,6 @@ export class AppController {
     private genSalt(): string {
         // 16文字
         return randomBytes(8).toString("hex")
-    }
-
-    getHello(): string {
-        return this.appService.getHello()
     }
 
     // 本来はNestJSのデコレータを使ってルーティングするべきかもしれない

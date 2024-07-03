@@ -1,6 +1,5 @@
 import { Module } from "@nestjs/common"
 import { AppController } from "./app.controller"
-import { AppService } from "./app.service"
 import { fastify } from "fastify"
 import { logInfo, logWarn, logError } from "@/utils/log"
 import { PrismaService } from "@/prisma.service.js"
@@ -21,7 +20,6 @@ export class AppModule {
         const prisma = new PrismaService()
 
         const mainController = new AppController(
-            new AppService(),
             new GoogleIdentService(),
             new UserService(prisma),
             server
