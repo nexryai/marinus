@@ -32,6 +32,15 @@
 
 </script>
 
+<svelte:head>
+    <title>NewsBoard</title>
+    <meta name="description" content="Svelte demo app" />
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="stylesheet" href="https://fonts.bunny.net/css?family=noto-sans-jp:400|noto-sans-sc:400|noto-sans-kr:400|outfit:400|poppins:400|ubuntu:400">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/misans@4.0.0/lib/Latin/MiSansLatin-Medium.min.css">
+</svelte:head>
+
 <div class="app">
 	<Header></Header>
 

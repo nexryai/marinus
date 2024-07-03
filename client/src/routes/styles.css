@@ -1,6 +1,9 @@
 @import '@fontsource/fira-mono';
+
+/*
 @import url(https://fonts.bunny.net/css?family=noto-sans-jp:400|noto-sans-sc:400|noto-sans-kr:400|outfit:400|poppins:400|ubuntu:400);
 @import url(https://cdn.jsdelivr.net/npm/misans@4.0.0/lib/Latin/MiSansLatin-Medium.min.css);
+*/
 
 :root {
 	--font-mono: 'Fira Mono', monospace;
