@@ -1,10 +1,7 @@
 <script lang="ts">
 	import { page } from "$app/stores"
 	import logo from "$lib/images/svelte-logo.svg"
-
-    function isLoggedIn() {
-        return false;
-    }
+    import { isLoggedIn } from "$lib/account"
 </script>
 
 <header>
