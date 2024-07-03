@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { page } from "$app/stores"
 	import logo from "$lib/images/svelte-logo.svg"
     import { isLoggedIn } from "$lib/account"
 </script>
