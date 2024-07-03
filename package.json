@@ -22,6 +22,7 @@
     },
     "dependencies": {
         "@fastify/oauth2": "^7.8.1",
+        "@fastify/secure-session": "^7.5.1",
         "@fastify/static": "^7.0.4",
         "@nestjs/common": "^10.3.9",
         "@nestjs/core": "^10.3.9",

@@ -1,13 +1,22 @@
 /* eslint no-unused-vars: 0 */
 import * as path from "path"
+import { randomBytes } from "crypto"
+
 import { Controller } from "@nestjs/common"
 import { AppService } from "./app.service"
 import { FastifyInstance } from "fastify"
 import { fastifyOauth2 } from "@fastify/oauth2"
+import { fastifySecureSession } from "@fastify/secure-session"
 import { fastifyStatic } from "@fastify/static"
 import { AuthService } from "@/services/auth.service.js"
 import { GoogleIdentService } from "@/services/ident.service.js"
 import { UserService } from "@/services/user.service.js"
+
+declare module "@fastify/secure-session" {
+    interface SessionData {
+        uid: string
+    }
+}
 
 @Controller()
 export class AppController {
@@ -17,6 +26,15 @@ export class AppController {
         private readonly userService: UserService,
         private readonly router: FastifyInstance
     ) {}
+
+    private genSecret(): string {
+        return randomBytes(64).toString("hex")
+    }
+
+    private genSalt(): string {
+        // 16文字
+        return randomBytes(8).toString("hex")
+    }
 
     getHello(): string {
         return this.appService.getHello()
@@ -55,12 +73,28 @@ export class AppController {
             callbackUri: process.env.APP_URL + "/login/google/callback",
         })
 
+        this.router.register(fastifySecureSession, {
+            secret: this.genSecret(),
+            salt: this.genSalt(),
+            cookie: {
+                path: "/api",
+                httpOnly: true,
+                secure: true,
+            }
+        })
+
         this.router.get("/login/google/callback", async (request, reply) => {
             const token = await this.router.googleOAuth2.getAccessTokenFromAuthorizationCodeFlow(request)
+
+            // Use googleIdentService to get uid
             const googleAuth = new AuthService(this.googleIdentService, this.userService)
             const uid = await googleAuth.signIn(token.token.access_token)
 
-            reply.redirect("/")
+            // Set session
+            request.session.set("uid", uid)
+
+            // SPA側でログインしていることを識別するためのCookieを設定
+            reply.header("Set-Cookie", "isLogin=true; Secure").redirect("/")
         })
     }
 
