@@ -88,7 +88,7 @@ export class AppController {
             const uid = request.uid
             const user = await this.userService.getUser({authUid: uid})
 
-            reply.send({ user })
+            reply.send(user)
         })
     }
 
