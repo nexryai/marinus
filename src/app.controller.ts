@@ -38,8 +38,6 @@ export class AppController {
     // https://github.com/nestjs/nest/issues/11265 みたいなことになりたくないのでFastifyを手動で設定してるけどお作法的に許されるのかは謎
     configApiRouter() {
         this.router.get("/ping", async (request, reply) => {
-            console.log(request.ip)
-            console.log(reply.log)
             return "pong\n"
         })
     }
@@ -94,7 +92,6 @@ export class AppController {
 
     configClientRouter() {
         const clientBasePath = path.join(path.dirname(import.meta.dirname), "client/build")
-        console.log(path.join(clientBasePath, "index.html"))
 
         this.router.register(fastifyStatic, {
             root: path.join(clientBasePath, "_app"),
