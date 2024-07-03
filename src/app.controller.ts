@@ -72,6 +72,7 @@ export class AppController {
                 path: "/api",
                 httpOnly: true,
                 secure: true,
+                sameSite: "strict",
             }
         })
 
@@ -86,7 +87,7 @@ export class AppController {
             request.session.set("uid", uid)
 
             // SPA側でログインしていることを識別するためのCookieを設定
-            reply.header("Set-Cookie", "isLoggedIn=true; path=/").redirect("/")
+            reply.header("Set-Cookie", "isLoggedIn=true; path=/; SameSite=Strict").redirect("/")
         })
     }
 
