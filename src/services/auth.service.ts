@@ -18,8 +18,11 @@ export class AuthService {
             return uid
         } else {
             logInfo(`User ${uid} does not exist, creating user`)
+            const profile = await this.identService.getProfile(serviceToken)
+
             await this.userService.createUser({
-                name: await this.identService.getDisplayName(serviceToken),
+                name: profile.displayName,
+                avatarUrl: profile.avatarUrl,
                 authUid: uid,
             })
         }

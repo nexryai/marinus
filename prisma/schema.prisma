@@ -17,6 +17,7 @@ datasource db {
 model User {
     id            String         @id @default(cuid())
     name          String
+    avatarUrl     String?
     authUid       String         @unique
     createdAt     DateTime       @default(now())
     updatedAt     DateTime       @updatedAt

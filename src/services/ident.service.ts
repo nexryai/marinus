@@ -7,15 +7,21 @@ interface googleUserInfoApiResponse {
     picture: string
 }
 
+export interface UserProfile {
+    uid: string
+    displayName: string
+    avatarUrl: string | null
+}
+
 export interface IdentService {
     // ユーザーを一意に識別するためのIDを取得する
     // メールアドレスは変動する場合があるので極力使わない
     // ex. Googleの場合: "google:[googleのユーザーID]"
     getUniqueUserId(token: string): Promise<string>
 
-    // ユーザーの表示名を取得する
+    // ユーザーの表示名とアバターを取得する
     // 一意である必要はない
-    getDisplayName(token: string):  Promise<string>
+    getProfile(token: string):  Promise<UserProfile>
 }
 
 @Injectable()
@@ -46,9 +52,13 @@ export class GoogleIdentService implements IdentService {
         return `google:${user.id}`
     }
 
-    async getDisplayName(token: string): Promise<string> {
+    async getProfile(token: string): Promise<UserProfile> {
         const user = await this.requestUserInfo(token)
         // 空ならNew Userとする
-        return user.name || "New User"
+        return {
+            uid: `google:${user.id}`,
+            displayName: user.name || "New User",
+            avatarUrl: user.picture || null,
+        }
     }
 }
