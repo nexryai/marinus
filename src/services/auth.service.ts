@@ -15,11 +15,19 @@ export class AuthService {
 
         if (await this.userService.isExistUser(uid)) {
             logInfo(`User ${uid} already exists`)
-            return uid
+
+            // Update user profile
+            // アバターや名前が変わっている可能性があるので更新する
+            const profile = await this.identService.getProfile(serviceToken)
+            await this.userService.updateUser({authUid: uid}, {
+                name: profile.displayName,
+                avatarUrl: profile.avatarUrl,
+            })
         } else {
             logInfo(`User ${uid} does not exist, creating user`)
-            const profile = await this.identService.getProfile(serviceToken)
 
+            // Create new user
+            const profile = await this.identService.getProfile(serviceToken)
             await this.userService.createUser({
                 name: profile.displayName,
                 avatarUrl: profile.avatarUrl,
