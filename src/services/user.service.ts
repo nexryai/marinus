@@ -15,6 +15,10 @@ export class UserService {
         return user !== null
     }
 
+    getUser(where: Prisma.UserWhereUniqueInput): Promise<User | null> {
+        return this.prisma.user.findUnique({ where })
+    }
+
     createUser(data: Prisma.UserCreateInput): Promise<User> {
         return this.prisma.user.create({ data })
     }

@@ -5,13 +5,6 @@ import { logInfo, logWarn, logError } from "@/utils/log"
 import { PrismaService } from "@/prisma.service.js"
 import { GoogleIdentService } from "@/services/ident.service.js"
 import { UserService } from "@/services/user.service.js"
-import { OAuth2Namespace } from "@fastify/oauth2"
-
-declare module "fastify" {
-    interface FastifyInstance {
-        googleOAuth2: OAuth2Namespace
-    }
-}
 
 @Module({})
 export class AppModule {

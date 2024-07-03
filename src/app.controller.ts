@@ -3,13 +3,24 @@ import * as path from "path"
 import { randomBytes } from "crypto"
 
 import { Controller } from "@nestjs/common"
-import { FastifyInstance } from "fastify"
-import { fastifyOauth2 } from "@fastify/oauth2"
+import { FastifyInstance, FastifyRequest, FastifyReply } from "fastify"
+import fastifyPlugin from "fastify-plugin"
+import type { FastifyMiddieOptions } from "@fastify/middie"
+import { fastifyOauth2, OAuth2Namespace } from "@fastify/oauth2"
 import { fastifySecureSession } from "@fastify/secure-session"
 import { fastifyStatic } from "@fastify/static"
 import { AuthService } from "@/services/auth.service.js"
 import { GoogleIdentService } from "@/services/ident.service.js"
 import { UserService } from "@/services/user.service.js"
+
+declare module "fastify" {
+    interface FastifyInstance {
+        googleOAuth2: OAuth2Namespace
+    }
+    interface FastifyRequest {
+        uid: string
+    }
+}
 
 declare module "@fastify/secure-session" {
     interface SessionData {
@@ -25,6 +36,36 @@ export class AppController {
         private readonly router: FastifyInstance
     ) {}
 
+    private readonly protectedApiPrefix = "/api"
+
+    private readonly authMiddleware = (request: FastifyRequest, reply: FastifyReply) => {
+        if (!request.url.startsWith(this.protectedApiPrefix)) {
+            return
+        }
+
+        if (!request.session) {
+            reply.status(500).send("Session is not set")
+            return
+        }
+
+        const uid = request.session.get("uid")
+        if (!uid) {
+            reply.status(401).send("Unauthorized")
+            return
+        }
+
+        request.uid = uid
+    }
+
+    private readonly authPlugin =  fastifyPlugin((fastify: FastifyInstance, options: FastifyMiddieOptions, done: () => void) => {
+        fastify.addHook("preHandler", (request, reply, done) => {
+            this.authMiddleware(request, reply)
+            done()
+        })
+
+        done()
+    })
+
     private genSecret(): string {
         return randomBytes(64).toString("hex")
     }
@@ -39,6 +80,15 @@ export class AppController {
     configApiRouter() {
         this.router.get("/ping", async (request, reply) => {
             return "pong\n"
+        })
+
+        this.router.register(this.authPlugin)
+
+        this.router.get(`${this.protectedApiPrefix}/account/profile`, async (request, reply) => {
+            const uid = request.uid
+            const user = await this.userService.getUser({authUid: uid})
+
+            reply.send({ user })
         })
     }
 
