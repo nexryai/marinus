@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common"
 import { IdentService } from "@/services/ident.service.js"
 import { UserService } from "@/services/user.service.js"
-import {logInfo} from "@/utils/log.js"
+import { logInfo } from "@/utils/log.js"
 
 @Injectable()
 export class AuthService {
