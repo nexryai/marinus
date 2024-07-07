@@ -12,7 +12,7 @@ export class AuthService {
 
     async signIn(serviceToken: string): Promise<string> {
         const profile = await this.identService.getProfile(serviceToken)
-        const  uid = profile.uid
+        const uid = profile.uid
 
         if (await this.userService.isExistUser(uid)) {
             logInfo(`User ${uid} already exists`)
