@@ -8,7 +8,8 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "build": "cd client && yarn build && cd .. && tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
+        "build:install": "cd client && yarn install && cd .. && yarn install && npx prisma generate",
+        "build:compile": "cd client && yarn build && cd .. && tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
         "start": "node  --env-file=.env built/main.js",
         "ci:lint": "eslint && cd client && eslint"
     },
@@ -18,6 +19,7 @@
         "eslint": "^9.5.0",
         "eslint-config-prettier": "^9.1.0",
         "prettier": "^3.3.2",
+        "prisma": "^5.16.2",
         "tsc-alias": "^1.8.10",
         "typescript": "^5.5.2"
     },
