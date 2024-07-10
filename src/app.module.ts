@@ -9,7 +9,7 @@ import { UserService } from "@/services/user.service.js"
 @Module({})
 export class AppModule {
     startServer(port: number) {
-        const server = fastify({logger: { level: "info" }})
+        const server = fastify({logger: { level: "error" }})
         const prisma = new PrismaService()
 
         const mainController = new AppController(
