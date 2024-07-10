@@ -19,15 +19,15 @@ function getIdentProvider(): IdentProvider {
 function jumpToLogin() {
     const idProvider = getIdentProvider()
     switch (idProvider) {
-        case IdentProvider.GOOGLE:
-            window.location.href = "/login/google"
-            break
-        case IdentProvider.GITHUB:
-            window.location.href = "/login/github"
-            break
-        default:
-            window.location.href = "/signin"
-            break
+    case IdentProvider.GOOGLE:
+        window.location.href = "/login/google"
+        break
+    case IdentProvider.GITHUB:
+        window.location.href = "/login/github"
+        break
+    default:
+        window.location.href = "/signin"
+        break
     }
 }
 
