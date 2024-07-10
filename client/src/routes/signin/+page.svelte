@@ -3,7 +3,7 @@
 	<meta name="description" content="About this app" />
 </svelte:head>
 
-<script>
+<script lang="ts">
     import { Button } from "$lib/components/ui/button"
 
     function loginWithGoogle() {
