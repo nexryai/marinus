@@ -20,7 +20,6 @@
         "eslint": "^9.5.0",
         "eslint-config-prettier": "^9.1.0",
         "prettier": "^3.3.2",
-        "prisma": "^5.16.2",
         "tsc-alias": "^1.8.10",
         "typescript": "^5.5.2"
     },
@@ -35,6 +34,7 @@
         "@types/node": "^20.14.8",
         "fastify": "^4.28.0",
         "globals": "^15.6.0",
+        "prisma": "^5.16.2",
         "reflect-metadata": "^0.2.2",
         "rxjs": "^7.8.1"
     }
