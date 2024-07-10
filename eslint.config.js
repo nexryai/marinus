@@ -4,6 +4,14 @@ import typescriptESLintParser from "@typescript-eslint/parser"
 
 export default [
     {
+        ignores: [
+            "vite.config.ts",
+            "client/",
+            "built/",
+            "node_modules/"
+        ]
+    },
+    {
         files: ["**/*.js", "**/*.ts"],
         languageOptions: {
             ecmaVersion: 2020,
