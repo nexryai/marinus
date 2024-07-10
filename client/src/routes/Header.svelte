@@ -2,11 +2,6 @@
     import logo from "$lib/images/svelte-logo.svg"
     import { isLoggedIn } from "$lib/account"
     import { getProfile } from "$lib/api"
-
-    export let user
-    getProfile().then((res) => {
-        user = res
-    })
 </script>
 
 <header>
