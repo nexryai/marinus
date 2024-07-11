@@ -29,7 +29,7 @@
         "@fastify/secure-session": "^7.5.1",
         "@fastify/static": "^7.0.4",
         "@nestjs/common": "^10.3.9",
-        "@nestjs/core": "^10.3.9",
+        "@nestjs/core": "^10.3.10",
         "@prisma/client": "^5.16.1",
         "@types/node": "^20.14.8",
         "fastify": "^4.28.0",
