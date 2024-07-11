@@ -15,7 +15,7 @@
         "ci:lint": "eslint && cd client && eslint"
     },
     "devDependencies": {
-        "@typescript-eslint/eslint-plugin": "^7.14.1",
+        "@typescript-eslint/eslint-plugin": "^7.16.0",
         "@typescript-eslint/parser": "^7.14.1",
         "eslint": "^9.5.0",
         "eslint-config-prettier": "^9.1.0",
