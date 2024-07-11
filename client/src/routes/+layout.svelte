@@ -1,7 +1,7 @@
 <script lang="ts">
     import "../app.css"
-    import Header from "./Header.svelte"
     import "./styles.css"
+    import Header from "./Header.svelte"
 
     import { fly } from "svelte/transition"
     import { cubicIn, cubicOut } from "svelte/easing"
