@@ -99,10 +99,10 @@
     path-to-regexp "^6.1.0"
     reusify "^1.0.4"
 
-"@fastify/oauth2@^7.8.1":
-  version "7.8.1"
-  resolved "https://registry.yarnpkg.com/@fastify/oauth2/-/oauth2-7.8.1.tgz#975071b63fb283bf500dc57b625ab7f17e2a260f"
-  integrity sha512-PBIMizzgEOcUcttyfX1hC6CR9vESoI1lfNucBywgcqrxvknVg+zvBCgH2+oU8NvrpSDMtlY6nyuEYYZtVhDT7Q==
+"@fastify/oauth2@^7.9.0":
+  version "7.9.0"
+  resolved "https://registry.yarnpkg.com/@fastify/oauth2/-/oauth2-7.9.0.tgz#b3ff22f52f0a57d020a55a02c8ad942f5e2bb9a2"
+  integrity sha512-OsMr+M2FI7ib/UKZ8hC4SRnUBQqgJ0EsvAhn1qrdYJ9K/U5OwaM2sQM8fLEYbKYQRlH0oxC7lvdTm8Ncd5+ukA==
   dependencies:
     "@fastify/cookie" "^9.0.4"
     fastify-plugin "^4.5.1"
