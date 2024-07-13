@@ -1,61 +1,67 @@
 <script>
     import { Button } from "$lib/components/ui/button"
+    import { isLoggedIn } from "$lib/account"
+    import { Timeline } from "$lib/components/timeline"
 </script>
 
 <section>
-	<h1>
+    {#if !isLoggedIn()}
+        <h1>
 		<span class="welcome">
 			<img src="https://s3.sda1.net/nnm/contents/b6bcec6c-cb93-4e88-a6d0-46e41260ae20.png" alt="Welcome" />
 		</span>
 
-		Simple and Open-Source modern RSS reader
-	</h1>
+            Simple and Open-Source modern RSS reader
+        </h1>
 
-	<div class="greet-box">
+        <div class="greet-box">
         <span>
             Welcome
         </span>
-		<span>
+            <span>
             欢迎
         </span>
-        <span>
+            <span>
             ようこそ
         </span>
-        <span>
+            <span>
             환영합니다
         </span>
-        <span>
+            <span>
             Willkommen
         </span>
-        <span>
+            <span>
             Bienvenue
         </span>
-        <span>
+            <span>
             Hoş geldin
         </span>
-        <span>
+            <span>
             Chào mừng
         </span>
-        <span>
+            <span>
             добро пожаловать
         </span>
-        <span>
+            <span>
             bienvenido
         </span>
-	</div>
+        </div>
 
-    <div class="start-actions">
-        <Button href="/signin">
-            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-login"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" /><path d="M21 12h-13l3 -3" /><path d="M11 15l-3 -3" /></svg>
-            　Login and continue
-        </Button>
-    </div>
+        <div class="start-actions">
+            <Button href="/signin">
+                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-login"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" /><path d="M21 12h-13l3 -3" /><path d="M11 15l-3 -3" /></svg>
+                　Login and continue
+            </Button>
+        </div>
 
-    <div class="credits">
-        <p>
-            This is a demo app for SvelteKit. It is a simple and open-source modern RSS reader.
-        </p>
-    </div>
+        <div class="credits">
+            <p>
+                This is a demo app for SvelteKit. It is a simple and open-source modern RSS reader.
+            </p>
+        </div>
+    {:else}
+        <Timeline />
+    {/if}
 
 </section>
 
