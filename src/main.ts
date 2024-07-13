@@ -7,4 +7,5 @@ async function bootstrap() {
     main.startServer(8080)
 }
 
+process.title = "NewsBoard Server"
 bootstrap()
