@@ -1,6 +1,7 @@
 <script lang="ts">
     import { AddFeedButton } from "$lib/components/addFeedButton"
     import DiscoverCard from "$lib/components/core/discoverCard.svelte"
+    import InfiniteScroll from "svelte-infinite-scroll"
 
     function isNoteEmpty() {
         return true
@@ -18,6 +19,13 @@
         description="Simple and Open-Source modern RSS reader"
         feedSource="nexryai"
         imageUrl="https://s3.sda1.net/nnm/contents/b6bcec6c-cb93-4e88-a6d0-46e41260ae20.png"
+    />
+
+    <InfiniteScroll
+        window
+        on:loadMore={() => {
+            console.log("load more")
+        }}
     />
     <div class="floating-button">
         <AddFeedButton />
