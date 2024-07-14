@@ -1,0 +1,110 @@
+<script lang="ts">
+    export let url: string
+    export let title: string
+    export let description: string
+    export let feedSource: string
+    export let imageUrl: string
+</script>
+
+<div class="article-card">
+    <div class="content">
+        <div class="left">
+            <img src={imageUrl} alt={title} />
+        </div>
+        <div class="right">
+            <a href={url} target="_blank">
+                <h3>{title}</h3>
+            </a>
+            <p class="description">{description}</p>
+            <div class="footer">
+                <p>By {feedSource}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style lang="scss">
+    .article-card {
+        width: 100%;
+        max-width: 800px;
+        margin: 20px auto 20px auto;
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-color: white;
+        transition: 0.3s;
+        overflow: hidden;
+
+        &:hover {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .content {
+            display: flex;
+            align-items: center;
+
+            .left {
+                width: 192px;
+                height: 100px;
+                margin-right: 20px;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 10px;
+                }
+            }
+
+            .right {
+                width: calc(100% - 120px);
+
+                h3 {
+                    font-size: 1.2em;
+                    margin: 0;
+                    color: #333;
+                }
+
+                p.description {
+                    font-size: 0.9em;
+                    color: #666;
+                    margin: 5px 0;
+                }
+
+                .footer {
+                    text-align: right;
+                    margin-top: 12px;
+                    font-size: 0.8em;
+                    color: #999;
+                    overflow: hidden;
+                }
+
+            }
+        }
+    }
+
+    @media (max-width: 500px) {
+        /*leftを上に持ってくる*/
+        .article-card {
+            .content {
+                flex-direction: column;
+
+                .left {
+                    width: 100%;
+                    height: 200px;
+                    margin-right: 0;
+                }
+
+                .right {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    @media (min-width: 501px) {
+        .article-card {
+            width: 92vw;
+        }
+    }
+</style>
