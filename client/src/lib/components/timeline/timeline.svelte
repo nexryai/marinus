@@ -14,14 +14,13 @@
 
 <style>
     .timeline {
-        position: relative;
         min-height: 80vh;
         min-width: 60vw;
     }
 
     .floating-button {
         position: absolute;
-        right: 0;
-        bottom: 0;
+        right: 8vw;
+        bottom: 8vh;
     }
 </style>
