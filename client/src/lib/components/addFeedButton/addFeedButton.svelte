@@ -6,7 +6,9 @@
     import * as Dialog from "$lib/components/ui/dialog/index.js"
     import { Input } from "$lib/components/ui/input/index.js"
     import { Label } from "$lib/components/ui/label/index.js"
-    import { IconPlus, IconAlertTriangle, IconLoader2 } from "@tabler/icons-svelte"
+    import IconPlus from "@tabler/icons-svelte/icons/plus"
+    import IconAlertTriangle from "@tabler/icons-svelte/icons/alert-triangle"
+    import IconLoader2 from "@tabler/icons-svelte/icons/loader-2"
     import { callApi } from "$lib/api"
 
     let isLoading = false
@@ -37,6 +39,8 @@
             console.error(error)
             errorMessage = "Failed to add feed: " + error
             showErrorMessage = true
+        }).then(() => {
+            Dialog.Close
         }).finally(() => {
             isLoading = false
         })
