@@ -1,29 +1,31 @@
 import { Injectable } from "@nestjs/common"
 import { PrismaService } from "@/prisma.service"
 import { Subscription, Prisma } from "@prisma/client"
+import { FeedService } from "@/services/feed.service"
 
 @Injectable()
 export class SubscriptionService {
     constructor(
-        private readonly prisma: PrismaService
+        private readonly prisma: PrismaService,
+        private readonly feedService: FeedService
     ) {}
 
-    async isExistSubscription(id: string): Promise<boolean> {
+    async isExistSubscription(where: Prisma.SubscriptionWhereUniqueInput): Promise<boolean> {
         const subscription = await this.prisma.subscription.findUnique({
-            where: {id}
+            where
         })
         return subscription !== null
     }
 
-    getSubscription(where: Prisma.SubscriptionWhereUniqueInput): Promise<Subscription | null> {
+    async getSubscription(where: Prisma.SubscriptionWhereUniqueInput): Promise<Subscription | null> {
         return this.prisma.subscription.findUnique({ where })
     }
 
-    createSubscription(data: Prisma.SubscriptionCreateInput): Promise<Subscription> {
+    async createSubscription(data: Prisma.SubscriptionCreateInput): Promise<Subscription> {
         return this.prisma.subscription.create({ data })
     }
 
-    updateSubscription(where: Prisma.SubscriptionWhereUniqueInput, data: Prisma.SubscriptionUpdateInput): Promise<Subscription> {
+    async updateSubscription(where: Prisma.SubscriptionWhereUniqueInput, data: Prisma.SubscriptionUpdateInput): Promise<Subscription> {
         return this.prisma.subscription.update({ where, data })
     }
 }

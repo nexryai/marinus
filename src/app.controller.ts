@@ -10,7 +10,9 @@ import { fastifyOauth2, OAuth2Namespace } from "@fastify/oauth2"
 import { fastifySecureSession } from "@fastify/secure-session"
 import { fastifyStatic } from "@fastify/static"
 import { AuthService } from "@/services/auth.service.js"
+import { FeedService } from "@/services/feed.service.js"
 import { GoogleIdentService } from "@/services/ident.service.js"
+import { SubscriptionService } from "@/services/subs.service.js"
 import { UserService } from "@/services/user.service.js"
 
 declare module "fastify" {
@@ -33,6 +35,8 @@ export class AppController {
     constructor(
         private readonly googleIdentService: GoogleIdentService,
         private readonly userService: UserService,
+        private readonly feedService: FeedService,
+        private readonly subscriptionService: SubscriptionService,
         private readonly router: FastifyInstance
     ) {}
 
@@ -89,6 +93,38 @@ export class AppController {
             const user = await this.userService.getUser({authUid: uid})
 
             reply.send(user)
+        })
+
+        this.router.post(`${this.protectedApiPrefix}/subscriptions/add`, async (request, reply) => {
+            const uid = request.uid
+
+            // TODO: リクエストボディのバリデーション
+            const { name, feedUrl } = request.body as { name: string, feedUrl: string }
+            if (!feedUrl) {
+                reply.status(400).send("feedUrl is required")
+                return
+            }
+
+            const feed = await this.feedService.createOrGetFeed({
+                id: feedUrl,
+                url: feedUrl,
+            })
+
+            const subscription = await this.subscriptionService.createSubscription({
+                feed: {
+                    connect: {
+                        id: feed.id
+                    }
+                },
+                user: {
+                    connect: {
+                        authUid: uid
+                    }
+                },
+                name: name
+            })
+
+            reply.send(subscription)
         })
     }
 
