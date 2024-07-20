@@ -17,7 +17,7 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
             - name: Install dependencies
-              run: yarn build:install --network-timeout 600000
+              run: yarn build:install
             - name: Check yarn.lock
               run: git diff --exit-code yarn.lock
             - name: Check yarn.lock (client)

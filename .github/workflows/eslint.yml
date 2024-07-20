@@ -17,7 +17,7 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
             - name: Install dependencies
-              run: yarn build:install --network-timeout 600000
+              run: yarn build:install
             - name: Build
               run: yarn build:compile
             - name: Check with ESLint
