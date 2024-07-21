@@ -6,11 +6,13 @@
     import * as Dialog from "$lib/components/ui/dialog/index.js"
     import { Input } from "$lib/components/ui/input/index.js"
     import { Label } from "$lib/components/ui/label/index.js"
+    import { toast } from "svelte-sonner"
     import IconPlus from "@tabler/icons-svelte/icons/plus"
     import IconAlertTriangle from "@tabler/icons-svelte/icons/alert-triangle"
     import IconLoader2 from "@tabler/icons-svelte/icons/loader-2"
     import { callApi } from "$lib/api"
 
+    let open = false
     let isLoading = false
     let showErrorMessage = false
     let errorMessage = ""
@@ -40,7 +42,10 @@
             errorMessage = "Failed to add feed: " + error
             showErrorMessage = true
         }).then(() => {
-            Dialog.Close
+            open = false
+            toast.success("Feed added successfully!", {
+                description:"Please reload the page to see the changes."}
+            )
         }).finally(() => {
             isLoading = false
         })
@@ -50,7 +55,7 @@
 </script>
 
 <div>
-    <Dialog.Root>
+    <Dialog.Root bind:open>
         <Dialog.Trigger>
             <Button size="icon">
                 <IconPlus />
