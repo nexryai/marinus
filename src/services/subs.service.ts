@@ -19,6 +19,22 @@ export class SubscriptionService {
         return this.prisma.subscription.findUnique({ where })
     }
 
+    async getSubscriptionsByUser(where: Prisma.UserWhereUniqueInput): Promise<Subscription[]> {
+        const user = await this.prisma.user.findUnique({
+            where
+        })
+
+        if (!user) {
+            throw new Error("User not found")
+        }
+
+        return this.prisma.subscription.findMany({
+            where: {
+                userId: user.id
+            }
+        })
+    }
+
     async createSubscription(data: Prisma.SubscriptionCreateInput): Promise<Subscription> {
         // 既に同一のユーザーが同一のフィードを購読している場合はエラー
         const user = data.user.connect

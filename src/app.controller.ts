@@ -126,6 +126,15 @@ export class AppController {
 
             reply.send(subscription)
         })
+
+        this.router.get(`${this.protectedApiPrefix}/subscriptions/get`, async (request, reply) => {
+            const uid = request.uid
+            const subscriptions = await this.subscriptionService.getSubscriptionsByUser({
+                authUid: uid
+            })
+
+            reply.send(subscriptions)
+        })
     }
 
     configOauthRouter() {
