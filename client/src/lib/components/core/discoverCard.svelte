@@ -97,6 +97,20 @@
 
                 .right {
                     width: 100%;
+                    margin: 28px 0 0 0;
+                    padding: 0 12px 12px 12px;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 832px) and (min-width: 501px){
+        .article-card {
+            .content {
+                .right {
+                    h3 {
+                        width: calc(92vw - 192px - 40px) !important;
+                    }
                 }
             }
         }
@@ -105,6 +119,18 @@
     @media (min-width: 501px) {
         .article-card {
             width: 92vw;
+
+            .content {
+                .right {
+                    h3 {
+                        width: calc(800px - 192px - 40px);
+                        white-space: nowrap;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                    }
+                }
+            }
         }
     }
+
 </style>
