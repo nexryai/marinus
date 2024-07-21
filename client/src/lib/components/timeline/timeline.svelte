@@ -8,18 +8,23 @@
 
     let isLoading = true
     let noNote = false
+    let articles: Article[] = []
 
     callApi("get", "/api/timeline").then((response) => {
-        const articles = response as Article[]
-        articles.forEach((article: Article) => {
+        const res = response as Article[]
+        res.forEach((article: Article) => {
             console.log(article)
         })
 
-        if (articles.length === 0) {
+        if (res.length === 0) {
             noNote = true
+        } else {
+            articles = res
         }
+    }).catch((error) => {
+        console.error(error)
     }).finally(() => {
-        //isLoading = false
+        isLoading = false
     })
 
 </script>
@@ -45,6 +50,16 @@
             imageUrl="https://s3.sda1.net/nnm/contents/b6bcec6c-cb93-4e88-a6d0-46e41260ae20.png"
         />
     {/if}
+
+    {#each articles as article}
+        <DiscoverCard
+            url="https://www.sda1.net"
+            title={article.title}
+            description="DUMMY"
+            feedSource="Truth"
+            imageUrl={article.imageUrl}
+        />
+    {/each}
 
     <InfiniteScroll
         window
