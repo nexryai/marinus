@@ -2,7 +2,6 @@
 import * as path from "path"
 import { randomBytes } from "crypto"
 
-import { Controller } from "@nestjs/common"
 import { FastifyInstance, FastifyRequest, FastifyReply } from "fastify"
 import fastifyPlugin from "fastify-plugin"
 import type { FastifyMiddieOptions } from "@fastify/middie"
@@ -30,7 +29,6 @@ declare module "@fastify/secure-session" {
     }
 }
 
-@Controller()
 export class AppController {
     constructor(
         private readonly googleIdentService: GoogleIdentService,

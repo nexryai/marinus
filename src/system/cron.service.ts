@@ -1,7 +1,5 @@
-import { Injectable } from "@nestjs/common"
 import { FeedService } from "@/services/feed.service"
 
-@Injectable()
 export class CronService {
     constructor(
         private readonly feedService: FeedService

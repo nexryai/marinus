@@ -1,4 +1,3 @@
-import { Injectable } from "@nestjs/common"
 import { PrismaService } from "@/prisma.service"
 import { Feed, Prisma } from "@prisma/client"
 import { logError, logInfo } from "@/utils/log.js"
@@ -34,7 +33,6 @@ interface BackDanceFeedProxyResponse {
     items: Item[]
 }
 
-@Injectable()
 export class FeedService {
     constructor(
         private readonly prisma: PrismaService

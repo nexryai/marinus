@@ -1,4 +1,3 @@
-import { Module } from "@nestjs/common"
 import { AppController } from "./app.controller"
 import { fastify } from "fastify"
 import { logInfo, logWarn, logError } from "@/utils/log"
@@ -8,7 +7,6 @@ import { GoogleIdentService } from "@/services/ident.service.js"
 import { SubscriptionService } from "@/services/subs.service.js"
 import { UserService } from "@/services/user.service.js"
 
-@Module({})
 export class AppModule {
     startServer(port: number) {
         const server = fastify({logger: { level: "error" }})

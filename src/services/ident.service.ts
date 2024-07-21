@@ -1,5 +1,3 @@
-import {Injectable} from "@nestjs/common"
-
 interface googleUserInfoApiResponse {
     id: string
     name: string
@@ -24,7 +22,6 @@ export interface IdentService {
     getProfile(token: string):  Promise<UserProfile>
 }
 
-@Injectable()
 export class GoogleIdentService implements IdentService {
     private readonly googleApiUserInfoUrl: string = "https://www.googleapis.com/oauth2/v2/userinfo"
 
