@@ -19,6 +19,14 @@
     let feedName = ""
     let url = ""
 
+    const close = () => {
+        open = false
+        feedName = ""
+        url = ""
+        showErrorMessage = false
+        errorMessage = ""
+    }
+
     const addFeed = () => {
         isLoading = true
 
@@ -116,7 +124,7 @@
                         Add
                     {/if}
                 </Button>
-                <Button variant="secondary">Cancel</Button>
+                <Button variant="secondary" on:click={close}>Cancel</Button>
             </Dialog.Footer>
         </Dialog.Content>
     </Dialog.Root>
