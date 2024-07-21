@@ -1,13 +1,10 @@
-import { NestFactory } from "@nestjs/core"
 import { AppModule } from "@/app.module.js"
 import { CronModule } from "@/cron.module.js"
-import { CronService } from "@/system/cron.service.js"
 import { logError, logInfo } from "@/utils/log.js"
 
 async function bootstrap() {
     // Start cron
-    const cron = await NestFactory.createApplicationContext(CronModule)
-    const crond = cron.select(CronModule).get(CronService)
+    const crond = new CronModule()
     crond.startCron().then(
         r => logInfo("Cron started!")
     ).catch(

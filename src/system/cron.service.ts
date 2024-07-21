@@ -1,14 +1,18 @@
 import { Injectable } from "@nestjs/common"
+import { FeedService } from "@/services/feed.service"
 
 @Injectable()
 export class CronService {
-    constructor() {}
+    constructor(
+        private readonly feedService: FeedService
+    ) {}
 
     private async updateAllFeeds() {
         console.log("Updating all feeds")
+        const feeds = await this.feedService.updateAllFeeds()
     }
 
-    async startCron() {
+    async start() {
         while (true) {
             await this.updateAllFeeds()
             // 15分ごとに更新
