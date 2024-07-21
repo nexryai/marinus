@@ -1,6 +1,7 @@
 import { PrismaService } from "@/prisma.service"
 import { Feed, Prisma } from "@prisma/client"
 import { logError, logInfo } from "@/utils/log.js"
+import {map} from "rxjs"
 
 interface Person {
     name?: string
@@ -11,7 +12,7 @@ interface Item {
     title?: string
     description?: string
     content?: string
-    link?: string
+    link: string
     links?: string[]
     updatedAt?: string
     publishedAt?: string
@@ -98,12 +99,30 @@ export class FeedService {
             }
         })
 
+        if (items.length === 0 || !items) {
+            logInfo("No items found")
+            return
+        }
+
+        // 既に存在するURLの記事は追加しない
+        const existingArticles = await this.prisma.article.findMany({
+            where: {
+                feedId: feed.id,
+                url: {
+                    in: items.map((item) => item.link)
+                }
+            }
+        })
+
+        const existingUrls = existingArticles.map((article) => article.url)
+        const newItems = items.filter((item) => !existingUrls.includes(item.link))
+
         await this.prisma.article.createMany({
-            data: items.map((item) => {
+            data: newItems.map((item) => {
                 return {
                     feedId: feed.id,
                     title: item.title || "Untitled",
-                    url: item.link || "",
+                    url: item.link,
                     contents: this.minifyContentsString(item.content || "No details available."),
                     source: proxyResponse.title || "",
                     publishedAt: item.publishedAt || new Date(),
