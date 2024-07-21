@@ -12,10 +12,6 @@
 
     callApi("get", "/api/timeline").then((response) => {
         const res = response as Article[]
-        res.forEach((article: Article) => {
-            console.log(article)
-        })
-
         if (res.length === 0) {
             noNote = true
         } else {
