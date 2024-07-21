@@ -83,7 +83,7 @@
     }
 
     .floating-button {
-        position: absolute;
+        position: fixed;
         right: 8vw;
         bottom: 8vh;
     }
