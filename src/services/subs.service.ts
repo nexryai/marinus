@@ -7,7 +7,6 @@ import { FeedService } from "@/services/feed.service"
 export class SubscriptionService {
     constructor(
         private readonly prisma: PrismaService,
-        private readonly feedService: FeedService
     ) {}
 
     async isExistSubscription(where: Prisma.SubscriptionWhereUniqueInput): Promise<boolean> {

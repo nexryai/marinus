@@ -18,10 +18,7 @@ export class AppModule {
             new GoogleIdentService(),
             new UserService(prisma),
             new FeedService(prisma),
-            new SubscriptionService(
-                prisma,
-                new FeedService(prisma)
-            ),
+            new SubscriptionService(prisma),
             server
         )
 
