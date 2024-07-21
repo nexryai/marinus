@@ -93,6 +93,15 @@ export class AppController {
             reply.send(user)
         })
 
+        this.router.get(`${this.protectedApiPrefix}/timeline`, async (request, reply) => {
+            const uid = request.uid
+            const subscriptions = await this.subscriptionService.getSubscribedFeedArticles({
+                authUid: uid
+            })
+
+            reply.send(subscriptions)
+        })
+
         this.router.post(`${this.protectedApiPrefix}/subscriptions/add`, async (request, reply) => {
             const uid = request.uid
 
