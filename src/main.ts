@@ -16,7 +16,6 @@ async function bootstrap() {
 
     const app = new AppModule()
     app.startServer(8080)
-
 }
 
 async function boot() {
