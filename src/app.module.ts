@@ -6,6 +6,7 @@ import { FeedService } from "@/services/feed.service.js"
 import { GoogleIdentService } from "@/services/ident.service.js"
 import { SubscriptionService } from "@/services/subs.service.js"
 import { UserService } from "@/services/user.service.js"
+import { TimelineService } from "@/services/timeline.service.js"
 
 export class AppModule {
     startServer(port: number) {
@@ -17,6 +18,7 @@ export class AppModule {
             new UserService(prisma),
             new FeedService(prisma),
             new SubscriptionService(prisma),
+            new TimelineService(prisma),
             server
         )
 

@@ -12,6 +12,7 @@ import { AuthService } from "@/services/auth.service.js"
 import { FeedService } from "@/services/feed.service.js"
 import { GoogleIdentService } from "@/services/ident.service.js"
 import { SubscriptionService } from "@/services/subs.service.js"
+import { TimelineService } from "@/services/timeline.service.js"
 import { UserService } from "@/services/user.service.js"
 
 declare module "fastify" {
@@ -35,6 +36,7 @@ export class AppController {
         private readonly userService: UserService,
         private readonly feedService: FeedService,
         private readonly subscriptionService: SubscriptionService,
+        private readonly timelineService: TimelineService,
         private readonly router: FastifyInstance
     ) {}
 
@@ -95,7 +97,7 @@ export class AppController {
 
         this.router.get(`${this.protectedApiPrefix}/timeline`, async (request, reply) => {
             const uid = request.uid
-            const subscriptions = await this.subscriptionService.getSubscribedFeedArticles({
+            const subscriptions = await this.timelineService.getTimeline({
                 authUid: uid
             })
 
