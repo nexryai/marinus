@@ -4,10 +4,15 @@ import { Injectable } from "@nestjs/common"
 export class CronService {
     constructor() {}
 
+    private async updateAllFeeds() {
+        console.log("Updating all feeds")
+    }
+
     async startCron() {
         while (true) {
-            console.log("Cron is running")
-            await new Promise(resolve => setTimeout(resolve, 1000))
+            await this.updateAllFeeds()
+            // 15分ごとに更新
+            await new Promise(resolve => setTimeout(resolve, 15 * 60 * 1000))
         }
     }
 }
