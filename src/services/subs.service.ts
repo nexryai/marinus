@@ -22,6 +22,28 @@ export class SubscriptionService {
     }
 
     async createSubscription(data: Prisma.SubscriptionCreateInput): Promise<Subscription> {
+        // 既に同一のユーザーが同一のフィードを購読している場合はエラー
+        const user = data.user.connect
+        if (!user) {
+            throw new Error("User is not connected")
+        }
+
+        const feed = data.feed.connect
+        if (!feed) {
+            throw new Error("Feed is not connected")
+        }
+
+        const isExist = await this.prisma.subscription.findMany({
+            where: {
+                userId: user.id,
+                feedId: feed.id
+            }
+        })
+
+        if (isExist.length > 0) {
+            throw new Error("Already subscribed")
+        }
+
         return this.prisma.subscription.create({ data })
     }
 
