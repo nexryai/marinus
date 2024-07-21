@@ -1,25 +1,50 @@
 <script lang="ts">
+    import type { Article } from "../../../../../node_modules/@prisma/client"
+    import { Skeleton } from "$lib/components/ui/skeleton"
     import { AddFeedButton } from "$lib/components/addFeedButton"
     import DiscoverCard from "$lib/components/core/discoverCard.svelte"
     import InfiniteScroll from "svelte-infinite-scroll"
+    import { callApi } from "$lib/api"
 
-    function isNoteEmpty() {
-        return true
-    }
+    let isLoading = true
+    let noNote = false
+
+    callApi("get", "/api/timeline").then((response) => {
+        const articles = response as Article[]
+        articles.forEach((article: Article) => {
+            console.log(article)
+        })
+
+        if (articles.length === 0) {
+            noNote = true
+        }
+    }).finally(() => {
+        //isLoading = false
+    })
+
 </script>
 
 <div class="timeline">
-    <div class="full-message">
-        <h2>No note!</h2>
-        <p>Click the button below to subscribe new feed.</p>
-    </div>
-    <DiscoverCard
-        url="https://www.sda1.net"
-        title="Welcome to NewsBoard!"
-        description="Simple and Open-Source modern RSS reader"
-        feedSource="nexryai"
-        imageUrl="https://s3.sda1.net/nnm/contents/b6bcec6c-cb93-4e88-a6d0-46e41260ae20.png"
-    />
+    {#if isLoading}
+        <div class="skeleton space-y-2">
+            <Skeleton class="h-4 w-[250px]" />
+            <Skeleton class="h-4 w-[200px]" />
+        </div>
+    {/if}
+
+    {#if noNote}
+        <div class="full-message">
+            <h2>No note!</h2>
+            <p>Click the button below to subscribe new feed.</p>
+        </div>
+        <DiscoverCard
+            url="https://www.sda1.net"
+            title="Welcome to NewsBoard!"
+            description="Simple and Open-Source modern RSS reader"
+            feedSource="nexryai"
+            imageUrl="https://s3.sda1.net/nnm/contents/b6bcec6c-cb93-4e88-a6d0-46e41260ae20.png"
+        />
+    {/if}
 
     <InfiniteScroll
         window
@@ -32,10 +57,14 @@
     </div>
 </div>
 
-<style>
+<style lang="scss">
     .timeline {
         min-height: 80vh;
         min-width: 60vw;
+
+        .skeleton {
+            margin-top: 64px;
+        }
     }
 
     .floating-button {

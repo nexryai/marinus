@@ -31,7 +31,11 @@ export class TimelineService {
                 feedId: {
                     in: subscribedFeeds.map((feed) => feed.feedId)
                 }
-            }
+            },
+            orderBy: {
+                publishedAt: "desc"
+            },
+            take: 10
         })
     }
 }
