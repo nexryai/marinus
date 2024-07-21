@@ -142,6 +142,18 @@ export class FeedService {
         return json as BackDanceFeedProxyResponse
     }
 
+    async updateFeedArticles(feed: Feed): Promise<void> {
+        logInfo(`Updating feed: ${feed.url}`)
+
+        let proxyResponse
+        try {
+            proxyResponse = await this.fetchFeedFromProxy(feed.url)
+        } catch (e) {
+            throw new Error(`Failed to fetch feed: ${e}`)
+        }
+        await this.updateFeedFromProxy(feed, proxyResponse)
+    }
+
     async updateAllFeeds(): Promise<void> {
         const feeds = await this.prisma.feed.findMany()
         for (const feed of feeds) {

@@ -133,6 +133,13 @@ export class AppController {
                 name: name
             })
 
+            try {
+                await this.feedService.updateFeedArticles(feed)
+            } catch (e) {
+                reply.status(400).send("Failed to update feed. It may be invalid.")
+                return
+            }
+
             reply.send(subscription)
         })
 
