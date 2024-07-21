@@ -15,7 +15,7 @@ interface Item {
     links?: string[]
     updatedAt?: string
     publishedAt?: string
-    imageUrl?: string
+    image?: string
 }
 
 interface BackDanceFeedProxyResponse {
@@ -39,6 +39,20 @@ export class FeedService {
     ) {}
 
     private readonly proxyUrl = process.env.BACKDANCE_FEED_PROXY_URL || "http://127.0.0.1:3000"
+
+    private minifyContentsString(html: string): string {
+        // HTMLタグを削除する正規表現パターン
+        const htmlTagPattern = /<[^>]*>/g
+        // HTMLタグを削除して返す
+        const plain = html.replace(htmlTagPattern, "")
+
+        // 100文字までに短縮する、超えている場合後ろに...を付ける
+        if (plain.length < 100) {
+            return plain
+        } else {
+            return plain.substring(0, 97) + "..."
+        }
+    }
 
     async isExistFeed(where: Prisma.FeedWhereUniqueInput): Promise<boolean> {
         const feed = await this.prisma.feed.findUnique({
@@ -80,7 +94,7 @@ export class FeedService {
                 links: item.links,
                 updatedAt: item.updatedAt,
                 publishedAt: item.publishedAt,
-                imageUrl: item.imageUrl
+                image: item.image
             }
         })
 
@@ -88,9 +102,12 @@ export class FeedService {
             data: items.map((item) => {
                 return {
                     feedId: feed.id,
-                    title: item.title || "",
+                    title: item.title || "Untitled",
+                    url: item.link || "",
+                    contents: this.minifyContentsString(item.content || "No details available."),
+                    source: proxyResponse.title || "",
                     publishedAt: item.publishedAt || new Date(),
-                    imageUrl: item.imageUrl || "https://s3.sda1.net/nnm/contents/45d1e1cd-7b2a-4733-af9b-6c06afd1ae92.png",
+                    imageUrl: item.image || "https://s3.sda1.net/nnm/contents/45d1e1cd-7b2a-4733-af9b-6c06afd1ae92.png",
                 }
             })
         })

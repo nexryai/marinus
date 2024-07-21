@@ -53,10 +53,10 @@
 
     {#each articles as article}
         <DiscoverCard
-            url="https://www.sda1.net"
+            url={article.url}
             title={article.title}
-            description="DUMMY"
-            feedSource="Truth"
+            description={article.contents}
+            feedSource={article.source}
             imageUrl={article.imageUrl}
         />
     {/each}
