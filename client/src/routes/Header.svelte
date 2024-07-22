@@ -45,7 +45,7 @@
         top: 0;
         left: 0;
         width: 100%;
-        z-index: 1000;
+        z-index: 49;
         padding: 4px;
         background: #fffc;
         backdrop-filter: blur(128px);
