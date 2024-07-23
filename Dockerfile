@@ -36,7 +36,7 @@ COPY --chown=app:app prisma ./prisma
 COPY --from=npmrun-builder /src/target/release/npmrun /usr/local/bin/npmrun
 
 ENV NODE_ENV=production
-RUN yarn install --prod --frozen-lockfile
+RUN yarn install --prod --frozen-lockfile && yarn cache clean
 
 ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["npmrun", "docker:start"]
