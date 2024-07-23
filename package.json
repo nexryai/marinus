@@ -33,7 +33,7 @@
         "@types/node": "^20.14.10",
         "fastify": "^4.28.1",
         "globals": "^15.6.0",
-        "prisma": "^5.16.2",
+        "prisma": "^5.17.0",
         "reflect-metadata": "^0.2.2",
         "rxjs": "^7.8.1"
     }
