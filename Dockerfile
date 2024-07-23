@@ -9,8 +9,6 @@ RUN cargo build --release
 
 FROM node:20-alpine3.19 AS builder
 
-ARG NODE_ENV=production
-
 WORKDIR /app
 
 COPY . ./
@@ -37,8 +35,8 @@ COPY --chown=app:app prisma ./prisma
 
 COPY --from=npmrun-builder /src/target/release/npmrun /usr/local/bin/npmrun
 
-RUN yarn install --production --frozen-lockfile
 ENV NODE_ENV=production
+RUN yarn install --production --frozen-lockfile
 
 ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["npmrun", "docker:start"]
