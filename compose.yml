@@ -1,0 +1,23 @@
+services:
+  app:
+    build: ./
+    ports:
+      - "127.0.0.1:3000:3000"
+    depends_on:
+      - db
+    environment:
+      - PORT=3000
+      - BIND=0.0.0.0
+      - DATABASE_URL=postgresql://newsboard:CHANGEME@db:5432/newsboard
+      - APP_URL=http://localhost:3000
+      - GOOGLE_CLIENT_ID=CHANGEME
+      - GOOGLE_CLIENT_SECRET=CHANGEME
+  
+  db:
+    image: postgres:16-alpine
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=newsboard
+      - POSTGRES_PASSWORD=CHANGEME
+      - POSTGRES_DB=newsboard
