@@ -115,7 +115,6 @@ export class AppController {
             }
 
             const feed = await this.feedService.createOrGetFeed({
-                id: feedUrl,
                 url: feedUrl,
             })
 
