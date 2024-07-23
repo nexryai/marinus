@@ -10,12 +10,19 @@ RUN cargo build --release
 FROM node:20-alpine3.19 AS builder
 
 WORKDIR /app
-
 COPY . ./
 
 RUN apk add --no-cache ca-certificates git alpine-sdk g++ build-base cmake clang libressl-dev python3
 RUN yarn build:install
 RUN yarn build:compile
+
+FROM node:20-alpine3.19 AS deps_builder
+
+WORKDIR /app
+COPY . ./
+
+RUN apk add --no-cache ca-certificates git alpine-sdk g++ build-base cmake clang libressl-dev python3
+RUN yarn install --prod --frozen-lockfile && yarn cache clean
 
 FROM node:20-alpine3.19 AS runner
 
@@ -29,14 +36,12 @@ WORKDIR /app
 
 COPY --chown=app:app --from=builder /app/built ./built
 COPY --chown=app:app --from=builder /app/client/build client/build
+COPY --chown=app:app --from=deps_builder /app/node_modules ./node_modules
 COPY --chown=app:app package.json ./
-COPY --chown=app:app yarn.lock ./
 COPY --chown=app:app prisma ./prisma
 
 COPY --from=npmrun-builder /src/target/release/npmrun /usr/local/bin/npmrun
 
 ENV NODE_ENV=production
-RUN yarn install --prod --frozen-lockfile && yarn cache clean
-
 ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["npmrun", "docker:start"]
