@@ -11,8 +11,11 @@ async function bootstrap() {
         e => logError(`Failed to start cron!: ${e.message}`)
     )
 
+    const port = Number(process.env.PORT) || 8080
+    const bind = process.env.BIND || "127.0.0.1"
+
     const app = new AppModule()
-    app.startServer(8080)
+    app.startServer(port, bind)
 }
 
 async function boot() {
