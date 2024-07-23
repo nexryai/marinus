@@ -12,6 +12,7 @@
         "build:compile": "cd client && yarn build && cd .. && tsc -p tsconfig.json && tsc-alias -p tsconfig.json",
         "runtime:install": "yarn install --prod --frozen-lockfile",
         "start": "node --env-file=.env built/main.js",
+        "docker:start": "npx prisma migrate deploy && node built/main.js",
         "ci:lint": "eslint && cd client && eslint"
     },
     "devDependencies": {
