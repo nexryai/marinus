@@ -41,4 +41,4 @@ RUN yarn install --production --frozen-lockfile
 ENV NODE_ENV=production
 
 ENTRYPOINT ["/sbin/tini", "--"]
-CMD ["node", "built/main.js"]
+CMD ["npmrun", "docker:start"]
