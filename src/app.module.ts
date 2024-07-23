@@ -9,7 +9,7 @@ import { UserService } from "@/services/user.service.js"
 import { TimelineService } from "@/services/timeline.service.js"
 
 export class AppModule {
-    startServer(port: number) {
+    startServer(port: number, bind: string) {
         const server = fastify({logger: { level: "error" }})
         const prisma = new PrismaService()
 
@@ -26,7 +26,7 @@ export class AppModule {
         mainController.configOauthRouter()
         mainController.configClientRouter()
 
-        server.listen({ port: port }, (err, address) => {
+        server.listen({ port: port, host: bind }, (err, address) => {
             if (err) {
                 logError(err.message)
                 process.exit(1)
