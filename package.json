@@ -30,7 +30,7 @@
         "@fastify/secure-session": "^7.5.1",
         "@fastify/static": "^7.0.4",
         "@prisma/client": "^5.17.0",
-        "@types/node": "^20.14.10",
+        "@types/node": "^20.14.12",
         "fastify": "^4.28.1",
         "globals": "^15.6.0",
         "prisma": "^5.16.2",
