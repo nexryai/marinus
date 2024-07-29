@@ -274,10 +274,10 @@
     focus-trap "^7.5.2"
     nanoid "^5.0.4"
 
-"@neoconfetti/svelte@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/@neoconfetti/svelte/-/svelte-1.0.0.tgz"
-  integrity sha512-SmksyaJAdSlMa9cTidVSIqYo1qti+WTsviNDwgjNVm+KQ3DRP2Df9umDIzC4vCcpEYY+chQe0i2IKnLw03AT8Q==
+"@neoconfetti/svelte@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/@neoconfetti/svelte/-/svelte-2.2.1.tgz#ac4c322ad0d7d89041a5fabf434f150d81b65653"
+  integrity sha512-2Ts0Rxaf6clW2qG+AKhTwpl01AAyZEAe03XeuQ7Vp+qYIaM3ycuI94j546fmEkUxwACwGI3Zl2cZ/pncTuNcJg==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
