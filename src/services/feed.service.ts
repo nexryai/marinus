@@ -1,7 +1,8 @@
 import { PrismaService } from "@/prisma.service"
 import { Feed, Prisma } from "@prisma/client"
 import { logError, logInfo } from "@/utils/log.js"
-import {map} from "rxjs"
+
+import sanitizeHtml from "sanitize-html"
 
 interface Person {
     name?: string
@@ -41,18 +42,31 @@ export class FeedService {
 
     private readonly proxyUrl = process.env.BACKDANCE_FEED_PROXY_URL || "http://127.0.0.1:3000"
 
-    private minifyContentsString(html: string): string {
-        // HTMLタグを削除する正規表現パターン
-        const htmlTagPattern = /<[^>]*>/g
-        // HTMLタグを削除して返す
-        const plain = html.replace(htmlTagPattern, "")
-
-        // 100文字までに短縮する、超えている場合後ろに...を付ける
-        if (plain.length < 100) {
-            return plain
-        } else {
-            return plain.substring(0, 97) + "..."
+    // 文字列を指定した長さに切り詰める
+    // 半角文字は1文字、全角文字は2文字としてカウントする
+    private truncateString(str: string, maxLength: number): string {
+        let length = 0
+        let truncated = ""
+        for (const char of str) {
+            const charLength = char.match(/[ -~]/) ? 1 : 2
+            if (length + charLength > maxLength) {
+                truncated += "..."
+                break
+            }
+            truncated += char
+            length += charLength
         }
+        return truncated
+    }
+
+    private minifyContentsString(html: string): string {
+        // HTMLタグを削除して返す
+        const sanitized = sanitizeHtml(html, {
+            allowedTags: [],
+            allowedAttributes: {}
+        })
+
+        return this.truncateString(sanitized, 200)
     }
 
     // Proxyから取得したフィード情報を元にフィードにArticleを追加する

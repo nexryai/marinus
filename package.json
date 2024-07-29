@@ -16,6 +16,7 @@
         "ci:lint": "eslint && cd client && eslint"
     },
     "devDependencies": {
+        "@types/sanitize-html": "^2.11.0",
         "@typescript-eslint/eslint-plugin": "^7.16.0",
         "@typescript-eslint/parser": "^7.17.0",
         "eslint": "^9.6.0",
@@ -35,6 +36,7 @@
         "globals": "^15.8.0",
         "prisma": "^5.17.0",
         "reflect-metadata": "^0.2.2",
-        "rxjs": "^7.8.1"
+        "rxjs": "^7.8.1",
+        "sanitize-html": "^2.13.0"
     }
 }
