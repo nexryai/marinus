@@ -1,5 +1,5 @@
 <script lang="ts">
-    import logo from "$lib/images/svelte-logo.svg"
+    import logo from "$lib/images/logo.webp"
     import { isLoggedIn } from "$lib/account"
     import { getProfile } from "$lib/api"
 </script>
