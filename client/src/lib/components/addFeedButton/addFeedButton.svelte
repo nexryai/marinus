@@ -65,7 +65,7 @@
 <div>
     <Dialog.Root bind:open>
         <Dialog.Trigger>
-            <Button size="icon">
+            <Button size="icon" class="w-[50px] h-[50px] shadow-lg rounded-full">
                 <IconPlus />
             </Button>
         </Dialog.Trigger>
@@ -116,7 +116,7 @@
                 </div>
             </div>
             <Dialog.Footer>
-                <Button variant="default" disabled={isLoading} on:click={addFeed}>
+                <Button class="mt-[10px]" variant="default" disabled={isLoading} on:click={addFeed}>
                     {#if isLoading}
                         <IconLoader2 size={21} class="animate-spin" style="margin-right: 10px"/>
                         Adding...
@@ -124,7 +124,7 @@
                         Add
                     {/if}
                 </Button>
-                <Button variant="secondary" on:click={close}>Cancel</Button>
+                <Button class="mt-[10px]" variant="secondary" on:click={close}>Cancel</Button>
             </Dialog.Footer>
         </Dialog.Content>
     </Dialog.Root>
@@ -140,5 +140,4 @@
             margin: 0 6px 0 4px;
         }
     }
-
 </style>
