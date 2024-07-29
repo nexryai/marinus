@@ -34,7 +34,7 @@
 
 <svelte:head>
     <title>NewsBoard</title>
-    <meta name="description" content="Svelte demo app" />
+    <meta name="description" content="Modern and simple RSS reader" />
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <link rel="stylesheet" href="https://fonts.bunny.net/css?family=noto-sans-jp:400|noto-sans-sc:400|noto-sans-kr:400|outfit:400|poppins:400|ubuntu:400">
