@@ -56,7 +56,7 @@
 
         <div class="credits">
             <p>
-                This is a demo app for SvelteKit. It is a simple and open-source modern RSS reader.
+                This software is licensed under the MIT License.
             </p>
         </div>
     {:else}
