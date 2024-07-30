@@ -36,7 +36,6 @@
         "globals": "^15.8.0",
         "prisma": "^5.17.0",
         "reflect-metadata": "^0.2.2",
-        "rxjs": "^7.8.1",
         "sanitize-html": "^2.13.0"
     }
 }
