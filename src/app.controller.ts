@@ -112,7 +112,7 @@ export class AppController {
             if (!feedUrl) {
                 reply.status(400).send("feedUrl is required")
                 return
-            } else if (!feedUrl.startsWith("http")) {
+            } else if (!feedUrl.startsWith("https://")) {
                 reply.status(400).send("feedUrl format is invalid")
                 return
             }
