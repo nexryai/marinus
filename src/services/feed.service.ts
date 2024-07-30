@@ -1,6 +1,6 @@
 import { PrismaService } from "@/prisma.service"
 import { Feed, Prisma } from "@prisma/client"
-import { logError, logInfo } from "@/utils/log.js"
+import { logError, logInfo, logWarn } from "@/utils/log.js"
 
 import sanitizeHtml from "sanitize-html"
 
@@ -35,12 +35,21 @@ interface BackDanceFeedProxyResponse {
     items: Item[]
 }
 
+interface SummalyResponse {
+    url: string
+    title: string
+    description?: string
+    thumbnail?: string
+    sitename: string
+}
+
 export class FeedService {
     constructor(
         private readonly prisma: PrismaService
     ) {}
 
     private readonly proxyUrl = process.env.BACKDANCE_FEED_PROXY_URL || "http://127.0.0.1:3000"
+    private readonly summalyEndpointUrl = process.env.SUMMALY_API_URL || "https://summaly.sda1.net"
 
     // 文字列を指定した長さに切り詰める
     // 半角文字は1文字、全角文字は2文字としてカウントする
@@ -67,6 +76,25 @@ export class FeedService {
         })
 
         return this.truncateString(sanitized, 200)
+    }
+
+    // Summaly APIを使ってページの詳細を取得する
+    // あくまでもフォールバックとして使う
+    private async fetchSummaly(url: string): Promise<SummalyResponse> {
+        if (url.startsWith("http://")) {
+            // パースしてhttpsに変換する
+            const parsedUrl = new URL(url)
+            parsedUrl.protocol = "https:"
+            url = parsedUrl.toString()
+        }
+
+        const response = await fetch(this.summalyEndpointUrl + "/?url=" + encodeURIComponent(url))
+        if (!response.ok) {
+            throw new Error(`Failed to fetch Summaly: ${response.statusText}`)
+        }
+
+        const json = await response.json()
+        return json as SummalyResponse
     }
 
     // Proxyから取得したフィード情報を元にフィードにArticleを追加する
@@ -100,7 +128,41 @@ export class FeedService {
         })
 
         const existingUrls = existingArticles.map((article) => article.url)
-        const newItems = items.filter((item) => !existingUrls.includes(item.link))
+        let newItems: Item[] = []
+
+        for (const item of items) {
+            if (existingUrls.includes(item.link)) {
+                // 既に存在する記事は追加しない
+                continue
+            }
+
+            if (!item.title || (!item.description && !item.content) || !item.image || !proxyResponse.title) {
+                try {
+                    logInfo(`Fetching Summaly for: ${item.link}`)
+                    const summaly = await this.fetchSummaly(item.link)
+
+                    if (!item.title) {
+                        item.title = summaly.title
+                    }
+
+                    if (!item.description && !item.content) {
+                        item.description = summaly.description
+                    }
+
+                    if (!item.image) {
+                        item.image = summaly.thumbnail
+                    }
+
+                    if (!proxyResponse.title) {
+                        proxyResponse.title = summaly.sitename
+                    }
+                } catch (e) {
+                    logWarn(`Failed to fetch Summaly: ${e}`)
+                }
+            }
+
+            newItems.push(item)
+        }
 
         await this.prisma.article.createMany({
             data: newItems.map((item) => {
@@ -111,7 +173,7 @@ export class FeedService {
                     contents: this.minifyContentsString(item.content || item.description || "No details available."),
                     source: proxyResponse.title || "",
                     publishedAt: item.publishedAt || new Date(),
-                    imageUrl: item.image || "https://s3.sda1.net/nnm/contents/45d1e1cd-7b2a-4733-af9b-6c06afd1ae92.png",
+                    imageUrl: item.image || "https://s3.sda1.net/nnm/contents/2cdf62fc-194b-410e-83e4-2eecfe1ce3b0.jpg",
                 }
             })
         })
