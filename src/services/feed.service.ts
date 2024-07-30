@@ -129,11 +129,27 @@ export class FeedService {
 
         const existingUrls = existingArticles.map((article) => article.url)
         let newItems: Item[] = []
+        let itemCounts = 0
 
         for (const item of items) {
             if (existingUrls.includes(item.link)) {
                 // 既に存在する記事は追加しない
                 continue
+            }
+
+            // 3週間以上前の記事は追加しない
+            if (item.publishedAt) {
+                const publishedAt = new Date(item.publishedAt)
+                const now = new Date()
+                if (now.getTime() - publishedAt.getTime() > 1000 * 60 * 60 * 24 * 21) {
+                    continue
+                }
+            }
+
+            // 50件以上の記事は追加しない
+            if (itemCounts >= 50) {
+                logWarn(`Skipping article (limit exceed): ${item.link}`)
+                break
             }
 
             if (!item.title || (!item.description && !item.content) || !item.image || !proxyResponse.title) {
@@ -156,12 +172,16 @@ export class FeedService {
                     if (!proxyResponse.title) {
                         proxyResponse.title = summaly.sitename
                     }
+
+                    // 0.5秒待機（DoS対策）
+                    await new Promise((resolve) => setTimeout(resolve, 500))
                 } catch (e) {
                     logWarn(`Failed to fetch Summaly: ${e}`)
                 }
             }
 
             newItems.push(item)
+            itemCounts++
         }
 
         await this.prisma.article.createMany({
