@@ -112,11 +112,22 @@ export class AppController {
             if (!feedUrl) {
                 reply.status(400).send("feedUrl is required")
                 return
+            } else if (!feedUrl.startsWith("http")) {
+                reply.status(400).send("feedUrl format is invalid")
+                return
             }
 
             const feed = await this.feedService.createOrGetFeed({
                 url: feedUrl,
             })
+
+            try {
+                await this.feedService.updateFeedArticles(feed)
+            } catch (e) {
+                reply.status(400).send("Failed to update feed. It may be invalid.")
+                await this.feedService.deleteFeed({id: feed.id})
+                return
+            }
 
             const subscription = await this.subscriptionService.createSubscription({
                 feed: {
@@ -131,13 +142,6 @@ export class AppController {
                 },
                 name: name
             })
-
-            try {
-                await this.feedService.updateFeedArticles(feed)
-            } catch (e) {
-                reply.status(400).send("Failed to update feed. It may be invalid.")
-                return
-            }
 
             reply.send(subscription)
         })

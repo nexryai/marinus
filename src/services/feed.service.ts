@@ -231,7 +231,11 @@ export class FeedService {
         } catch (e) {
             throw new Error(`Failed to fetch feed: ${e}`)
         }
-        await this.updateFeedFromProxy(feed, proxyResponse)
+
+        // 時間がかかるので非同期で実行、待機しない
+        this.updateFeedFromProxy(feed, proxyResponse).then(() => {
+            logInfo(`Updating task is finished: ${feed.url}`)
+        })
     }
 
     async updateAllFeeds(): Promise<void> {
