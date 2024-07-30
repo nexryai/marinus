@@ -108,7 +108,7 @@ export class FeedService {
                     feedId: feed.id,
                     title: item.title || "Untitled",
                     url: item.link,
-                    contents: this.minifyContentsString(item.content || "No details available."),
+                    contents: this.minifyContentsString(item.content || item.description || "No details available."),
                     source: proxyResponse.title || "",
                     publishedAt: item.publishedAt || new Date(),
                     imageUrl: item.image || "https://s3.sda1.net/nnm/contents/45d1e1cd-7b2a-4733-af9b-6c06afd1ae92.png",
