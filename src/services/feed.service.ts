@@ -208,6 +208,10 @@ export class FeedService {
         return this.prisma.feed.update({ where, data })
     }
 
+    async deleteFeed(where: Prisma.FeedWhereUniqueInput): Promise<Feed> {
+        return this.prisma.feed.delete({ where })
+    }
+
     // URLが一致するフィードが存在する場合はそのフィードを返し、存在しない場合は新しいフィードを作成して返す
     async createOrGetFeed(data: Prisma.FeedCreateInput): Promise<Feed> {
         const existingFeed = await this.prisma.feed.findUnique({ where: { url: data.url } })
