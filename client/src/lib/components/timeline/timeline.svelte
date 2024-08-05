@@ -9,20 +9,28 @@
     let isLoading = true
     let noNote = false
     let articles: Article[] = []
+    let page = 0
 
-    callApi("get", "/api/timeline").then((response) => {
+    const loadTimeline = (page: number = 0) => { callApi("get", `/api/timeline?page=${page}`).then((response) => {
         const res = response as Article[]
-        if (res.length === 0) {
+        if (res.length === 0 && page === 0) {
             noNote = true
         } else {
-            articles = res
+            articles = [...articles, ...res]
         }
     }).catch((error) => {
         console.error(error)
     }).finally(() => {
         isLoading = false
-    })
+    })}
 
+    const loadMore = () => {
+        console.log("load more")
+        page += 1
+        loadTimeline(page)
+    }
+
+    loadTimeline()
 </script>
 
 <div class="timeline">
@@ -60,7 +68,7 @@
     <InfiniteScroll
         window
         on:loadMore={() => {
-            console.log("load more")
+            loadMore()
         }}
     />
     <div class="floating-button">
