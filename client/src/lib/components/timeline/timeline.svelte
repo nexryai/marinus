@@ -27,6 +27,7 @@
     const loadMore = () => {
         console.log("load more")
         page += 1
+        isLoading = true
         loadTimeline(page)
     }
 
@@ -34,13 +35,6 @@
 </script>
 
 <div class="timeline">
-    {#if isLoading}
-        <div class="skeleton space-y-2">
-            <Skeleton class="h-4 w-[250px]" />
-            <Skeleton class="h-4 w-[200px]" />
-        </div>
-    {/if}
-
     {#if noNote}
         <div class="full-message">
             <h2>No note!</h2>
@@ -64,6 +58,13 @@
             imageUrl={article.imageUrl}
         />
     {/each}
+
+    {#if isLoading}
+        <div class="skeleton space-y-2 mb-[250px]">
+            <Skeleton class="h-4 w-[250px]" />
+            <Skeleton class="h-4 w-[200px]" />
+        </div>
+    {/if}
 
     <InfiniteScroll
         window
