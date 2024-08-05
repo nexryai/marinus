@@ -6,7 +6,7 @@ export class TimelineService {
         private readonly prisma: PrismaService,
     ) {}
 
-    async getTimeline(where: Prisma.UserWhereUniqueInput): Promise<Article[]> {
+    async getTimeline(where: Prisma.UserWhereUniqueInput, offset: number = 0): Promise<Article[]> {
         const user = await this.prisma.user.findUnique({
             where
         })
@@ -35,7 +35,8 @@ export class TimelineService {
             orderBy: {
                 publishedAt: "desc"
             },
-            take: 10
+            take: 10,
+            skip: offset
         })
     }
 }

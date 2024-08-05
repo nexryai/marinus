@@ -97,9 +97,15 @@ export class AppController {
 
         this.router.get(`${this.protectedApiPrefix}/timeline`, async (request, reply) => {
             const uid = request.uid
+            const q = request.query as { page: number }
+            let offset = q.page * 10
+            if (offset < 0 || isNaN(offset)) {
+                offset = 0
+            }
+
             const subscriptions = await this.timelineService.getTimeline({
                 authUid: uid
-            })
+            }, offset)
 
             reply.send(subscriptions)
         })
