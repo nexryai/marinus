@@ -31,7 +31,7 @@
 	"type": "module",
 	"dependencies": {
 		"@tabler/icons-svelte": "^3.11.0",
-		"bits-ui": "^0.21.12",
+		"bits-ui": "^0.21.13",
 		"clsx": "^2.1.1",
 		"lucide-svelte": "^0.420.0",
 		"mode-watcher": "^0.4.0",
