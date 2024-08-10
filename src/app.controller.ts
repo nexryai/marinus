@@ -207,7 +207,7 @@ export class AppController {
             request.session.set("uid", uid)
 
             // SPA側でログインしていることを識別するためのCookieを設定
-            reply.header("Set-Cookie", "isLoggedIn=true; path=/; SameSite=Strict").redirect("/")
+            reply.header("Set-Cookie", "isLoggedIn=true; path=/; SameSite=Strict; expires=Fri, 31 Dec 9999 23:59:59 GMT;").redirect("/")
         })
     }
 
