@@ -48,7 +48,7 @@
         z-index: 49;
         padding: 4px;
         background: #fffc;
-        backdrop-filter: blur(128px);
+        backdrop-filter: blur(22px);
         border-bottom: #d9d9d9 solid 1px;
 	}
 
