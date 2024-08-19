@@ -9,7 +9,9 @@
 <div class="article-card">
     <div class="content">
         <div class="left">
-            <img src={imageUrl} alt={title} />
+            <a href={url} target="_blank">
+                <img src={imageUrl} alt={title}/>
+            </a>
         </div>
         <div class="right">
             <a href={url} target="_blank">
@@ -44,11 +46,13 @@
                 height: 100px;
                 margin-right: 20px;
 
-                img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                    border-radius: 8px;
+                a {
+                    img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        border-radius: 8px;
+                    }
                 }
             }
 
