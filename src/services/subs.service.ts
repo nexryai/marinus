@@ -1,5 +1,5 @@
 import { PrismaService } from "@/prisma.service"
-import {Subscription, Prisma, Article} from "@prisma/client"
+import { Subscription, Prisma } from "@prisma/client"
 
 export class SubscriptionService {
     constructor(
