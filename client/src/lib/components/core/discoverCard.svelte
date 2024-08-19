@@ -30,14 +30,10 @@
         margin: 20px auto 20px auto;
         padding: 10px;
         border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border: solid #e5e5e5 1px;
         background-color: white;
         transition: 0.3s;
         overflow: hidden;
-
-        &:hover {
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        }
 
         .content {
             display: flex;
@@ -52,7 +48,7 @@
                     width: 100%;
                     height: 100%;
                     object-fit: cover;
-                    border-radius: 10px;
+                    border-radius: 8px;
                 }
             }
 
@@ -60,7 +56,7 @@
                 width: calc(100% - 120px);
 
                 h3 {
-                    font-size: 1.2em;
+                    font-size: 1.05em;
                     margin: 0;
                     color: #333;
                 }
