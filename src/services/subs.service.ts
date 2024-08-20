@@ -47,8 +47,10 @@ export class SubscriptionService {
 
         const isExist = await this.prisma.subscription.findMany({
             where: {
-                userId: user.id,
-                feedId: feed.id
+                AND: {
+                    userId: user.id,
+                    feedId: feed.id
+                }
             }
         })
 
