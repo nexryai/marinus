@@ -132,8 +132,8 @@ export class FeedService {
         let itemCounts = 0
 
         for (const item of items) {
+            // 既に存在する記事は追加しない
             if (existingUrls.includes(item.link)) {
-                // 既に存在する記事は追加しない
                 continue
             }
 

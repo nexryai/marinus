@@ -9,11 +9,11 @@ import { fastifyOauth2, OAuth2Namespace } from "@fastify/oauth2"
 import { fastifySecureSession } from "@fastify/secure-session"
 import { fastifyStatic } from "@fastify/static"
 import { AuthService } from "@/services/auth.service.js"
-import { FeedService } from "@/services/feed.service.js"
+import { FeedService } from "@/services/core/feed.service.js"
 import { GoogleIdentService } from "@/services/ident.service.js"
 import { SubscriptionService } from "@/services/subs.service.js"
 import { TimelineService } from "@/services/timeline.service.js"
-import { UserService } from "@/services/user.service.js"
+import { UserService } from "@/services/core/user.service.js"
 
 declare module "fastify" {
     interface FastifyInstance {
@@ -38,7 +38,7 @@ export class AppController {
         private readonly subscriptionService: SubscriptionService,
         private readonly timelineService: TimelineService,
         private readonly router: FastifyInstance
-    ) { }
+    ) {}
 
     private readonly protectedApiPrefix = "/api"
 

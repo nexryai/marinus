@@ -1,5 +1,5 @@
 import { CronService } from "@/system/cron.service.js"
-import { FeedService } from "@/services/feed.service.js"
+import { FeedService } from "@/services/core/feed.service.js"
 import { PrismaService } from "@/prisma.service.js"
 
 export class CronModule {

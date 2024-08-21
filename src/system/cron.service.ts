@@ -1,4 +1,4 @@
-import { FeedService } from "@/services/feed.service"
+import { FeedService } from "@/services/core/feed.service"
 
 export class CronService {
     constructor(
