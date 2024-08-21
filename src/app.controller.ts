@@ -123,7 +123,7 @@ export class AppController {
                 return
             }
 
-            const feed = await this.feedService.createOrGetFeed({
+            const {feed, isNew} = await this.feedService.createOrGetFeed({
                 url: feedUrl,
             })
 
@@ -131,7 +131,12 @@ export class AppController {
                 await this.feedService.updateFeedArticles(feed)
             } catch (e) {
                 reply.status(400).send("Failed to update feed. It may be invalid.")
-                await this.feedService.deleteFeed({ id: feed.id })
+
+                // 新しく作成されたフィードであれば削除
+                if (isNew) {
+                    await this.feedService.deleteFeed({ id: feed.id })
+                }
+
                 return
             }
 

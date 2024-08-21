@@ -233,12 +233,13 @@ export class FeedService {
     }
 
     // URLが一致するフィードが存在する場合はそのフィードを返し、存在しない場合は新しいフィードを作成して返す
-    async createOrGetFeed(data: Prisma.FeedCreateInput): Promise<Feed> {
+    async createOrGetFeed(data: Prisma.FeedCreateInput): Promise<{feed: Feed, isNew: boolean}> {
         const existingFeed = await this.prisma.feed.findUnique({ where: { url: data.url } })
         if (existingFeed) {
-            return existingFeed
-        }else {
-            return this.prisma.feed.create({ data })
+            return {feed: existingFeed, isNew: false}
+        } else {
+            const feed = await this.prisma.feed.create({ data })
+            return {feed: feed, isNew: true}
         }
     }
 
