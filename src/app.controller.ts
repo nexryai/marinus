@@ -32,9 +32,9 @@ declare module "@fastify/secure-session" {
 
 export class AppController {
     constructor(
-        private readonly googleIdentService: GoogleIdentService,
         private readonly userService: UserService,
         private readonly feedService: FeedService,
+        private readonly googleIdentService: GoogleIdentService,
         private readonly subscriptionService: SubscriptionService,
         private readonly timelineService: TimelineService,
         private readonly router: FastifyInstance

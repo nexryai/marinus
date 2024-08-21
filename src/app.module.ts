@@ -25,11 +25,14 @@ export class AppModule {
         const server = fastify({logger: { level: "error" }})
         const prisma = new PrismaService()
 
+        const feedCoreService = new FeedService(prisma)
+        const userCoreService = new UserService(prisma)
+
         const mainController = new AppController(
+            userCoreService,
+            feedCoreService,
             new GoogleIdentService(),
-            new UserService(prisma),
-            new FeedService(prisma),
-            new SubscriptionService(prisma),
+            new SubscriptionService(prisma, feedCoreService),
             new TimelineService(prisma),
             server
         )
