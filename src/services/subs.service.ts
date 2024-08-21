@@ -1,27 +1,20 @@
 import { PrismaService } from "@/prisma.service"
 import { Subscription, Prisma } from "@prisma/client"
 import { FeedService } from "./core/feed.service"
+import { UserService } from "./core/user.service"
 
 export class SubscriptionService {
     constructor(
         private readonly prisma: PrismaService,
-        private readonly feedService: FeedService
+        private readonly feedService: FeedService,
+        private readonly userService: UserService
     ) {}
 
-    async isExistSubscription(where: Prisma.SubscriptionWhereUniqueInput): Promise<boolean> {
-        const subscription = await this.prisma.subscription.findUnique({
-            where
-        })
-        return subscription !== null
-    }
-
-    async getSubscription(where: Prisma.SubscriptionWhereUniqueInput): Promise<Subscription | null> {
-        return this.prisma.subscription.findUnique({ where })
-    }
-
-    async getSubscriptionsByUser(where: Prisma.UserWhereUniqueInput): Promise<Subscription[]> {
+    async getSubscriptionsByUser(userAuthUid: string): Promise<Subscription[]> {
         const user = await this.prisma.user.findUnique({
-            where
+            where: {
+                authUid: userAuthUid
+            }
         })
 
         if (!user) {
@@ -35,16 +28,25 @@ export class SubscriptionService {
         })
     }
 
-    async createSubscription(data: Prisma.SubscriptionCreateInput): Promise<Subscription> {
-        // 既に同一のユーザーが同一のフィードを購読している場合はエラー
-        const user = data.user.connect
-        if (!user) {
-            throw new Error("User is not connected")
+    async createSubscription(userAuthUid: string, name: string, feedUrl: string): Promise<Subscription> {
+        const { feed, isNew } = await this.feedService.createOrGetFeed({
+            url: feedUrl,
+        })
+
+        try {
+            await this.feedService.updateFeedArticles(feed)
+        } catch (e) {
+            // 新しく作成されたフィードであれば削除
+            if (isNew) {
+                await this.feedService.deleteFeed({ id: feed.id })
+            }
+
+            throw new Error("Failed to fetch feed articles")
         }
 
-        const feed = data.feed.connect
-        if (!feed) {
-            throw new Error("Feed is not connected")
+        const user = await this.userService.getUser({authUid: userAuthUid})
+        if (!user) {
+            throw new Error("Invalid auth uid")
         }
 
         const isExist = await this.prisma.subscription.findMany({
@@ -60,7 +62,22 @@ export class SubscriptionService {
             throw new Error("Already subscribed")
         }
 
-        return this.prisma.subscription.create({ data })
+        return this.prisma.subscription.create({ 
+            data: {
+                feed: {
+                    connect: {
+                        id: feed.id
+                    }
+                },
+                user: {
+                    connect: {
+                        id: user.id,
+                        authUid: userAuthUid
+                    }
+                },
+                name: name
+            }
+        })
     }
 
     async updateSubscription(where: Prisma.SubscriptionWhereUniqueInput, data: Prisma.SubscriptionUpdateInput): Promise<Subscription> {

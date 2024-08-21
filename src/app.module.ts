@@ -30,9 +30,8 @@ export class AppModule {
 
         const mainController = new AppController(
             userCoreService,
-            feedCoreService,
             new GoogleIdentService(),
-            new SubscriptionService(prisma, feedCoreService),
+            new SubscriptionService(prisma, feedCoreService, userCoreService),
             new TimelineService(prisma),
             server
         )

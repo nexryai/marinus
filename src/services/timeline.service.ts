@@ -10,6 +10,7 @@ export class TimelineService {
         const user = await this.prisma.user.findUnique({
             where
         })
+
         if (!user) {
             throw new Error("User not found")
         }

@@ -9,7 +9,6 @@ import { fastifyOauth2, OAuth2Namespace } from "@fastify/oauth2"
 import { fastifySecureSession } from "@fastify/secure-session"
 import { fastifyStatic } from "@fastify/static"
 import { AuthService } from "@/services/auth.service.js"
-import { FeedService } from "@/services/core/feed.service.js"
 import { GoogleIdentService } from "@/services/ident.service.js"
 import { SubscriptionService } from "@/services/subs.service.js"
 import { TimelineService } from "@/services/timeline.service.js"
@@ -33,7 +32,6 @@ declare module "@fastify/secure-session" {
 export class AppController {
     constructor(
         private readonly userService: UserService,
-        private readonly feedService: FeedService,
         private readonly googleIdentService: GoogleIdentService,
         private readonly subscriptionService: SubscriptionService,
         private readonly timelineService: TimelineService,
@@ -111,8 +109,6 @@ export class AppController {
         this.router.post(`${this.protectedApiPrefix}/subscriptions/add`, async (request, reply) => {
             const uid = request.uid
 
-            // TODO: 処理が肥大化してるのでserviceに移したい
-            //       ただ現状のままやるとsubscriptionServiceがfeedServiceに依存することになる
             const { name, feedUrl } = request.body as { name: string, feedUrl: string }
             if (!feedUrl) {
                 reply.status(400).send("feedUrl is required")
@@ -122,38 +118,8 @@ export class AppController {
                 return
             }
 
-            const { feed, isNew } = await this.feedService.createOrGetFeed({
-                url: feedUrl,
-            })
-
             try {
-                await this.feedService.updateFeedArticles(feed)
-            } catch (e) {
-                reply.status(400).send("Failed to update feed. It may be invalid.")
-
-                // 新しく作成されたフィードであれば削除
-                if (isNew) {
-                    await this.feedService.deleteFeed({ id: feed.id })
-                }
-
-                return
-            }
-
-            try {
-                const subscription = await this.subscriptionService.createSubscription({
-                    feed: {
-                        connect: {
-                            id: feed.id
-                        }
-                    },
-                    user: {
-                        connect: {
-                            authUid: uid
-                        }
-                    },
-                    name: name
-                })
-
+                const subscription = await this.subscriptionService.createSubscription(uid, name, feedUrl)
                 reply.send(subscription)
             } catch (e) {
                 reply.status(400).send("bad request")
@@ -162,9 +128,7 @@ export class AppController {
 
         this.router.get(`${this.protectedApiPrefix}/subscriptions/get`, async (request, reply) => {
             const uid = request.uid
-            const subscriptions = await this.subscriptionService.getSubscriptionsByUser({
-                authUid: uid
-            })
+            const subscriptions = await this.subscriptionService.getSubscriptionsByUser(uid)
 
             reply.send(subscriptions)
         })
