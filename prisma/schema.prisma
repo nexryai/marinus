@@ -33,6 +33,7 @@ model Subscription {
     feed      Feed     @relation(fields: [feedId], references: [id])
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+    @@unique([userId, feedId])
 }
 
 model Feed {
