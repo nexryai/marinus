@@ -111,7 +111,8 @@ export class AppController {
         this.router.post(`${this.protectedApiPrefix}/subscriptions/add`, async (request, reply) => {
             const uid = request.uid
 
-            // TODO: リクエストボディのバリデーション
+            // TODO: 処理が肥大化してるのでserviceに移したい
+            //       ただ現状のままやるとsubscriptionServiceがfeedServiceに依存することになる
             const { name, feedUrl } = request.body as { name: string, feedUrl: string }
             if (!feedUrl) {
                 reply.status(400).send("feedUrl is required")
@@ -121,7 +122,7 @@ export class AppController {
                 return
             }
 
-            const {feed, isNew} = await this.feedService.createOrGetFeed({
+            const { feed, isNew } = await this.feedService.createOrGetFeed({
                 url: feedUrl,
             })
 
