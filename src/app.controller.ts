@@ -79,8 +79,6 @@ export class AppController {
         return randomBytes(8).toString("hex")
     }
 
-    // 本来はNestJSのデコレータを使ってルーティングするべきかもしれない
-    // https://github.com/nestjs/nest/issues/11265 みたいなことになりたくないのでFastifyを手動で設定してるけどお作法的に許されるのかは謎
     configApiRouter() {
         this.router.get("/ping", async (request, reply) => {
             return "pong\n"
