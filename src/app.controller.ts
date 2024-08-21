@@ -38,7 +38,7 @@ export class AppController {
         private readonly subscriptionService: SubscriptionService,
         private readonly timelineService: TimelineService,
         private readonly router: FastifyInstance
-    ) {}
+    ) { }
 
     private readonly protectedApiPrefix = "/api"
 
@@ -61,7 +61,7 @@ export class AppController {
         request.uid = uid
     }
 
-    private readonly authPlugin =  fastifyPlugin((fastify: FastifyInstance, options: FastifyMiddieOptions, done: () => void) => {
+    private readonly authPlugin = fastifyPlugin((fastify: FastifyInstance, options: FastifyMiddieOptions, done: () => void) => {
         fastify.addHook("preHandler", (request, reply, done) => {
             this.authMiddleware(request, reply)
             done()
@@ -90,7 +90,7 @@ export class AppController {
 
         this.router.get(`${this.protectedApiPrefix}/account/profile`, async (request, reply) => {
             const uid = request.uid
-            const user = await this.userService.getUser({authUid: uid})
+            const user = await this.userService.getUser({ authUid: uid })
 
             reply.send(user)
         })
@@ -131,25 +131,29 @@ export class AppController {
                 await this.feedService.updateFeedArticles(feed)
             } catch (e) {
                 reply.status(400).send("Failed to update feed. It may be invalid.")
-                await this.feedService.deleteFeed({id: feed.id})
+                await this.feedService.deleteFeed({ id: feed.id })
                 return
             }
 
-            const subscription = await this.subscriptionService.createSubscription({
-                feed: {
-                    connect: {
-                        id: feed.id
-                    }
-                },
-                user: {
-                    connect: {
-                        authUid: uid
-                    }
-                },
-                name: name
-            })
+            try {
+                const subscription = await this.subscriptionService.createSubscription({
+                    feed: {
+                        connect: {
+                            id: feed.id
+                        }
+                    },
+                    user: {
+                        connect: {
+                            authUid: uid
+                        }
+                    },
+                    name: name
+                })
 
-            reply.send(subscription)
+                reply.send(subscription)
+            } catch (e) {
+                reply.status(400).send("bad request")
+            }
         })
 
         this.router.get(`${this.protectedApiPrefix}/subscriptions/get`, async (request, reply) => {
