@@ -9,7 +9,7 @@ generator client {
 }
 
 datasource db {
-    provider          = "postgresql"
+    provider          = "sqlserver"
     url               = env("DATABASE_URL")
     shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
@@ -41,6 +41,7 @@ model Feed {
     url           String         @unique
     createdAt     DateTime       @default(now())
     updatedAt     DateTime       @updatedAt
+    isPending     Boolean        @default(true)
     Subscriptions Subscription[]
     Articles      Article[]
 }
