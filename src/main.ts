@@ -11,11 +11,13 @@ async function bootstrap() {
         e => logError(`Failed to start cron!: ${e.message}`)
     )
 
-    const port = Number(process.env.PORT) || 8080
-    const bind = process.env.BIND || "127.0.0.1"
+    if (!process.env.DISABLE_HTTP_ACCESS || process.env.DISABLE_HTTP_ACCESS == "false") {
+        const port = Number(process.env.PORT) || 8080
+        const bind = process.env.BIND || "127.0.0.1"
 
-    const app = new AppModule()
-    app.startServer(port, bind)
+        const app = new AppModule()
+        app.startServer(port, bind)
+    }
 }
 
 async function boot() {
