@@ -2,7 +2,7 @@ import { fastify } from "fastify"
 import { logInfo, logWarn, logError } from "@/utils/log"
 
 // Prisma ORM
-import { PrismaService } from "@/prisma.service.js"
+import { PrismaService } from "@/prisma.repository.js"
 
 // Core Services
 // 処理の中枢となる安定しているクラス

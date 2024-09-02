@@ -1,4 +1,4 @@
-import { PrismaService } from "@/prisma.service"
+import { PrismaService } from "@/prisma.repository"
 import { Feed, Prisma } from "@prisma/client"
 import { logError, logInfo, logWarn } from "@/utils/log.js"
 

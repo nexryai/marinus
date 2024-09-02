@@ -1,4 +1,4 @@
-import { PrismaService } from "@/prisma.service"
+import { PrismaService } from "@/prisma.repository"
 import { Subscription, Prisma } from "@prisma/client"
 import { FeedService } from "./core/feed.service"
 import { UserService } from "./core/user.service"

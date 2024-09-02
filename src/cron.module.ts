@@ -1,6 +1,6 @@
 import { CronService } from "@/system/cron.service.js"
 import { FeedService } from "@/services/core/feed.service.js"
-import { PrismaService } from "@/prisma.service.js"
+import { PrismaService } from "@/prisma.repository.js"
 
 export class CronModule {
     async startCron() {

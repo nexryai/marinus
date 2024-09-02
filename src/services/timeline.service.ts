@@ -1,4 +1,4 @@
-import { PrismaService } from "@/prisma.service"
+import { PrismaService } from "@/prisma.repository"
 import { Prisma, Article } from "@prisma/client"
 
 export class TimelineService {
