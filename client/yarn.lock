@@ -1357,10 +1357,10 @@ lru-cache@^10.2.0:
   resolved "https://registry.npmjs.org/lru-cache/-/lru-cache-10.2.2.tgz"
   integrity sha512-9hp3Vp2/hFQUiIwKo8XCeFVnrg8Pk3TYNPIR7tJADKi5YfcF7vEaK7avFHTlSy3kOKYaJQaalfEo6YuXdceBOQ==
 
-lucide-svelte@^0.429.0:
-  version "0.429.0"
-  resolved "https://registry.yarnpkg.com/lucide-svelte/-/lucide-svelte-0.429.0.tgz#7bd2c2ecde89642b51a0e445a620fd96704bec41"
-  integrity sha512-3LwbxQn5i9/zQwMg0ZWT875djOEQoR3eM8ytOGqk0eRk4wkoqqgZX0Gr+aQjkd+RSDEVMXkIEoyW/1zLyXr/6g==
+lucide-svelte@^0.438.0:
+  version "0.438.0"
+  resolved "https://registry.yarnpkg.com/lucide-svelte/-/lucide-svelte-0.438.0.tgz#1a002c2b6a0ad96ec0b20e0e06ff866b001db3ba"
+  integrity sha512-+p79uacz5Qgj8wbKpCaRoNZppUGBwuEivK9X4P9Rz22U6jpi0cDDE5welKtTX9hDpA9eE4oreCVAIZO2Fckh8g==
 
 magic-string@^0.30.10, magic-string@^0.30.4, magic-string@^0.30.5:
   version "0.30.10"
