@@ -196,10 +196,10 @@
   resolved "https://registry.npmjs.org/@floating-ui/utils/-/utils-0.2.3.tgz"
   integrity sha512-XGndio0l5/Gvd6CLIABvsav9HHezgDFFhDfHk1bvLfr9ni8dojqLSvBbotJEjmIwNHL7vK4QzBJTdBRoB+c1ww==
 
-"@fontsource/fira-mono@^5.0.13":
-  version "5.0.13"
-  resolved "https://registry.yarnpkg.com/@fontsource/fira-mono/-/fira-mono-5.0.13.tgz#2aa677938f0759b8d368bddd3c7ec299ee0c17af"
-  integrity sha512-fZDjR2BdAqmauEbTjcIT62zYzbOgDa5+IQH34D2k8Pxmy1T815mAqQkZciWZVQ9dc/BgdTtTUV9HJ2ulBNwchg==
+"@fontsource/fira-mono@^5.0.15":
+  version "5.0.15"
+  resolved "https://registry.yarnpkg.com/@fontsource/fira-mono/-/fira-mono-5.0.15.tgz#0869d40a41a89727705f00654b308db7361e750d"
+  integrity sha512-wc3TpF2GBbtFDKNbb444BrC3mEKuoPLITSYCKweNIrqBvAalIfJGloY/MVrmSGaMNgaAKUpdgy4eAWPLkUVzaA==
 
 "@humanwhocodes/module-importer@^1.0.1":
   version "1.0.1"
