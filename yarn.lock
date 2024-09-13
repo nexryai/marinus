@@ -96,14 +96,14 @@
   dependencies:
     fast-deep-equal "^3.1.3"
 
-"@fastify/middie@^8.3.1":
-  version "8.3.1"
-  resolved "https://registry.yarnpkg.com/@fastify/middie/-/middie-8.3.1.tgz#2b85a0b118797235de15f10b7abc9a8f7656bdd0"
-  integrity sha512-qrQ8U3iCdjNum3+omnIvAyz21ifFx+Pp5jYW7PJJ7b9ueKTCPXsH6vEvaZQrjEZvOpTnWte+CswfBODWD0NqYQ==
+"@fastify/middie@^8.3.2":
+  version "8.3.2"
+  resolved "https://registry.yarnpkg.com/@fastify/middie/-/middie-8.3.2.tgz#f1626b4a0e85496541a0af94e9866bd2f9450551"
+  integrity sha512-Be9ofUlL5KKPp6ZH2piSJnMFIg+cMZaaaBrOFSRobjiY4iU0cejGfCNDV6cCsHVPr8vilhqMaxTT2x4dMjPNgw==
   dependencies:
     "@fastify/error" "^3.2.0"
     fastify-plugin "^4.0.0"
-    path-to-regexp "^6.1.0"
+    path-to-regexp "^8.1.0"
     reusify "^1.0.4"
 
 "@fastify/oauth2@^7.9.0":
@@ -1397,10 +1397,10 @@ path-scurry@^1.11.1:
     lru-cache "^10.2.0"
     minipass "^5.0.0 || ^6.0.2 || ^7.0.0"
 
-path-to-regexp@^6.1.0:
-  version "6.2.2"
-  resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-6.2.2.tgz#324377a83e5049cbecadc5554d6a63a9a4866b36"
-  integrity sha512-GQX3SSMokngb36+whdpRXE+3f9V8UzyAorlYvOGx87ufGHehNTn5lCxrKtLyZ4Yl/wEKnNnr98ZzOwwDZV5ogw==
+path-to-regexp@^8.1.0:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-8.1.0.tgz#4d687606ed0be8ed512ba802eb94d620cb1a86f0"
+  integrity sha512-Bqn3vc8CMHty6zuD+tG23s6v2kwxslHEhTj4eYaVKGIEB+YX/2wd0/rgXLFD9G9id9KCtbVy/3ZgmvZjpa0UdQ==
 
 path-type@^4.0.0:
   version "4.0.0"
