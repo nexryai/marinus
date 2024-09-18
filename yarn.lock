@@ -69,6 +69,14 @@
     ajv-formats "^2.1.1"
     fast-uri "^2.0.0"
 
+"@fastify/cookie@^10.0.0":
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/@fastify/cookie/-/cookie-10.0.0.tgz#3f87a82dafe9b67345d2825fe1ad7cdb0b1a2193"
+  integrity sha512-S43spazwAfzm5nKlqq/spAGW+O6r+WQzg5vXXI1ArCXXFa8KBA/tiU3XRVQUehSNtbN5PA6+g183hzh5/dZ6Iw==
+  dependencies:
+    cookie-signature "^1.2.1"
+    fastify-plugin "^5.0.0"
+
 "@fastify/cookie@^9.0.4":
   version "9.3.1"
   resolved "https://registry.yarnpkg.com/@fastify/cookie/-/cookie-9.3.1.tgz#48b89a356a23860c666e2fe522a084cc5c943d33"
@@ -115,14 +123,14 @@
     fastify-plugin "^4.5.1"
     simple-oauth2 "^5.0.0"
 
-"@fastify/secure-session@^7.5.1":
-  version "7.5.1"
-  resolved "https://registry.yarnpkg.com/@fastify/secure-session/-/secure-session-7.5.1.tgz#ae2c26158f05e71fe4782281ae66e956274623b1"
-  integrity sha512-3xnTmlI4rhboyLtXtGDnrAXz8MLbrkwn9Owo4CZ2/GC9H3Eux0D5QWwKowxmn4VaFadj2wC67RoycFFi/46xaw==
+"@fastify/secure-session@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@fastify/secure-session/-/secure-session-8.0.0.tgz#1cffca9324fb20f426c730b706fa6eb3c4905395"
+  integrity sha512-SbPuvc5JGimUNH0jH0oBwJQJJ1Ae3vJ3vzBphEyVyGtoNarb3dBn8YdFnjIc305EWZbwn4fHqzs7tT5GBim3lQ==
   dependencies:
-    "@fastify/cookie" "^9.0.4"
-    fastify-plugin "^4.0.0"
-    sodium-native "^4.0.0"
+    "@fastify/cookie" "^10.0.0"
+    fastify-plugin "^5.0.0"
+    sodium-native "^4.0.10"
 
 "@fastify/send@^2.0.0":
   version "2.1.0"
@@ -637,7 +645,7 @@ content-disposition@^0.5.3:
   dependencies:
     safe-buffer "5.2.1"
 
-cookie-signature@^1.1.0:
+cookie-signature@^1.1.0, cookie-signature@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/cookie-signature/-/cookie-signature-1.2.1.tgz#790dea2cce64638c7ae04d9fabed193bd7ccf3b4"
   integrity sha512-78KWk9T26NhzXtuL26cIJ8/qNHANyJ/ZYrmEXFzUmhZdjpBv+DlWlOANRTGBt48YcyslsLrj0bMLFTmXvLRCOw==
@@ -921,6 +929,11 @@ fastify-plugin@^4.0.0, fastify-plugin@^4.5.1:
   version "4.5.1"
   resolved "https://registry.yarnpkg.com/fastify-plugin/-/fastify-plugin-4.5.1.tgz#44dc6a3cc2cce0988bc09e13f160120bbd91dbee"
   integrity sha512-stRHYGeuqpEZTL1Ef0Ovr2ltazUT9g844X5z/zEBFLG8RYlpDiOCIG+ATvYEp+/zmc7sN29mcIMp8gvYplYPIQ==
+
+fastify-plugin@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/fastify-plugin/-/fastify-plugin-5.0.0.tgz#59baeee39d6e8e729cd27333c366d3c0146ab23b"
+  integrity sha512-0725fmH/yYi8ugsjszLci+lLnGBK6cG+WSxM7edY2OXJEU7gr2JiGBoieL2h9mhTych1vFsEfXsAsGGDJ/Rd5w==
 
 fastify@^4.28.1:
   version "4.28.1"
@@ -1661,10 +1674,10 @@ slash@^3.0.0:
   resolved "https://registry.yarnpkg.com/slash/-/slash-3.0.0.tgz#6539be870c165adbd5240220dbe361f1bc4d4634"
   integrity sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==
 
-sodium-native@^4.0.0:
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/sodium-native/-/sodium-native-4.1.1.tgz#109bc924dd55c13db87c6dd30da047487595723c"
-  integrity sha512-LXkAfRd4FHtkQS4X6g+nRcVaN7mWVNepV06phIsC6+IZFvGh1voW5TNQiQp2twVaMf05gZqQjuS+uWLM6gHhNQ==
+sodium-native@^4.0.10:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/sodium-native/-/sodium-native-4.2.0.tgz#d0bae0c90da22b3f8f4d879aff2d3dfadba3862d"
+  integrity sha512-rdJRAf/RE/IRFUUoUsz10slNAQDTGz5ChpIeR1Ti0BtGYstl6Uok4hHALPBdnFcLml6qXJ2pDd0/De09mPa6mg==
   dependencies:
     node-gyp-build "^4.8.0"
 
