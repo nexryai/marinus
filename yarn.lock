@@ -69,6 +69,14 @@
     ajv-formats "^2.1.1"
     fast-uri "^2.0.0"
 
+"@fastify/cookie@^10.0.0":
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/@fastify/cookie/-/cookie-10.0.0.tgz#3f87a82dafe9b67345d2825fe1ad7cdb0b1a2193"
+  integrity sha512-S43spazwAfzm5nKlqq/spAGW+O6r+WQzg5vXXI1ArCXXFa8KBA/tiU3XRVQUehSNtbN5PA6+g183hzh5/dZ6Iw==
+  dependencies:
+    cookie-signature "^1.2.1"
+    fastify-plugin "^5.0.0"
+
 "@fastify/cookie@^9.0.4":
   version "9.3.1"
   resolved "https://registry.yarnpkg.com/@fastify/cookie/-/cookie-9.3.1.tgz#48b89a356a23860c666e2fe522a084cc5c943d33"
@@ -106,13 +114,13 @@
     path-to-regexp "^8.1.0"
     reusify "^1.0.4"
 
-"@fastify/oauth2@^7.9.0":
-  version "7.9.0"
-  resolved "https://registry.yarnpkg.com/@fastify/oauth2/-/oauth2-7.9.0.tgz#b3ff22f52f0a57d020a55a02c8ad942f5e2bb9a2"
-  integrity sha512-OsMr+M2FI7ib/UKZ8hC4SRnUBQqgJ0EsvAhn1qrdYJ9K/U5OwaM2sQM8fLEYbKYQRlH0oxC7lvdTm8Ncd5+ukA==
+"@fastify/oauth2@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@fastify/oauth2/-/oauth2-8.0.0.tgz#712264c2b81dd58c0372d9790d8b7b9e3d4d70b6"
+  integrity sha512-mqB6jcBUfkBvHqJJ3gCi6yqpf0iLhtmKAZL0OuthqlAWzaUfUaoIgBeCB6wc/duMxw41ElzgJUPYCOJ3jhhvOw==
   dependencies:
-    "@fastify/cookie" "^9.0.4"
-    fastify-plugin "^4.5.1"
+    "@fastify/cookie" "^10.0.0"
+    fastify-plugin "^5.0.0"
     simple-oauth2 "^5.0.0"
 
 "@fastify/secure-session@^7.5.1":
@@ -637,7 +645,7 @@ content-disposition@^0.5.3:
   dependencies:
     safe-buffer "5.2.1"
 
-cookie-signature@^1.1.0:
+cookie-signature@^1.1.0, cookie-signature@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/cookie-signature/-/cookie-signature-1.2.1.tgz#790dea2cce64638c7ae04d9fabed193bd7ccf3b4"
   integrity sha512-78KWk9T26NhzXtuL26cIJ8/qNHANyJ/ZYrmEXFzUmhZdjpBv+DlWlOANRTGBt48YcyslsLrj0bMLFTmXvLRCOw==
@@ -917,10 +925,15 @@ fast-uri@^2.0.0, fast-uri@^2.1.0:
   resolved "https://registry.yarnpkg.com/fast-uri/-/fast-uri-2.4.0.tgz#67eae6fbbe9f25339d5d3f4c4234787b65d7d55e"
   integrity sha512-ypuAmmMKInk5q7XcepxlnUWDLWv4GFtaJqAzWKqn62IpQ3pejtr5dTVbt3vwqVaMKmkNR55sTT+CqUKIaT21BA==
 
-fastify-plugin@^4.0.0, fastify-plugin@^4.5.1:
+fastify-plugin@^4.0.0:
   version "4.5.1"
   resolved "https://registry.yarnpkg.com/fastify-plugin/-/fastify-plugin-4.5.1.tgz#44dc6a3cc2cce0988bc09e13f160120bbd91dbee"
   integrity sha512-stRHYGeuqpEZTL1Ef0Ovr2ltazUT9g844X5z/zEBFLG8RYlpDiOCIG+ATvYEp+/zmc7sN29mcIMp8gvYplYPIQ==
+
+fastify-plugin@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/fastify-plugin/-/fastify-plugin-5.0.0.tgz#59baeee39d6e8e729cd27333c366d3c0146ab23b"
+  integrity sha512-0725fmH/yYi8ugsjszLci+lLnGBK6cG+WSxM7edY2OXJEU7gr2JiGBoieL2h9mhTych1vFsEfXsAsGGDJ/Rd5w==
 
 fastify@^4.28.1:
   version "4.28.1"
