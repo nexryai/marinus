@@ -1,9 +1,11 @@
 import Elysia from "elysia"
+import { logInfo } from "./utils/log"
 
-export const config = { runtime: "edge" }
-
+logInfo("Configuring Elysia routers...")
 export const app = new Elysia({
     aot: false
 })
 
-app.get("/api", () => "Hello from Elysia")
+app.get("/api", () => "Hello from Elysia!!!")
+
+logInfo("Ready!")
