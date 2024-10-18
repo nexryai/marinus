@@ -2,7 +2,7 @@ name: Docker CI
 on:
     push:
         branches:
-            - "nightly"
+            #- "nightly"
 
 jobs:
     build-image:
