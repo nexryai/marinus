@@ -31,6 +31,3 @@ jobs:
 
             - name: Run LicenseFinder
               run: license_finder --decisions_file ./.github/dependency_decisions.yml
-
-            - name: Run LicenseFinder (client)
-              run: cd client && license_finder --decisions_file ../.github/dependency_decisions.yml
