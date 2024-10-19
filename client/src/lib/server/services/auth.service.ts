@@ -1,6 +1,6 @@
-import { IdentService } from "@/services/ident.service.js"
-import { UserService } from "@/services/core/user.service.js"
-import { logInfo } from "@/utils/log.js"
+import { IdentService } from "$lib/server/services/ident.service.js"
+import { UserService } from "$lib/server/services/core/user.service.js"
+import { logInfo } from "$lib/server/utils/log.js"
 
 export class AuthService {
     constructor(

@@ -8,11 +8,11 @@ import type { FastifyMiddieOptions } from "@fastify/middie"
 import { fastifyOauth2, OAuth2Namespace } from "@fastify/oauth2"
 import { fastifySecureSession } from "@fastify/secure-session"
 import { fastifyStatic } from "@fastify/static"
-import { AuthService } from "@/services/auth.service.js"
-import { GoogleIdentService } from "@/services/ident.service.js"
-import { SubscriptionService } from "@/services/subs.service.js"
-import { TimelineService } from "@/services/timeline.service.js"
-import { UserService } from "@/services/core/user.service.js"
+import { AuthService } from "$lib/server/services/auth.service.js"
+import { GoogleIdentService } from "$lib/server/services/ident.service.js"
+import { SubscriptionService } from "$lib/server/services/subs.service.js"
+import { TimelineService } from "$lib/server/services/timeline.service.js"
+import { UserService } from "$lib/server/services/core/user.service.js"
 
 declare module "fastify" {
     interface FastifyInstance {

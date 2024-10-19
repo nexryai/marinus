@@ -1,6 +1,6 @@
-import { AppModule } from "@/app.module.js"
-import { CronModule } from "@/cron.module.js"
-import { logError, logInfo } from "@/utils/log.js"
+import { AppModule } from "$lib/server/app.module.js"
+import { CronModule } from "$lib/server/cron.module.js"
+import { logError, logInfo } from "$lib/server/utils/log.js"
 
 async function bootstrap() {
     // Start cron

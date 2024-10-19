@@ -1,6 +1,6 @@
-import { PrismaService } from "@/prisma.repository"
+import { PrismaService } from "$lib/server/prisma.repository"
 import { Feed, Prisma } from "@prisma/client"
-import { logError, logInfo, logWarn } from "@/utils/log.js"
+import { logError, logInfo, logWarn } from "$lib/server/utils/log.js"
 
 import sanitizeHtml from "sanitize-html"
 
