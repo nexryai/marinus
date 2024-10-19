@@ -1,4 +1,4 @@
-import { app } from "@/vercel"
+import { app } from "./vercel"
 
 export const config = { runtime: "edge" }
 
