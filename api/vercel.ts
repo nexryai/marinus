@@ -6,6 +6,6 @@ export const app = new Elysia({
     aot: false
 })
 
-app.get("/api", () => "Hello from Elysia!!!")
+app.get("/", () => "Hello from Elysia!!!")
 
 logInfo("Ready!")
