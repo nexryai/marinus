@@ -1,13 +1,13 @@
 /* eslint no-unused-vars: 0 */
+import Elysia, { error, t } from "elysia"
+import { generateCodeVerifier, generateState, Google } from "arctic"
 import { AuthService } from "$lib/server/services/auth.service.js"
 import { GoogleIdentService } from "$lib/server/services/ident.service.js"
 import { SubscriptionService } from "$lib/server/services/subs.service.js"
 import { TimelineService } from "$lib/server/services/timeline.service.js"
 import { UserService } from "$lib/server/services/core/user.service.js"
-import Elysia, { error, t } from "elysia"
-import { generateCodeVerifier, generateState, Google } from "arctic"
+import { APP_URL, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from "$env/static/private"
 
-import { APP_URL, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from '$env/static/private'
 
 export class AppController {
     constructor(
@@ -141,7 +141,7 @@ export class AppController {
         }, {
             query: t.Object({
                 page: t.Optional(t.Number({
-                    error: 'offset must be a number'
+                    error: "offset must be a number"
                 }))
             })
         })
@@ -160,10 +160,10 @@ export class AppController {
         }, {
             body: t.Object({
                 name: t.String({
-                    error: 'name must be a string'
+                    error: "name must be a string"
                 }),
                 feedUrl: t.String({
-                    error: 'feedUrl must be a string'
+                    error: "feedUrl must be a string"
                 })
             })
         })
