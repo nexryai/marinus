@@ -8,20 +8,6 @@ import { TimelineService } from "$lib/server/services/timeline.service.js"
 import { UserService } from "$lib/server/services/core/user.service.js"
 import Elysia, { error, t } from "elysia"
 
-declare module "fastify" {
-    interface FastifyInstance {
-        googleOAuth2: OAuth2Namespace
-    }
-    interface FastifyRequest {
-        uid: string
-    }
-}
-
-declare module "@fastify/secure-session" {
-    interface SessionData {
-        uid: string
-    }
-}
 
 export class AppController {
     constructor(
