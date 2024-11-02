@@ -35,6 +35,7 @@ export function getServer(): (request: Request) => MaybePromise<Response> {
         server
     )
 
+    mainController.configAuthRouter()
     mainController.configApiRouter()
     return server.fetch
 }

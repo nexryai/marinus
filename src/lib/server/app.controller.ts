@@ -1,12 +1,11 @@
 /* eslint no-unused-vars: 0 */
-import { fastifyOauth2, OAuth2Namespace } from "@fastify/oauth2"
-import { fastifySecureSession } from "@fastify/secure-session"
 import { AuthService } from "$lib/server/services/auth.service.js"
 import { GoogleIdentService } from "$lib/server/services/ident.service.js"
 import { SubscriptionService } from "$lib/server/services/subs.service.js"
 import { TimelineService } from "$lib/server/services/timeline.service.js"
 import { UserService } from "$lib/server/services/core/user.service.js"
 import Elysia, { error, t } from "elysia"
+import { generateCodeVerifier, generateState, Google } from "arctic"
 
 
 export class AppController {
@@ -15,9 +14,10 @@ export class AppController {
         private readonly googleIdentService: GoogleIdentService,
         private readonly subscriptionService: SubscriptionService,
         private readonly timelineService: TimelineService,
-        private readonly router: Elysia
+        private readonly router: Elysia,
     ) {}
 
+    private readonly appUrl = "https://cautious-fiesta-grj97x74j9rfx95-5173.app.github.dev"
     private readonly protectedApiPrefix = "/api"
 
     private readonly errorHandler = (app: Elysia) =>
@@ -39,8 +39,33 @@ export class AppController {
                 uid: "DUMMY"
             }
         })
+    
+    public configAuthRouter() {
+        this.router.get("/auth/google", async ({ set, cookie: {state} }) => {
+            const redirectUrl = `${this.appUrl}/auth/google/callback`
 
-    configApiRouter() {
+            const google = new Google("clientId", "clientSecret", redirectUrl)
+            const newState = generateState()
+            const codeVerifier = generateCodeVerifier()
+            const scopes = ["openid", "profile"]
+
+            const url = google.createAuthorizationURL(newState, codeVerifier, scopes)
+            state.set({
+                httpOnly: true,
+                secure: true,
+                maxAge: 60 * 10,
+                path: "/",
+                value: newState
+            })
+
+            set.status = 307
+            set.headers.location = url.toJSON()
+
+            return "Redirecting..."
+        })
+    }
+
+    public configApiRouter() {
         this.router.use(this.errorHandler)
         this.router.use(this.authMiddleware)
 
@@ -73,7 +98,6 @@ export class AppController {
                 }))
             })
         })
-
         
         this.router.post(`${this.protectedApiPrefix}/subscriptions/add`, async ({request, uid, body}) => {
             if (!body.feedUrl.startsWith("https://")) {
