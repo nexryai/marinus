@@ -5,8 +5,9 @@ import { SubscriptionService } from "$lib/server/services/subs.service.js"
 import { TimelineService } from "$lib/server/services/timeline.service.js"
 import { UserService } from "$lib/server/services/core/user.service.js"
 import Elysia, { error, t } from "elysia"
-import { generateCodeVerifier, generateState, Google } from "arctic"
+import { ArcticFetchError, generateCodeVerifier, generateState, Google, OAuth2RequestError } from "arctic"
 
+import { APP_URL, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from '$env/static/private'
 
 export class AppController {
     constructor(
@@ -17,7 +18,6 @@ export class AppController {
         private readonly router: Elysia,
     ) {}
 
-    private readonly appUrl = "https://cautious-fiesta-grj97x74j9rfx95-5173.app.github.dev"
     private readonly protectedApiPrefix = "/api"
 
     private readonly errorHandler = (app: Elysia) =>
@@ -31,6 +31,10 @@ export class AppController {
                 set.status = 500
                 return "An unexpected error occurred. The request was aborted."
             }
+
+            if (code == "VALIDATION") {
+                return "Invalid request"
+            }
         })
 
     private readonly authMiddleware = (app: Elysia) => 
@@ -41,15 +45,19 @@ export class AppController {
         })
     
     public configAuthRouter() {
-        this.router.get("/auth/google", async ({ set, cookie: {state} }) => {
-            const redirectUrl = `${this.appUrl}/auth/google/callback`
+        const googleOAuth2RedirectUrl = `${APP_URL}/auth/google/callback`
+        const googleOAuth2CodeVerifier = generateCodeVerifier()
+        const googleOAuth2 = new Google(
+            GOOGLE_CLIENT_ID, 
+            GOOGLE_CLIENT_SECRET, 
+            googleOAuth2RedirectUrl
+        )
 
-            const google = new Google("clientId", "clientSecret", redirectUrl)
+        this.router.get("/auth/google", async ({ set, cookie: {state} }) => {
             const newState = generateState()
-            const codeVerifier = generateCodeVerifier()
             const scopes = ["openid", "profile"]
 
-            const url = google.createAuthorizationURL(newState, codeVerifier, scopes)
+            const url = googleOAuth2.createAuthorizationURL(newState, googleOAuth2CodeVerifier, scopes)
             state.set({
                 httpOnly: true,
                 secure: true,
@@ -62,6 +70,45 @@ export class AppController {
             set.headers.location = url.toJSON()
 
             return "Redirecting..."
+        })
+
+        this.router.get("/auth/google/callback", async ({ set, cookie, query }) => {
+            try {
+                if (query.state !== cookie.state.value) {
+                    return error(400, "invavlid state")
+                }
+
+                const tokens = await googleOAuth2.validateAuthorizationCode(query.code, googleOAuth2CodeVerifier)
+                const accessToken = tokens.accessToken()
+                const accessTokenExpiresAt = tokens.accessTokenExpiresAt()
+
+                console.log(accessToken)
+            } catch (e) {
+                return error(401, "authentication failed")
+            }
+        }, {
+            cookie: t.Object({
+                state: t.String({
+                    error: "state must be a string"
+                }),
+            }),
+            query: t.Object({
+                code: t.String({
+                    error: "code must be a string"
+                }),
+                state: t.String({
+                    error: "state must be a string"
+                }),
+                scope: t.String({
+                    error: "scope must be a string"
+                }),
+                prompt: t.String({
+                    error: "prompt must be a string"
+                }),
+                authuser: t.Number({
+                    error: "authuser must be a number"
+                })
+            })
         })
     }
 

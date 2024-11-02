@@ -1,4 +1,3 @@
-import { fastify } from "fastify"
 import { logInfo, logWarn, logError } from "$lib/server/utils/log"
 
 // Prisma ORM
