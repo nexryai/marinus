@@ -1,3 +1,4 @@
+import { getServer } from "$lib/server/app.module"
 import type { Handle } from "@sveltejs/kit"
 import { Elysia } from "elysia"
 
@@ -11,12 +12,14 @@ const elysia = new Elysia()
     })
 
 
+const handleApi = getServer()
+
 export const handle: Handle = async ({ event, resolve }) => {
     const request = event.request
     const url = new URL(request.url)
 
     if (url.pathname.startsWith("/api")) {
-        return elysia.fetch(request)
+        return handleApi(request)
     }
 
     return resolve(event)

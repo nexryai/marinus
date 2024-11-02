@@ -18,35 +18,23 @@ import { TimelineService } from "$lib/server/services/timeline.service.js"
 
 // controller
 import { AppController } from "./app.controller"
+import Elysia, { MaybePromise } from "elysia"
 
+export function getServer(): (request: Request) => MaybePromise<Response> {
+    const server = new Elysia({ aot: false })
+    const prisma = new PrismaService()
 
-export class AppModule {
-    startServer(port: number, bind: string) {
-        const server = fastify({logger: { level: "error" }})
-        const prisma = new PrismaService()
+    const feedCoreService = new FeedService(prisma)
+    const userCoreService = new UserService(prisma)
 
-        const feedCoreService = new FeedService(prisma)
-        const userCoreService = new UserService(prisma)
+    const mainController = new AppController(
+        userCoreService,
+        new GoogleIdentService(),
+        new SubscriptionService(prisma, feedCoreService, userCoreService),
+        new TimelineService(prisma),
+        server
+    )
 
-        const mainController = new AppController(
-            userCoreService,
-            new GoogleIdentService(),
-            new SubscriptionService(prisma, feedCoreService, userCoreService),
-            new TimelineService(prisma),
-            server
-        )
-
-        mainController.configApiRouter()
-        mainController.configOauthRouter()
-        mainController.configClientRouter()
-
-        server.listen({ port: port, host: bind }, (err, address) => {
-            if (err) {
-                logError(err.message)
-                process.exit(1)
-            }
-            logWarn("Server started")
-            logInfo(`Server listening at ${address}`)
-        })
-    }
+    mainController.configApiRouter()
+    return server.fetch
 }
