@@ -5,7 +5,7 @@ import { SubscriptionService } from "$lib/server/services/subs.service.js"
 import { TimelineService } from "$lib/server/services/timeline.service.js"
 import { UserService } from "$lib/server/services/core/user.service.js"
 import Elysia, { error, t } from "elysia"
-import { ArcticFetchError, generateCodeVerifier, generateState, Google, OAuth2RequestError } from "arctic"
+import { generateCodeVerifier, generateState, Google } from "arctic"
 
 import { APP_URL, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from '$env/static/private'
 
@@ -72,7 +72,7 @@ export class AppController {
             return "Redirecting..."
         })
 
-        this.router.get("/auth/google/callback", async ({ set, cookie, query }) => {
+        this.router.get("/auth/google/callback", async ({ cookie, query }) => {
             try {
                 if (query.state !== cookie.state.value) {
                     return error(400, "invavlid state")
