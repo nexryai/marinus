@@ -6,6 +6,7 @@ import { GoogleIdentService } from "$lib/server/services/ident.service.js"
 import { SubscriptionService } from "$lib/server/services/subs.service.js"
 import { TimelineService } from "$lib/server/services/timeline.service.js"
 import { UserService } from "$lib/server/services/core/user.service.js"
+import { TokenService } from "./services/token.service"
 import { APP_URL, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from "$env/static/private"
 
 
@@ -15,6 +16,7 @@ export class AppController {
         private readonly googleIdentService: GoogleIdentService,
         private readonly subscriptionService: SubscriptionService,
         private readonly timelineService: TimelineService,
+        private readonly tokenService: TokenService,
         private readonly router: Elysia,
     ) {}
 
@@ -45,6 +47,8 @@ export class AppController {
         })
     
     public configAuthRouter() {
+        const googleAuth = new AuthService(this.googleIdentService, this.userService)
+
         const googleOAuth2RedirectUrl = `${APP_URL}/auth/google/callback`
         const googleOAuth2CodeVerifier = generateCodeVerifier()
         const googleOAuth2 = new Google(
@@ -67,9 +71,9 @@ export class AppController {
             })
 
             set.status = 307
-            set.headers.location = url.toJSON()
+            set.headers.location = url.toString()
 
-            return "Redirecting..."
+            return
         })
 
         this.router.get("/auth/google/callback", async ({ cookie, query }) => {
@@ -78,12 +82,19 @@ export class AppController {
                     return error(400, "invavlid state")
                 }
 
+                // Fetch Google API token
                 const tokens = await googleOAuth2.validateAuthorizationCode(query.code, googleOAuth2CodeVerifier)
                 const accessToken = tokens.accessToken()
                 const accessTokenExpiresAt = tokens.accessTokenExpiresAt()
 
-                console.log(accessToken)
+                // sign in
+                const uid = await googleAuth.signIn(accessToken)
+
+                const token = this.tokenService.generateToken(accessToken, uid, accessTokenExpiresAt)
+                const decrypted = this.tokenService.decryptToken(token)
+                console.log(decrypted?.uid)
             } catch (e) {
+                console.log(e)
                 return error(401, "authentication failed")
             }
         }, {

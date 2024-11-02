@@ -18,6 +18,7 @@ import { TimelineService } from "$lib/server/services/timeline.service.js"
 // controller
 import { AppController } from "./app.controller"
 import Elysia, { MaybePromise } from "elysia"
+import { TokenService } from "./services/token.service"
 
 export function getServer(): (request: Request) => MaybePromise<Response> {
     const server = new Elysia({ aot: false })
@@ -31,6 +32,7 @@ export function getServer(): (request: Request) => MaybePromise<Response> {
         new GoogleIdentService(),
         new SubscriptionService(prisma, feedCoreService, userCoreService),
         new TimelineService(prisma),
+        new TokenService(),
         server
     )
 
