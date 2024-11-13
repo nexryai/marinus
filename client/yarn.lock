@@ -459,17 +459,17 @@
   dependencies:
     tslib "^2.4.0"
 
-"@tabler/icons-svelte@^3.12.0":
-  version "3.12.0"
-  resolved "https://registry.yarnpkg.com/@tabler/icons-svelte/-/icons-svelte-3.12.0.tgz#984d1d8682ffd5043c06aed0651085132bcf3412"
-  integrity sha512-2Xrlwefzf7N5UQLU1Lj8YezCRXAU2nY3h85UVTyewURx9yAu2cBGJtJjcnAnbLgJB1Ny+cxviVWGeLaHsH2hFw==
+"@tabler/icons-svelte@^3.22.0":
+  version "3.22.0"
+  resolved "https://registry.yarnpkg.com/@tabler/icons-svelte/-/icons-svelte-3.22.0.tgz#b053b3ded2d21464772585a8b50a48423a4655fb"
+  integrity sha512-msX4XWFB5ilk132DACL2q3zVTDrnE9tSOoof04gy+E7GOmFqt0mOzQgpWixI8/QkpxC6/jQSH+DwTV4rAmpUrQ==
   dependencies:
-    "@tabler/icons" "3.12.0"
+    "@tabler/icons" "3.22.0"
 
-"@tabler/icons@3.12.0":
-  version "3.12.0"
-  resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-3.12.0.tgz#6de75d6aa7568dc0a9d48f79837f8d4f266af540"
-  integrity sha512-Im37ar/mQkqLb6XUXsU7nOc4/66VB9/3KLuZ+6tUsJKHHNLaDUkYfCTNG3pnGDI03laByxVf5+umSNK2yPTx8A==
+"@tabler/icons@3.22.0":
+  version "3.22.0"
+  resolved "https://registry.yarnpkg.com/@tabler/icons/-/icons-3.22.0.tgz#f937ec65d98710b891da6368559ea15cbcd87f91"
+  integrity sha512-IfgGzhFph5OBr2wTieWL/hyAs0FThnq9O155a6kfGYxqx7h5LQw91wnRswhEaGhXCcfmR7ZVDUr9H+x4b9Pb8g==
 
 "@types/cookie@^0.6.0":
   version "0.6.0"
