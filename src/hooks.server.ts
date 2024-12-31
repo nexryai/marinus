@@ -1,6 +1,6 @@
 import type { Handle } from "@sveltejs/kit";
 
-import { elysiaHook } from "./services/AppController";
+import { elysiaHook } from "./controllers/AppController";
 
 export const handle: Handle = async ({ event, resolve }) => {
     const request = event.request;
