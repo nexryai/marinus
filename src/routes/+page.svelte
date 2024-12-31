@@ -7,10 +7,6 @@
 <section>
     {#if !isLoggedIn()}
         <h1>
-		<span class="welcome">
-			<img src="https://s3.sda1.net/nnm/contents/b6bcec6c-cb93-4e88-a6d0-46e41260ae20.png" alt="Welcome" />
-		</span>
-
             Simple and Open-Source modern RSS reader
         </h1>
 
@@ -53,12 +49,6 @@
                 Login and continue
             </Button>
         </div>
-
-        <div class="credits">
-            <p>
-                This software is licensed under the MIT License.
-            </p>
-        </div>
     {:else}
         <Timeline />
     {/if}
@@ -79,34 +69,6 @@
         font-size: 1.7em;
         margin-top: 50px;
 	}
-
-    .welcome {
-        display: block;
-        width: 100%;
-        height: 320px;
-        position: relative;
-        z-index: 0;
-    }
-
-    .welcome:before {
-        content: "";
-        background-image: url("https://s3.sda1.net/nnm/contents/7fc1ef20-229a-44c5-b4f1-0d5f45451f8a.jpg");
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: 50%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        filter: opacity(30%) blur(64px);
-        z-index: -1;
-    }
-
-    .welcome img {
-        height: 70%;
-        margin: auto;
-    }
 
     .greet-box {
         display: inline-block;

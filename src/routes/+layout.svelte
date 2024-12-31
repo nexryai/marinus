@@ -34,7 +34,7 @@
 </script>
 
 <svelte:head>
-    <title>NewsBoard</title>
+    <title>Ablaze Marinus</title>
     <meta name="description" content="Modern and simple RSS reader" />
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
@@ -56,8 +56,8 @@
         {/key}
 	</main>
 
-	<footer>
-        <p>Illustration by <a href="https://icons8.com/illustrations/author/zD2oqC8lLBBA">Icons 8</a> from <a href="https://icons8.com/illustrations">Ouch!</a></p>
+	<footer class="p-1 mr-1 text-sm text-right">
+        <p>©2024-2025 Ablaze / nexryai <a class="ml-1" href="/">Privacy & Terms</a></p>
 	</footer>
 </div>
 
@@ -77,23 +77,5 @@
 		max-width: 64rem;
 		margin: 70px auto 0 auto;
 		box-sizing: border-box;
-	}
-
-	footer {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		padding: 12px;
-	}
-
-	footer a {
-		font-weight: bold;
-	}
-
-	@media (min-width: 480px) {
-		footer {
-			padding: 12px 0;
-		}
 	}
 </style>

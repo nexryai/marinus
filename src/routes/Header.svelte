@@ -1,15 +1,13 @@
 <script lang="ts">
     import { isLoggedIn } from "$lib/account";
     import { getProfile } from "$lib/api";
-    import logo from "$lib/images/logo.webp";
 </script>
 
 <header>
 	<div class="corner">
 		<a href="/">
-			<img src={logo} alt="SvelteKit" />
-            <span class="logo-text">NewsBoard</span>
-            <span class="logo-text logo-beta">beta</span>
+            <span class="logo-text">Ablaze Marinus</span>
+            <span class="logo-text logo-beta">Closed beta</span>
 		</a>
 	</div>
 
@@ -46,25 +44,24 @@
         left: 0;
         width: 100%;
         z-index: 49;
-        padding: 4px;
+        padding: 4px 0 4px 0;
         background: #fffc;
         backdrop-filter: blur(22px);
-        border-bottom: #d9d9d9 solid 1px;
 	}
 
 	.corner {
-		width: 3em;
 		height: 3em;
+        margin: 0 12px 0 12px;
 	}
 
     .logo-text {
-        margin-left: 10px;
         color: #353535;
         font-family: "Outfit", sans-serif;
         font-size: 20px;
     }
 
     .logo-beta {
+        margin-left: 12px;
         background: #2d77fd;
         color: white;
         padding: 0 4px 0 4px;
