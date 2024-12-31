@@ -1,20 +1,19 @@
 <script lang="ts">
-	import { run } from "svelte/legacy"
+	import { run } from "svelte/legacy";
+	import { spring } from "svelte/motion";
 
-	import { spring } from "svelte/motion"
+	let count = $state(0);
 
-	let count = $state(0)
-
-	const displayed_count = spring()
+	const displayed_count = spring();
 
 	function modulo(n: number, m: number) {
 	    // handle negative numbers
-	    return ((n % m) + m) % m
+	    return ((n % m) + m) % m;
 	}
 	run(() => {
-	    displayed_count.set(count)
-	})
-	let offset = $derived(modulo($displayed_count, 1))
+	    displayed_count.set(count);
+	});
+	let offset = $derived(modulo($displayed_count, 1));
 </script>
 
 <div class="counter">

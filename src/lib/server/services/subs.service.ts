@@ -1,7 +1,8 @@
-import { PrismaService } from "$lib/server/prisma.repository"
-import { Subscription, Prisma } from "@prisma/client"
-import { FeedService } from "./core/feed.service"
-import { UserService } from "./core/user.service"
+import { PrismaService } from "$lib/server/prisma.repository";
+import { Subscription, Prisma } from "@prisma/client";
+
+import { FeedService } from "./core/feed.service";
+import { UserService } from "./core/user.service";
 
 export class SubscriptionService {
     constructor(
@@ -15,38 +16,39 @@ export class SubscriptionService {
             where: {
                 authUid: userAuthUid
             }
-        })
+        });
 
         if (!user) {
-            throw new Error("User not found")
+            throw new Error("User not found");
         }
 
         return this.prisma.subscription.findMany({
             where: {
                 userId: user.id
             }
-        })
+        });
     }
 
     async createSubscription(userAuthUid: string, name: string, feedUrl: string): Promise<Subscription> {
         const { feed, isNew } = await this.feedService.createOrGetFeed({
             url: feedUrl,
-        })
+        });
 
         try {
-            await this.feedService.updateFeedArticles(feed)
+            await this.feedService.updateFeedArticles(feed);
         } catch (e) {
             // 新しく作成されたフィードであれば削除
             if (isNew) {
-                await this.feedService.deleteFeed({ id: feed.id })
+                await this.feedService.deleteFeed({ id: feed.id });
             }
 
-            throw new Error("Failed to fetch feed articles")
+            console.error(e);
+            throw new Error("Failed to fetch feed articles");
         }
 
-        const user = await this.userService.getUser({authUid: userAuthUid})
+        const user = await this.userService.getUser({authUid: userAuthUid});
         if (!user) {
-            throw new Error("Invalid auth uid")
+            throw new Error("Invalid auth uid");
         }
 
         const isExist = await this.prisma.subscription.findMany({
@@ -56,13 +58,13 @@ export class SubscriptionService {
                     feedId: feed.id
                 }
             }
-        })
+        });
 
         if (isExist.length > 0) {
-            throw new Error("Already subscribed")
+            throw new Error("Already subscribed");
         }
 
-        return this.prisma.subscription.create({ 
+        return this.prisma.subscription.create({
             data: {
                 feed: {
                     connect: {
@@ -77,10 +79,10 @@ export class SubscriptionService {
                 },
                 name: name
             }
-        })
+        });
     }
 
     async updateSubscription(where: Prisma.SubscriptionWhereUniqueInput, data: Prisma.SubscriptionUpdateInput): Promise<Subscription> {
-        return this.prisma.subscription.update({ where, data })
+        return this.prisma.subscription.update({ where, data });
     }
 }

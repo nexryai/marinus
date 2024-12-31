@@ -1,66 +1,71 @@
-import globals from "globals"
-import typescriptEslint from "@typescript-eslint/eslint-plugin"
-import eslintPluginSvelte from "eslint-plugin-svelte"
-import typescriptESLintParser from "@typescript-eslint/parser"
-import prettier from "eslint-config-prettier"
+import js from "@eslint/js";
+import importPlugin from "eslint-plugin-import";
+import svelte from "eslint-plugin-svelte";
+import globals from "globals";
+import ts from "typescript-eslint";
 
-export default [
-    ...eslintPluginSvelte.configs["flat/recommended"],
-    prettier,
-    ...eslintPluginSvelte.configs["flat/prettier"],
+
+export default ts.config(
+    js.configs.recommended,
+    ...ts.configs.recommended,
+    ...svelte.configs["flat/recommended"],
+    importPlugin.flatConfigs.recommended,
+    importPlugin.flatConfigs.typescript,
     {
-        ignores: [
-            ".svelte-kit",
-            "vite.config.ts",
-            "build/",
-            "node_modules/"
-        ]
-    },
-    {
-        files: ["**/*.ts"],
         languageOptions: {
-            ecmaVersion: 2020,
+            ecmaVersion: "latest",
             sourceType: "module",
-            parser: typescriptESLintParser,
             globals: {
                 ...globals.browser,
                 ...globals.node
-            },
-            parserOptions: {
-                "sourceType": "module",
-                "ecmaVersion": 2020,
             }
-        },
-        plugins: {
-            eslintPluginSvelte,
-            typescriptEslint
-        },
-        rules: {
-            "no-unused-vars": "off",
-            "no-undef": "error",
-            "indent": ["error", 4],
-            "quotes": ["error", "double"],
-            "semi": ["error", "never"]
         }
     },
     {
-        files: ["**/*.svelte"],
+        files: ["**/*.svelte", "**/*.ts", "**/*.js"],
+
         languageOptions: {
-            globals: {
-                ...globals.browser
-            },
             parserOptions: {
-                "sourceType": "module",
-                "ecmaVersion": 2020,
-                "parser": typescriptESLintParser
+                parser: ts.parser
             }
         },
         rules: {
-            "no-unused-vars": "off",
-            "no-undef": "error",
+            "@typescript-eslint/no-unused-expressions": "off",
+            "@typescript-eslint/ban-ts-comment": "off",
+            "@typescript-eslint/no-explicit-any": "off",
             "indent": ["error", 4],
             "quotes": ["error", "double"],
-            "semi": ["error", "never"]
+            "semi": ["error", "always"],
+            "import/no-cycle": "error",
+            // https://github.com/import-js/eslint-plugin-import/issues/2765
+            "import/no-unresolved": "off",
+            "import/no-named-as-default": "off",
+            "import/order": [
+                "error",
+                {
+                    groups: ["builtin", "external", "parent", "sibling", "index", "object"],
+                    pathGroups: [
+                        {
+                            pattern: "{svelte,$app/**,elysia}",
+                            group: "builtin",
+                            position: "before",
+                        },
+                        {
+                            pattern: "{@src/**,$lib/**,@prisma/client}",
+                            group: "parent",
+                            position: "before",
+                        },
+                    ],
+                    pathGroupsExcludedImportTypes: ["type"],
+                    alphabetize: {
+                        order: "asc",
+                    },
+                    "newlines-between": "always",
+                },
+            ],
         }
+    },
+    {
+        ignores: ["build/", ".svelte-kit/", "dist/"]
     }
-]
+);

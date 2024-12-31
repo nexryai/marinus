@@ -23,39 +23,39 @@ export interface IdentService {
 }
 
 export class GoogleIdentService implements IdentService {
-    private readonly googleApiUserInfoUrl: string = "https://www.googleapis.com/oauth2/v2/userinfo"
+    private readonly googleApiUserInfoUrl: string = "https://www.googleapis.com/oauth2/v2/userinfo";
 
     private async requestUserInfo(token: string): Promise<googleUserInfoApiResponse> {
         const response = await fetch(this.googleApiUserInfoUrl, {
             headers: {
                 Authorization: `Bearer ${token}`,
             }
-        })
+        });
         if (response.ok && response.body) {
-            const body = await response.text()
-            const data = JSON.parse(body) as googleUserInfoApiResponse
+            const body = await response.text();
+            const data = JSON.parse(body) as googleUserInfoApiResponse;
             if (!data.id) {
-                throw new Error("Failed to get user info")
+                throw new Error("Failed to get user info");
             }
 
-            return data
+            return data;
         } else {
-            throw new Error("Failed to get user info")
+            throw new Error("Failed to get user info");
         }
     }
 
     async getUniqueUserId(token: string): Promise<string> {
-        const user = await this.requestUserInfo(token)
-        return `google:${user.id}`
+        const user = await this.requestUserInfo(token);
+        return `google:${user.id}`;
     }
 
     async getProfile(token: string): Promise<UserProfile> {
-        const user = await this.requestUserInfo(token)
+        const user = await this.requestUserInfo(token);
         // 空ならNew Userとする
         return {
             uid: `google:${user.id}`,
             displayName: user.name || "New User",
             avatarUrl: user.picture || null,
-        }
+        };
     }
 }

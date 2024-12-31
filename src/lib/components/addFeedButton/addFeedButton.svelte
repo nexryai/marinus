@@ -1,43 +1,44 @@
 <script lang="ts">
+    import IconAlertTriangle from "@tabler/icons-svelte/icons/alert-triangle";
+    import IconLoader2 from "@tabler/icons-svelte/icons/loader-2";
+    import IconPlus from "@tabler/icons-svelte/icons/plus";
+    import { toast } from "svelte-sonner";
+
+    import { callApi } from "$lib/api";
     import {
         Button,
-        buttonVariants
-    } from "$lib/components/ui/button/index.js"
-    import * as Dialog from "$lib/components/ui/dialog/index.js"
-    import { Input } from "$lib/components/ui/input/index.js"
-    import { Label } from "$lib/components/ui/label/index.js"
-    import { toast } from "svelte-sonner"
-    import IconPlus from "@tabler/icons-svelte/icons/plus"
-    import IconAlertTriangle from "@tabler/icons-svelte/icons/alert-triangle"
-    import IconLoader2 from "@tabler/icons-svelte/icons/loader-2"
-    import { callApi } from "$lib/api"
+    } from "$lib/components/ui/button/index.js";
+    import * as Dialog from "$lib/components/ui/dialog/index.js";
+    import { Input } from "$lib/components/ui/input/index.js";
+    import { Label } from "$lib/components/ui/label/index.js";
 
-    let open = $state(false)
-    let isLoading = $state(false)
-    let showErrorMessage = $state(false)
-    let errorMessage = $state("")
-    let feedName = $state("")
-    let url = $state("")
+
+    let open = $state(false);
+    let isLoading = $state(false);
+    let showErrorMessage = $state(false);
+    let errorMessage = $state("");
+    let feedName = $state("");
+    let url = $state("");
 
     const close = () => {
-        open = false
-        feedName = ""
-        url = ""
-        showErrorMessage = false
-        errorMessage = ""
-    }
+        open = false;
+        feedName = "";
+        url = "";
+        showErrorMessage = false;
+        errorMessage = "";
+    };
 
     const addFeed = () => {
-        isLoading = true
+        isLoading = true;
 
         if (!feedName || !url) {
-            errorMessage = "Please fill in all fields."
-            showErrorMessage = true
-            isLoading = false
-            return
+            errorMessage = "Please fill in all fields.";
+            showErrorMessage = true;
+            isLoading = false;
+            return;
         }
 
-        console.log("add feed")
+        console.log("add feed");
         callApi(
             "post",
             "/api/subscriptions/add",
@@ -46,20 +47,20 @@
                 feedUrl: url
             }
         ).catch((error) => {
-            console.error(error)
-            errorMessage = "Failed to add feed: " + error
-            showErrorMessage = true
+            console.error(error);
+            errorMessage = "Failed to add feed: " + error;
+            showErrorMessage = true;
         }).then(() => {
-            open = false
+            open = false;
             toast.success("Feed added successfully!", {
                 description:"Please reload the page to see the changes."}
-            )
+            );
         }).finally(() => {
-            isLoading = false
-        })
+            isLoading = false;
+        });
 
-        return null
-    }
+        return null;
+    };
 </script>
 
 <div>
@@ -116,7 +117,7 @@
                 </div>
             </div>
             <Dialog.Footer>
-                <Button class="mt-[10px]" variant="default" disabled={isLoading} on:click={addFeed}>
+                <Button class="mt-[10px]" variant="default" disabled={isLoading} onclick={addFeed}>
                     {#if isLoading}
                         <IconLoader2 size={21} class="animate-spin" style="margin-right: 10px"/>
                         Adding...
@@ -124,7 +125,7 @@
                         Add
                     {/if}
                 </Button>
-                <Button class="mt-[10px]" variant="secondary" on:click={close}>Cancel</Button>
+                <Button class="mt-[10px]" variant="secondary" onclick={close}>Cancel</Button>
             </Dialog.Footer>
         </Dialog.Content>
     </Dialog.Root>

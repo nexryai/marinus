@@ -1,5 +1,5 @@
-import Root from "./timeline.svelte"
+import Root from "./timeline.svelte";
 
 export {
     Root as Timeline,
-}
+};

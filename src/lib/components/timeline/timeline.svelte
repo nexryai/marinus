@@ -1,37 +1,39 @@
 <script lang="ts">
-    import type { Article } from "../../../../../node_modules/@prisma/client"
-    import { Skeleton } from "$lib/components/ui/skeleton"
-    import { AddFeedButton } from "$lib/components/addFeedButton"
-    import DiscoverCard from "$lib/components/core/discoverCard.svelte"
-    import InfiniteScroll from "svelte-infinite-scroll"
-    import { callApi } from "$lib/api"
+    import InfiniteScroll from "svelte-infinite-scroll";
 
-    let isLoading = $state(true)
-    let noNote = $state(false)
-    let articles: Article[] = $state([])
-    let page = 0
+    import { callApi } from "$lib/api";
+    import { AddFeedButton } from "$lib/components/addFeedButton";
+    import DiscoverCard from "$lib/components/core/discoverCard.svelte";
+    import { Skeleton } from "$lib/components/ui/skeleton";
+
+    import type { Article } from "../../../../../node_modules/@prisma/client";
+
+    let isLoading = $state(true);
+    let noNote = $state(false);
+    let articles: Article[] = $state([]);
+    let page = 0;
 
     const loadTimeline = (page: number = 0) => { callApi("get", `/api/timeline?page=${page}`).then((response) => {
-        const res = response as Article[]
+        const res = response as Article[];
         if (res.length === 0 && page === 0) {
-            noNote = true
+            noNote = true;
         } else {
-            articles = [...articles, ...res]
+            articles = [...articles, ...res];
         }
     }).catch((error) => {
-        console.error(error)
+        console.error(error);
     }).finally(() => {
-        isLoading = false
-    })}
+        isLoading = false;
+    });};
 
     const loadMore = () => {
-        console.log("load more")
-        page += 1
-        isLoading = true
-        loadTimeline(page)
-    }
+        console.log("load more");
+        page += 1;
+        isLoading = true;
+        loadTimeline(page);
+    };
 
-    loadTimeline()
+    loadTimeline();
 </script>
 
 <div class="timeline">
@@ -69,7 +71,7 @@
     <InfiniteScroll
         window
         on:loadMore={() => {
-            loadMore()
+            loadMore();
         }}
     />
     <div class="floating-button">

@@ -4,11 +4,12 @@
 </svelte:head>
 
 <script lang="ts">
-    import { Button } from "$lib/components/ui/button"
-    import ShieldLock from "@tabler/icons-svelte/icons/shield-lock"
+    import ShieldLock from "@tabler/icons-svelte/icons/shield-lock";
+
+    import { Button } from "$lib/components/ui/button";
 
     function loginWithGoogle() {
-        location.href = "/login/google"
+        location.href = "/login/google";
     }
 </script>
 
@@ -26,9 +27,9 @@
     </span>
 
     <div class="login-buttons">
-        <Button on:click={loginWithGoogle}>
+        <Button onclick={() => loginWithGoogle()}>
             <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-google"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20.945 11a9 9 0 1 1 -3.284 -5.997l-2.655 2.392a5.5 5.5 0 1 0 2.119 6.605h-4.125v-3h7.945z" /></svg>
-            　Sign in with Google
+            Sign in with Google
         </Button>
     </div>
 
@@ -37,7 +38,7 @@
             <ShieldLock style="margin: auto;" />
         </div>
         <p class="notice-text">
-            This action request permission to retrieve your calendar and to-dos in order to display additional information on your dashboard.  
+            This action request permission to retrieve your calendar and to-dos in order to display additional information on your dashboard.
             The Google API token is stored in a cookie encrypted with a server-side key stored on your device and decrypted on servers during request processing.
             This process is done in-memory and does not store your calendar data or the Google API token to access it in our database.
         </p>

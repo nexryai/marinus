@@ -1,36 +1,35 @@
 <script lang="ts">
-    import { run } from "svelte/legacy"
+    import { beforeNavigate, afterNavigate } from "$app/navigation";
 
-    import "../app.css"
-    import "./styles.css"
-    import Header from "./Header.svelte"
+    import NProgress from "nprogress";
+    import { cubicIn, cubicOut } from "svelte/easing";
+    import { run } from "svelte/legacy";
+    import { fly } from "svelte/transition";
 
-    import { fly } from "svelte/transition"
-    import { cubicIn, cubicOut } from "svelte/easing"
+    import Header from "./Header.svelte";
 
-    // @ts-ignore
-    import NProgress from "nprogress"
-    import "nprogress/nprogress.css"
-    import { beforeNavigate, afterNavigate } from "$app/navigation"
+    import "../app.css";
+    import "./styles.css";
+    import "nprogress/nprogress.css";
 
-    let { data, children } = $props()
+    let { data, children } = $props();
 
-    let isLoading = $state(false)
+    let isLoading = $state(false);
 
     NProgress.configure({
         showSpinner: false // スピナーを表示しない
-    })
+    });
 
-    beforeNavigate(() => (isLoading = true))
-    afterNavigate(() => (isLoading = false))
+    beforeNavigate(() => (isLoading = true));
+    afterNavigate(() => (isLoading = false));
 
     run(() => {
         if (isLoading) {
-            NProgress.start()
+            NProgress.start();
         } else {
-            NProgress.done()
+            NProgress.done();
         }
-    })
+    });
 
 </script>
 

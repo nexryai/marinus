@@ -1,7 +1,7 @@
 <script lang="ts">
-    import logo from "$lib/images/logo.webp"
-    import { isLoggedIn } from "$lib/account"
-    import { getProfile } from "$lib/api"
+    import { isLoggedIn } from "$lib/account";
+    import { getProfile } from "$lib/api";
+    import logo from "$lib/images/logo.webp";
 </script>
 
 <header>

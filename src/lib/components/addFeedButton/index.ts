@@ -1,5 +1,5 @@
-import Root from "./addFeedButton.svelte"
+import Root from "./addFeedButton.svelte";
 
 export {
     Root as AddFeedButton
-}
+};

@@ -1,5 +1,5 @@
-import { PrismaService } from "$lib/server/prisma.repository"
-import { User, Prisma } from "@prisma/client"
+import { PrismaService } from "$lib/server/prisma.repository";
+import { User, Prisma } from "@prisma/client";
 
 export class UserService {
     constructor(
@@ -9,19 +9,19 @@ export class UserService {
     async isExistUser(authUid: string): Promise<boolean> {
         const user = await this.prisma.user.findUnique({
             where: {authUid}
-        })
-        return user !== null
+        });
+        return user !== null;
     }
 
     getUser(where: Prisma.UserWhereUniqueInput): Promise<User | null> {
-        return this.prisma.user.findUnique({ where })
+        return this.prisma.user.findUnique({ where });
     }
 
     createUser(data: Prisma.UserCreateInput): Promise<User> {
-        return this.prisma.user.create({ data })
+        return this.prisma.user.create({ data });
     }
 
     updateUser(where: Prisma.UserWhereUniqueInput, data: Prisma.UserUpdateInput): Promise<User> {
-        return this.prisma.user.update({ where, data })
+        return this.prisma.user.update({ where, data });
     }
 }

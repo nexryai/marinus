@@ -13,7 +13,7 @@
         description,
         feedSource,
         imageUrl
-    }: Props = $props()
+    }: Props = $props();
 </script>
 
 <div class="article-card">
