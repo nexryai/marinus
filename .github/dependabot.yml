@@ -2,11 +2,6 @@ version: 2
 updates:
     - package-ecosystem: npm
       directory: "/"
-      target-branch: "nightly"
-      schedule:
-          interval: daily
-    - package-ecosystem: npm
-      directory: "/client"
-      target-branch: "nightly"
+      target-branch: "elysia"
       schedule:
           interval: daily
