@@ -43,7 +43,7 @@
 </svelte:head>
 
 <div class="app">
-	<Header></Header>
+	<Header />
 
 	<main>
         {#key data.pathname}
