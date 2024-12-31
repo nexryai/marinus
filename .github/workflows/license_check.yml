@@ -1,4 +1,5 @@
 name: LicenseFinder CI
+permissions: {}
 
 on:
     pull_request:
@@ -13,6 +14,8 @@ jobs:
     test:
         name: Check dependencies licenses
         runs-on: ubuntu-latest
+        permissions:
+            contents: read
 
         steps:
             - uses: actions/checkout@v4
@@ -22,12 +25,18 @@ jobs:
               with:
                 node-version: 20.x
 
+            - name: Enable corepack
+              run: corepack enable
+
             - uses: ruby/setup-ruby@v1
               with:
                 ruby-version: "3.3"
 
             - name: Install LicenseFinder
               run: gem install license_finder
+
+            - name: Install dependencies
+              run: pnpm install
 
             - name: Run LicenseFinder
               run: license_finder --decisions_file ./.github/dependency_decisions.yml
