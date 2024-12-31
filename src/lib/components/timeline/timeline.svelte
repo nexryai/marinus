@@ -6,9 +6,9 @@
     import InfiniteScroll from "svelte-infinite-scroll"
     import { callApi } from "$lib/api"
 
-    let isLoading = true
-    let noNote = false
-    let articles: Article[] = []
+    let isLoading = $state(true)
+    let noNote = $state(false)
+    let articles: Article[] = $state([])
     let page = 0
 
     const loadTimeline = (page: number = 0) => { callApi("get", `/api/timeline?page=${page}`).then((response) => {

@@ -12,12 +12,12 @@
     import IconLoader2 from "@tabler/icons-svelte/icons/loader-2"
     import { callApi } from "$lib/api"
 
-    let open = false
-    let isLoading = false
-    let showErrorMessage = false
-    let errorMessage = ""
-    let feedName = ""
-    let url = ""
+    let open = $state(false)
+    let isLoading = $state(false)
+    let showErrorMessage = $state(false)
+    let errorMessage = $state("")
+    let feedName = $state("")
+    let url = $state("")
 
     const close = () => {
         open = false

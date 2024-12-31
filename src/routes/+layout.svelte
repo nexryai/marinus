@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { run } from "svelte/legacy"
+
     import "../app.css"
     import "./styles.css"
     import Header from "./Header.svelte"
@@ -11,9 +13,9 @@
     import "nprogress/nprogress.css"
     import { beforeNavigate, afterNavigate } from "$app/navigation"
 
-    export let data
+    let { data, children } = $props()
 
-    let isLoading = false
+    let isLoading = $state(false)
 
     NProgress.configure({
         showSpinner: false // スピナーを表示しない
@@ -22,13 +24,13 @@
     beforeNavigate(() => (isLoading = true))
     afterNavigate(() => (isLoading = false))
 
-    $: {
+    run(() => {
         if (isLoading) {
             NProgress.start()
         } else {
             NProgress.done()
         }
-    }
+    })
 
 </script>
 
@@ -50,7 +52,7 @@
                 in:fly={{ easing: cubicOut, y: 10, duration: 200, delay: 300 }}
                 out:fly={{ easing: cubicIn, y: -10, duration: 200 }}
             >
-		        <slot></slot>
+		        {@render children?.()}
             </div>
         {/key}
 	</main>

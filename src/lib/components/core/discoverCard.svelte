@@ -1,9 +1,19 @@
 <script lang="ts">
-    export let url: string
-    export let title: string
-    export let description: string
-    export let feedSource: string
-    export let imageUrl: string
+    interface Props {
+        url: string;
+        title: string;
+        description: string;
+        feedSource: string;
+        imageUrl: string;
+    }
+
+    let {
+        url,
+        title,
+        description,
+        feedSource,
+        imageUrl
+    }: Props = $props()
 </script>
 
 <div class="article-card">
