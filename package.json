@@ -29,7 +29,7 @@
 		"eslint-plugin-prettier": "^5.2.1",
 		"eslint-plugin-svelte": "^2.45.1",
 		"lucide-svelte": "^0.451.0",
-		"mode-watcher": "^0.4.1",
+		"mode-watcher": "^0.5.0",
 		"postcss": "^8.4.41",
 		"sass": "^1.77.8",
 		"svelte": "^5.0.0",
