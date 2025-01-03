@@ -5,3 +5,9 @@ updates:
       target-branch: "elysia"
       schedule:
           interval: daily
+
+    - package-ecosystem: gomod
+      directory: "/"
+      target-branch: "elysia"
+      schedule:
+          interval: daily
