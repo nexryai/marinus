@@ -46,7 +46,7 @@ export default ts.config(
                     groups: ["builtin", "external", "parent", "sibling", "index", "object"],
                     pathGroups: [
                         {
-                            pattern: "{svelte,$app/**,elysia}",
+                            pattern: "{svelte,$app/**,elysia,vitest}",
                             group: "builtin",
                             position: "before",
                         },

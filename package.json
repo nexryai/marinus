@@ -8,7 +8,8 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"ci:lint": "eslint",
-        "dev:firestore": "firebase emulators:start --only firestore"
+		"ci:vitest": "firebase emulators:exec --only firestore 'vitest'",
+		"dev:firestore": "firebase emulators:start --only firestore"
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.17.0",
@@ -42,7 +43,8 @@
 		"tslib": "^2.7.0",
 		"typescript": "^5.6.2",
 		"typescript-eslint": "^8.19.0",
-		"vite": "^5.4.6"
+		"vite": "^5.4.6",
+		"vitest": "^2.1.8"
 	},
 	"type": "module",
 	"dependencies": {
