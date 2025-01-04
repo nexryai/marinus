@@ -1,5 +1,16 @@
-import { collection, doc, addDoc, getDocs, setDoc, getFirestore,
-    query, orderBy, startAt, limit, type Firestore } from "firebase/firestore";
+import {
+    addDoc,
+    collection,
+    doc,
+    getDoc,
+    getDocs,
+    limit,
+    orderBy,
+    query,
+    setDoc,
+    startAt,
+    type Firestore,
+} from "firebase/firestore";
 
 import { User, UserSubscription, UserTimelineArticle } from "@/entities/User";
 import { FirestoreRepositoryCore } from "@/repositories/core/FirestoreRepositoryCore";
@@ -7,7 +18,7 @@ import { FirestoreRepositoryCore } from "@/repositories/core/FirestoreRepository
 
 export class UserRepository extends FirestoreRepositoryCore {
     constructor(
-        database: Firestore = getFirestore()
+        database: Firestore
     ) {
         super(database);
     }
@@ -47,9 +58,55 @@ export class UserRepository extends FirestoreRepositoryCore {
         }
     }
 
+    public async getUserProfile(uid: string): Promise<User> {
+        const userDocRef = await this.getUserRef(uid);
+        const userDoc = await getDoc(userDocRef);
+        if (userDoc.exists()) {
+            const data = userDoc.data();
+            if (data) {
+                return {
+                    sid: data.sid,
+                    name: data.name,
+                    subscriptions: [],
+                    timeline: [],
+                };
+            } else {
+                throw new Error("User data is empty");
+            }
+        } else {
+            throw new Error("User not found");
+        }
+    }
+
     public async addSubscription(uid: string, subscription: UserSubscription): Promise<void> {
+        if (!subscription.url) {
+            throw new Error("url is required");
+        }
+
+        if (!subscription.name) {
+            throw new Error("name is required");
+        }
+
         const userDocRef = await this.getUserRef(uid);
         await addDoc(collection(userDocRef, "subscriptions"), subscription);
+    }
+
+    public async getSubscriptions(uid: string): Promise<UserSubscription[]> {
+        const userDocRef = await this.getUserRef(uid);
+        const subscriptionsRef = collection(userDocRef, "subscriptions");
+        const snapshot = await getDocs(subscriptionsRef);
+        const subscriptions: UserSubscription[] = [];
+        snapshot.forEach((doc) => {
+            const subscription: UserSubscription = doc.data() as UserSubscription;
+            subscriptions.push(subscription);
+        });
+
+        return subscriptions;
+    }
+
+    public async addTimelineArticle(uid: string, article: UserTimelineArticle): Promise<void> {
+        const userDocRef = await this.getUserRef(uid);
+        await addDoc(collection(userDocRef, "timeline"), article);
     }
 
     public async getTimeline(uid: string, articlesPerPage: number = 12, page: number = 1): Promise<UserTimelineArticle[]> {
