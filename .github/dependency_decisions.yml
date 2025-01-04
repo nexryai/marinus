@@ -77,3 +77,21 @@
     :why:
     :versions: []
     :when: 2024-10-18 10:53:36.342945000 Z
+- - :approve
+  - valid-url
+  - :who:
+    :why:
+    :versions: []
+    :when: 2025-01-04 10:01:40.975889000 Z
+- - :permit
+  - BSD
+  - :who:
+    :why:
+    :versions: []
+    :when: 2025-01-04 10:02:50.460763000 Z
+- - :permit
+  - public domain
+  - :who:
+    :why:
+    :versions: []
+    :when: 2025-01-04 10:03:06.513618000 Z
