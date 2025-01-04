@@ -34,6 +34,13 @@ export class UserRepository extends FirestoreRepositoryCore {
     public async createUser(uid:string, data: User): Promise<void> {
         // ユーザーのメインドキュメントを作成
         const userDocRef = await this.getUserRef(uid);
+
+        // 既にユーザーが存在する場合はエラーを返す
+        const userDoc = await getDoc(userDocRef);
+        if (userDoc.exists()) {
+            throw new Error("User already exists");
+        }
+
         await setDoc(userDocRef, {
             sid: data.sid,
             name: data.name,

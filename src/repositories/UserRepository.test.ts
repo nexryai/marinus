@@ -39,6 +39,22 @@ describe("UserRepository - User & profiles", () => {
         expect(user.name).toBe("test");
     });
 
+    it("既に存在するユーザーを作成しようとするとエラーを返す", async () => {
+        await userRepository.createUser("test", {
+            sid: "test",
+            name: "test",
+            subscriptions: [],
+            timeline: [],
+        });
+
+        await expect(userRepository.createUser("test", {
+            sid: "test",
+            name: "test",
+            subscriptions: [],
+            timeline: [],
+        })).rejects.toThrowError("User already exists");
+    });
+
     it("ユーザーを作成する際にsubscriptionsがない場合エラーを返す", async () => {
         await expect(
             // @ts-expect-error
