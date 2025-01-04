@@ -2,6 +2,7 @@ import {
     addDoc,
     collection,
     doc,
+    getCountFromServer,
     getDoc,
     getDocs,
     limit,
@@ -9,6 +10,7 @@ import {
     query,
     setDoc,
     startAt,
+    where,
     type Firestore,
 } from "firebase/firestore";
 
@@ -99,6 +101,21 @@ export class UserRepository extends FirestoreRepositoryCore {
         }
 
         const userDocRef = await this.getUserRef(uid);
+        const subscriptionsRef = collection(userDocRef, "subscriptions");
+
+        // 既に同じURLのサブスクリプションが登録されている場合はエラーを返す
+        const q = query(subscriptionsRef, limit(1), where("url", "==", subscription.url));
+        const snapshot = await getDocs(q);
+        if (!snapshot.empty) {
+            throw new Error("Subscription already exists");
+        }
+
+        // 既に256件以上のサブスクリプションが登録されている場合はエラーを返す
+        const countSnapshot = await getCountFromServer(subscriptionsRef);
+        if (countSnapshot.data().count >= 256) {
+            throw new Error("Maximum number of subscriptions exceeded");
+        }
+
         await addDoc(collection(userDocRef, "subscriptions"), subscription);
     }
 

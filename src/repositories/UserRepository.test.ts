@@ -137,4 +137,44 @@ describe("UserRepository - Subscriptions", () => {
             url: "test",
         })).rejects.toThrowError("name is required");
     });
+
+    it("ユーザーにサブスクリプションを追加する際に既に存在するサブスクリプションを追加しようとした場合エラーを返す", async () => {
+        await userRepository.createUser("test", {
+            sid: "test",
+            name: "test",
+            subscriptions: [],
+            timeline: [],
+        });
+
+        await userRepository.addSubscription("test", {
+            url: "https://example.com",
+            name: "test",
+        });
+
+        await expect(userRepository.addSubscription("test", {
+            url: "https://example.com",
+            name: "test",
+        })).rejects.toThrowError("Subscription already exists");
+    });
+
+    it("256件以上のサブスクリプションを追加しようとした場合エラーを返す", async () => {
+        await userRepository.createUser("test", {
+            sid: "test",
+            name: "test",
+            subscriptions: [],
+            timeline: [],
+        });
+
+        for (let i = 0; i < 256; i++) {
+            await userRepository.addSubscription("test", {
+                url: `https://example.com/too/many/subs/${i}`,
+                name: `test${i}`,
+            });
+        }
+
+        await expect(userRepository.addSubscription("test", {
+            url: "https://example.com",
+            name: "test",
+        })).rejects.toThrowError("Maximum number of subscriptions exceeded");
+    });
 });
