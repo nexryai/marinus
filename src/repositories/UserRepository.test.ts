@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, afterEach } from "vitest";
 
 import { initializeApp } from "firebase/app";
 import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
@@ -13,6 +13,17 @@ const db = getFirestore();
 connectFirestoreEmulator(db, "127.0.0.1", 8080);
 
 const userRepository = new UserRepository(db);
+
+afterEach(async () => {
+    // Flush db
+    const flushResp = await fetch("http://127.0.0.1:8080/emulator/v1/projects/test/databases/(default)/documents", {
+        method: "DELETE",
+    });
+
+    if (!flushResp.ok) {
+        throw new Error("Failed to flush db");
+    }
+});
 
 describe("UserRepository - User & profiles", () => {
     it("ユーザーを作成・取得できる", async () => {
