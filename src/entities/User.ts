@@ -1,4 +1,5 @@
 export interface UserTimelineArticle {
+    index: number;
     title: string;
     url: string;
     content: string;
