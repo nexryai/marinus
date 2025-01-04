@@ -75,26 +75,16 @@ describe("UserRepository - User & profiles", () => {
         ).rejects.toThrowError("sid is required");
     });
 
-    it("ユーザーを作成する際にsubscriptionsがない場合エラーを返す", async () => {
-        await expect(
-            // @ts-expect-error
-            userRepository.createUser("test", {
-                sid: "test",
-                name: "test",
-                timeline: [],
-            })
-        ).rejects.toThrowError("subscriptions is required");
-    });
+    it("ユーザーを作成する際にnameがない場合デフォルト値を設定する", async () => {
+        // @ts-ignore
+        await userRepository.createUser("test", {
+            sid: "test",
+            subscriptions: [],
+            timeline: [],
+        });
 
-    it("ユーザーを作成する際にtimelineがない場合エラーを返す", async () => {
-        await expect(
-            // @ts-expect-error
-            userRepository.createUser("test", {
-                sid: "test",
-                name: "test",
-                subscriptions: [],
-            })
-        ).rejects.toThrowError("timeline is required");
+        const user = await userRepository.getUserProfile("test");
+        expect(user.name).toBe("New User");
     });
 
     it("存在しないユーザーの情報を取得しようとした場合エラーを返す", async () => {

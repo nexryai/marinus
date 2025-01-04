@@ -59,8 +59,6 @@ export class UserRepository extends FirestoreRepositoryCore {
             for (const subscription of data.subscriptions) {
                 await addDoc(collection(userDocRef, "subscriptions"), subscription);
             }
-        } else {
-            throw new Error("subscriptions is required");
         }
 
         // タイムラインをサブコレクションとして追加
@@ -68,8 +66,6 @@ export class UserRepository extends FirestoreRepositoryCore {
             for (const article of data.timeline) {
                 await addDoc(collection(userDocRef, "timeline"), article);
             }
-        } else {
-            throw new Error("timeline is required");
         }
     }
 
