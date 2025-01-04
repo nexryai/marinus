@@ -39,6 +39,15 @@ describe("UserRepository - User & profiles", () => {
         expect(user.name).toBe("test");
     });
 
+    it("uidを指定しないでcreateUserを呼び出した場合エラーを返す", async () => {
+        await expect(userRepository.createUser("", {
+            sid: "test",
+            name: "test",
+            subscriptions: [],
+            timeline: [],
+        })).rejects.toThrowError("Integrity check failed: uid is required");
+    });
+
     it("既に存在するユーザーを作成しようとするとエラーを返す", async () => {
         await userRepository.createUser("test", {
             sid: "test",
@@ -53,6 +62,17 @@ describe("UserRepository - User & profiles", () => {
             subscriptions: [],
             timeline: [],
         })).rejects.toThrowError("User already exists");
+    });
+
+    it("ユーザーを作成する際にsidがない場合エラーを返す", async () => {
+        await expect(
+            // @ts-expect-error
+            userRepository.createUser("test", {
+                name: "test",
+                subscriptions: [],
+                timeline: [],
+            })
+        ).rejects.toThrowError("sid is required");
     });
 
     it("ユーザーを作成する際にsubscriptionsがない場合エラーを返す", async () => {
@@ -77,11 +97,11 @@ describe("UserRepository - User & profiles", () => {
         ).rejects.toThrowError("timeline is required");
     });
 
-    it("ユーザーが存在しない場合エラーを返す", async () => {
+    it("存在しないユーザーの情報を取得しようとした場合エラーを返す", async () => {
         await expect(userRepository.getUserProfile("notfound")).rejects.toThrowError();
     });
 
-    it("uidがない場合エラーを返す", async () => {
+    it("uidを指定しないでgetUserProfileを呼び出した場合エラーを返す", async () => {
         await expect(userRepository.getUserProfile("")).rejects.toThrowError("Integrity check failed: uid is required");
     });
 });

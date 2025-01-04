@@ -35,6 +35,14 @@ export class UserRepository extends FirestoreRepositoryCore {
         // ユーザーのメインドキュメントを作成
         const userDocRef = await this.getUserRef(uid);
 
+        if (!data.sid) {
+            throw new Error("sid is required");
+        }
+
+        if (!data.name) {
+            data.name = "New User";
+        }
+
         // 既にユーザーが存在する場合はエラーを返す
         const userDoc = await getDoc(userDocRef);
         if (userDoc.exists()) {
