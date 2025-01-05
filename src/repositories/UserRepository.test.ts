@@ -36,9 +36,9 @@ describe("UserRepository - User & profiles", () => {
         });
 
         const user = await userRepository.getUserProfile("test");
-        expect(user.uid).toBe("test");
-        expect(user.sid).toBe("test");
-        expect(user.name).toBe("test");
+        expect(user!.uid).toBe("test");
+        expect(user!.sid).toBe("test");
+        expect(user!.name).toBe("test");
     });
 
     it("uidを指定しないでcreateUserを呼び出した場合エラーを返す", async () => {
@@ -100,11 +100,11 @@ describe("UserRepository - User & profiles", () => {
         });
 
         const user = await userRepository.getUserProfile("test");
-        expect(user.name).toBe("New User");
+        expect(user!.name).toBe("New User");
     });
 
-    it("存在しないユーザーの情報を取得しようとした場合エラーを返す", async () => {
-        await expect(userRepository.getUserProfile("notfound")).rejects.toThrowError();
+    it("存在しないユーザーの情報を取得しようとした場合nullを返す", async () => {
+        await expect(userRepository.getUserProfile("notfound")).resolves.toBeNull();
     });
 
     it("uidを指定しないでgetUserProfileを呼び出した場合エラーを返す", async () => {

@@ -75,7 +75,7 @@ export class UserRepository extends FirestoreRepositoryCore {
         }
     }
 
-    public async getUserProfile(uid: string): Promise<User> {
+    public async getUserProfile(uid: string): Promise<User | null> {
         const userDocRef = await this.getUserRef(uid);
         const userDoc = await getDoc(userDocRef);
         if (userDoc.exists()) {
@@ -92,7 +92,7 @@ export class UserRepository extends FirestoreRepositoryCore {
                 throw new Error("User data is empty");
             }
         } else {
-            throw new Error("User not found");
+            return null;
         }
     }
 
