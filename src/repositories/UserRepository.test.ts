@@ -28,6 +28,7 @@ afterEach(async () => {
 describe("UserRepository - User & profiles", () => {
     it("ユーザーを作成・取得できる", async () => {
         await userRepository.createUser("test", {
+            uid: "test",
             sid: "test",
             name: "test",
             subscriptions: [],
@@ -35,12 +36,14 @@ describe("UserRepository - User & profiles", () => {
         });
 
         const user = await userRepository.getUserProfile("test");
+        expect(user.uid).toBe("test");
         expect(user.sid).toBe("test");
         expect(user.name).toBe("test");
     });
 
     it("uidを指定しないでcreateUserを呼び出した場合エラーを返す", async () => {
         await expect(userRepository.createUser("", {
+            uid: "test",
             sid: "test",
             name: "test",
             subscriptions: [],
@@ -48,8 +51,19 @@ describe("UserRepository - User & profiles", () => {
         })).rejects.toThrowError("Integrity check failed: uid is required");
     });
 
+    it("uidとキーが一致しない場合エラーを返す", async () => {
+        await expect(userRepository.createUser("test", {
+            uid: "test2",
+            sid: "test",
+            name: "test",
+            subscriptions: [],
+            timeline: [],
+        })).rejects.toThrowError("key uid must be equal to the uid parameter");
+    });
+
     it("既に存在するユーザーを作成しようとするとエラーを返す", async () => {
         await userRepository.createUser("test", {
+            uid: "test",
             sid: "test",
             name: "test",
             subscriptions: [],
@@ -57,6 +71,7 @@ describe("UserRepository - User & profiles", () => {
         });
 
         await expect(userRepository.createUser("test", {
+            uid: "test",
             sid: "test",
             name: "test",
             subscriptions: [],
@@ -78,6 +93,7 @@ describe("UserRepository - User & profiles", () => {
     it("ユーザーを作成する際にnameがない場合デフォルト値を設定する", async () => {
         // @ts-ignore
         await userRepository.createUser("test", {
+            uid: "test",
             sid: "test",
             subscriptions: [],
             timeline: [],
@@ -100,6 +116,7 @@ describe("UserRepository - User & profiles", () => {
 describe("UserRepository - Subscriptions", () => {
     it("ユーザーにサブスクリプションを追加して取得できる", async () => {
         await userRepository.createUser("test", {
+            uid: "test",
             sid: "test",
             name: "test",
             subscriptions: [],
@@ -140,6 +157,7 @@ describe("UserRepository - Subscriptions", () => {
 
     it("ユーザーにサブスクリプションを追加する際に既に存在するサブスクリプションを追加しようとした場合エラーを返す", async () => {
         await userRepository.createUser("test", {
+            uid: "test",
             sid: "test",
             name: "test",
             subscriptions: [],
@@ -159,6 +177,7 @@ describe("UserRepository - Subscriptions", () => {
 
     it("256件以上のサブスクリプションを追加しようとした場合エラーを返す", async () => {
         await userRepository.createUser("test", {
+            uid: "test",
             sid: "test",
             name: "test",
             subscriptions: [],
@@ -182,6 +201,7 @@ describe("UserRepository - Subscriptions", () => {
 describe("UserRepository - Timeline", () => {
     it("ユーザーにタイムラインを追加して取得できる", async () => {
         await userRepository.createUser("test", {
+            uid: "test",
             sid: "test",
             name: "test",
             subscriptions: [],
@@ -206,6 +226,7 @@ describe("UserRepository - Timeline", () => {
 
     it("タイムラインのページネーションが正常に動作する（1ページ目）", async () => {
         await userRepository.createUser("test", {
+            uid: "test",
             sid: "test",
             name: "test",
             subscriptions: [],
@@ -232,6 +253,7 @@ describe("UserRepository - Timeline", () => {
 
     it("タイムラインのページネーションが正常に動作する（2ページ目）", async () => {
         await userRepository.createUser("test", {
+            uid: "test",
             sid: "test",
             name: "test",
             subscriptions: [],

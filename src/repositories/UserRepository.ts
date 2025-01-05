@@ -45,6 +45,10 @@ export class UserRepository extends FirestoreRepositoryCore {
             data.name = "New User";
         }
 
+        if (data.uid !== uid) {
+            throw new Error("key uid must be equal to the uid parameter");
+        }
+
         // 既にユーザーが存在する場合はエラーを返す
         const userDoc = await getDoc(userDocRef);
         if (userDoc.exists()) {
@@ -78,6 +82,7 @@ export class UserRepository extends FirestoreRepositoryCore {
             const data = userDoc.data();
             if (data) {
                 return {
+                    uid: userDoc.id,
                     sid: data.sid,
                     name: data.name,
                     subscriptions: [],

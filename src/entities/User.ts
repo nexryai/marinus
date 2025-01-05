@@ -14,6 +14,7 @@ export interface UserSubscription {
 }
 
 export interface User {
+    uid: string;
     sid: string;
     name: string;
     subscriptions: UserSubscription[];
