@@ -1,9 +1,9 @@
 import { browser } from "$app/environment";
 
-import {treaty} from "@elysiajs/eden";
+import { treaty } from "@elysiajs/eden";
 
-import type { User } from "../../../node_modules/@prisma/client";
-import {IElysiaApp} from "../controllers/AppController";
+import { IElysiaApp } from "@/controllers/AppController";
+import { type User } from "@/entities/User";
 
 enum IdentProvider {
     GOOGLE = "google",
@@ -95,9 +95,9 @@ export async function getProfile(): Promise<User> {
     localStorage.setItem("userCacheCreatedAt", Date.now().toString());
 
     // セッションが切れた時に適当なログイン画面に飛ばすためにプロバイダを保存
-    if (user.authUid.startsWith("google:")) {
+    if (user.uid.startsWith("google:")) {
         setIdentProvider(IdentProvider.GOOGLE);
-    } else if (user.authUid.startsWith("github:")) {
+    } else if (user.uid.startsWith("github:")) {
         setIdentProvider(IdentProvider.GITHUB);
     }
 
