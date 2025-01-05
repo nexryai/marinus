@@ -10,6 +10,10 @@
 		"sourceMap": true,
 		"strict": true,
 		"moduleResolution": "bundler",
-		"verbatimModuleSyntax": false
-	}
+		"verbatimModuleSyntax": false,
+        "paths": {
+            "$lib/*": ["src/lib/*"],
+            "@/*": ["src/*"]
+        }
+    }
 }
