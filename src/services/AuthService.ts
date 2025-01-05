@@ -80,6 +80,7 @@ abstract class AuthService {
     /***
      generateAppToken generates an encrypted token for the user. This token is used for authentication.
      * @param uid unique identifier of the user
+     * @param sid session id of the user
      * @param expireAt expiration date of the token
      * @returns encrypted token
      ***/
