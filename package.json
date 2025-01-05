@@ -49,16 +49,13 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"@prisma/client": "^6.1.0",
 		"@tabler/icons-svelte": "^3.12.0",
 		"arctic": "^2.2.1",
 		"clsx": "^2.1.1",
 		"elysia": "^1.1.22",
 		"globals": "^15.9.0",
 		"nprogress": "^0.2.0",
-		"prisma": "^5.19.1",
 		"reflect-metadata": "^0.2.2",
-		"sanitize-html": "^2.13.0",
 		"svelte-infinite-scroll": "^2.0.1",
 		"tailwind-merge": "^2.5.2",
 		"tailwind-variants": "^0.3.0"
