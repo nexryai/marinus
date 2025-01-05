@@ -1,7 +1,7 @@
 import { PrismaService } from "$lib/server/prisma.repository";
 import { User, Prisma } from "@prisma/client";
 
-export class UserService {
+export class AccountService {
     constructor(
         private readonly prisma: PrismaService
     ) {}
