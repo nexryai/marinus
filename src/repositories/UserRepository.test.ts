@@ -143,6 +143,7 @@ describe("UserRepository - User & profiles", () => {
         });
 
         const user = await userRepository.getUserProfile("test");
+        expect(user!.name).toBe("test");
         expect(user!.avatarUrl).toBe("https://example.com");
     });
 });
