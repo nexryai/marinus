@@ -48,6 +48,9 @@ importers:
         specifier: ^0.3.0
         version: 0.3.0(tailwindcss@3.4.17)
     devDependencies:
+      '@elysiajs/eden':
+        specifier: ^1.2.0
+        version: 1.2.0(elysia@1.2.9(@sinclair/typebox@0.34.13)(typescript@5.7.2))
       '@eslint/js':
         specifier: ^9.17.0
         version: 9.17.0
@@ -174,6 +177,11 @@ packages:
 
   '@electric-sql/pglite@0.2.15':
     resolution: {integrity: sha512-Jiq31Dnk+rg8rMhcSxs4lQvHTyizNo5b269c1gCC3ldQ0sCLrNVPGzy+KnmonKy1ZArTUuXZf23/UamzFMKVaA==}
+
+  '@elysiajs/eden@1.2.0':
+    resolution: {integrity: sha512-MpV45ahuF+iFZUg4tyJbLr9qxzY99m8clJVgQrDrz7Qh6eOKQ8MY6vjYMj3Wh21pTIRHPHzOLhVorRGby1/Owg==}
+    peerDependencies:
+      elysia: '>= 1.2.0'
 
   '@esbuild/aix-ppc64@0.21.5':
     resolution: {integrity: sha512-1SDgH6ZSPTlggy1yI6+Dbkiz8xzpHJEVAlF/AM1tHPLsf5STom9rwtjE4hKAF20FfXXNTFqEYXyJNWh1GiZedQ==}
@@ -4465,6 +4473,10 @@ snapshots:
       kuler: 2.0.0
 
   '@electric-sql/pglite@0.2.15': {}
+
+  '@elysiajs/eden@1.2.0(elysia@1.2.9(@sinclair/typebox@0.34.13)(typescript@5.7.2))':
+    dependencies:
+      elysia: 1.2.9(@sinclair/typebox@0.34.13)(typescript@5.7.2)
 
   '@esbuild/aix-ppc64@0.21.5':
     optional: true
