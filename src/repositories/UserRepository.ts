@@ -58,6 +58,7 @@ export class UserRepository extends FirestoreRepositoryCore {
         await setDoc(userDocRef, {
             sid: data.sid,
             name: data.name,
+            avatarUrl: data.avatarUrl,
         });
 
         // サブスクリプションをサブコレクションとして追加

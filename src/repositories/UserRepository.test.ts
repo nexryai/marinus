@@ -1,12 +1,16 @@
 import { describe, it, expect, afterEach } from "vitest";
 
 import { initializeApp } from "firebase/app";
-import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
+import { initializeFirestore, getFirestore, connectFirestoreEmulator } from "firebase/firestore";
 
 import { UserRepository } from "@/repositories/UserRepository";
 
-initializeApp({
+const firebaseApp = initializeApp({
     projectId: "test",
+});
+
+initializeFirestore(firebaseApp, {
+    ignoreUndefinedProperties: true,
 });
 
 const db = getFirestore();
@@ -40,6 +44,20 @@ describe("UserRepository - User & profiles", () => {
         expect(user!.sid).toBe("test");
         expect(user!.name).toBe("test");
         expect(user!.avatarUrl).toBeUndefined();
+    });
+
+    it("作成時にavatarUrlを指定できる", async () => {
+        await userRepository.createUser("test", {
+            uid: "test",
+            sid: "test",
+            name: "test",
+            avatarUrl: "https://example.com",
+            subscriptions: [],
+            timeline: [],
+        });
+
+        const user = await userRepository.getUserProfile("test");
+        expect(user!.avatarUrl).toBe("https://example.com");
     });
 
     it("uidを指定しないでcreateUserを呼び出した場合エラーを返す", async () => {
