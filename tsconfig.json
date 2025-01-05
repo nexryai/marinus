@@ -11,9 +11,5 @@
 		"strict": true,
 		"moduleResolution": "bundler",
 		"verbatimModuleSyntax": false,
-        "paths": {
-            "$lib/*": ["src/lib/*"],
-            "@/*": ["src/*"]
-        }
     }
 }
