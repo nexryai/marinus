@@ -5,7 +5,9 @@
 
     import { isLoggedIn } from "$lib/account";
     import { app } from "$lib/api";
+    import WeatherCard from "$lib/components/cards/WeatherCard.svelte";
     import { Button } from "$lib/components/ui/button";
+    import UndrawAbsorbedIn from "$lib/images/undraw_absorbed-in.svg";
 
     app.api.test.get().then((body) => {
 
@@ -15,12 +17,19 @@
 </script>
 
 <section>
+    <div class="w-full">
+        <div class="rounded-lg shadow-md w-96 overflow-hidden">
+            <WeatherCard />
+        </div>
+    </div>
     {#if !isLoggedIn()}
-        <span class="text-xl">
+        <span class="text-xl mt-16">
             Sign in to using more features!
         </span>
 
-        <div class="mt-6">
+        <img class="mt-6 h-36" src={UndrawAbsorbedIn} alt="Absorbed in" />
+
+        <div class="mt-12">
             <Button data-sveltekit-noscroll onclick={() => {goto("/signup");}}>
                 <IconSparkles />
                 Create an account
