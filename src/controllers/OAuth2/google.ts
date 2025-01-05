@@ -19,8 +19,8 @@ export async function configGoogleAuthRouter(
         googleOAuth2RedirectUrl
     );
 
-    const elysia = new Elysia({ prefix: "/auth/google" })
-        .get("/", async ({ set, cookie: { state } }) => {
+    return new Elysia({prefix: "/auth/google"})
+        .get("/", async ({set, cookie: {state}}) => {
             const newState = generateState();
             const scopes = ["openid", "profile"];
 
@@ -39,7 +39,7 @@ export async function configGoogleAuthRouter(
             return;
         })
 
-        .get("/callback", async ({ cookie: { token, state }, query }) => {
+        .get("/callback", async ({cookie: {token, state}, query}) => {
             try {
                 if (query.state !== state.value) {
                     return error(400, "invalid state");
@@ -85,6 +85,4 @@ export async function configGoogleAuthRouter(
                 })
             })
         });
-
-    return elysia;
 }
