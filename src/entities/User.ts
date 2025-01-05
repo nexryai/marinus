@@ -3,7 +3,7 @@ export interface UserTimelineArticle {
     title: string;
     url: string;
     content: string;
-    imageUrls: string;
+    imageUrl: string;
     source: string;
     publishedAt: Date;
 }
