@@ -1,4 +1,6 @@
 <script>
+    import { browser } from "$app/environment";
+
     import { IconAlertCircle, IconBrandGoogleFilled, IconSparkles } from "@tabler/icons-svelte";
     import { blur } from "svelte/transition";
 
@@ -10,10 +12,11 @@
 
     let agreedToTerms = $state(false);
 
-    app.api.test.get().then((body) => {
-
-        console.log(body.data.message);
-    });
+    if (browser) {
+        app.api.test.get().then((body) => {
+            console.log(body.data.message);
+        });
+    }
 </script>
 
 <section>

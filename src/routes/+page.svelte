@@ -4,20 +4,13 @@
     import { IconLogin2, IconSparkles } from "@tabler/icons-svelte";
 
     import { isLoggedIn } from "$lib/account";
-    import { app } from "$lib/api";
     import WeatherCard from "$lib/components/cards/WeatherCard.svelte";
     import { Button } from "$lib/components/ui/button";
     import UndrawAbsorbedIn from "$lib/images/undraw_absorbed-in.svg";
-
-    app.api.test.get().then((body) => {
-
-        console.log(body.data.message);
-    });
-
 </script>
 
 <section>
-    <div class="w-full">
+    <div class="w-full flex">
         <div class="rounded-lg shadow-md w-96 overflow-hidden">
             <WeatherCard />
         </div>
