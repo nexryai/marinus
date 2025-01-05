@@ -17,6 +17,7 @@ export interface User {
     uid: string;
     sid: string;
     name: string;
+    avatarUrl?: string;
     subscriptions: UserSubscription[];
     timeline: UserTimelineArticle[];
 }
