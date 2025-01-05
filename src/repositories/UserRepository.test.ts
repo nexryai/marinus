@@ -178,3 +178,81 @@ describe("UserRepository - Subscriptions", () => {
         })).rejects.toThrowError("Maximum number of subscriptions exceeded");
     });
 });
+
+describe("UserRepository - Timeline", () => {
+    it("ユーザーにタイムラインを追加して取得できる", async () => {
+        await userRepository.createUser("test", {
+            sid: "test",
+            name: "test",
+            subscriptions: [],
+            timeline: [],
+        });
+
+        await userRepository.addTimelineArticle("test", {
+            index: 0,
+            url: "https://example.com",
+            title: "test",
+            content: "test",
+            imageUrl: "test",
+            source: "test",
+            publishedAt: new Date(),
+        });
+
+        const timeline = await userRepository.getTimeline("test");
+        expect(timeline.length).toBe(1);
+        expect(timeline[0].url).toBe("https://example.com");
+        expect(timeline[0].title).toBe("test");
+    });
+
+    it("タイムラインのページネーションが正常に動作する（1ページ目）", async () => {
+        await userRepository.createUser("test", {
+            sid: "test",
+            name: "test",
+            subscriptions: [],
+            timeline: [],
+        });
+
+        for (let i = 0; i < 24; i++) {
+            await userRepository.addTimelineArticle("test", {
+                index: i,
+                url: `https://example.com/${i}`,
+                title: `test${i}`,
+                content: `test${i}`,
+                imageUrl: `test${i}`,
+                source: `test${i}`,
+                publishedAt: new Date(),
+            });
+        }
+
+        const timeline = await userRepository.getTimeline("test", 12, 1);
+        expect(timeline.length).toBe(12);
+        expect(timeline[0].url).toBe("https://example.com/0");
+        expect(timeline[11].url).toBe("https://example.com/11");
+    });
+
+    it("タイムラインのページネーションが正常に動作する（2ページ目）", async () => {
+        await userRepository.createUser("test", {
+            sid: "test",
+            name: "test",
+            subscriptions: [],
+            timeline: [],
+        });
+
+        for (let i = 0; i < 24; i++) {
+            await userRepository.addTimelineArticle("test", {
+                index: i,
+                url: `https://example.com/${i}`,
+                title: `test${i}`,
+                content: `test${i}`,
+                imageUrl: `test${i}`,
+                source: `test${i}`,
+                publishedAt: new Date(),
+            });
+        }
+
+        const timeline = await userRepository.getTimeline("test", 12, 2);
+        expect(timeline.length).toBe(12);
+        expect(timeline[0].url).toBe("https://example.com/12");
+        expect(timeline[11].url).toBe("https://example.com/23");
+    });
+});
