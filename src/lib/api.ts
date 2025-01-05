@@ -1,6 +1,9 @@
 import { browser } from "$app/environment";
 
+import {treaty} from "@elysiajs/eden";
+
 import type { User } from "../../../node_modules/@prisma/client";
+import {IElysiaApp} from "../controllers/AppController";
 
 enum IdentProvider {
     GOOGLE = "google",
@@ -100,3 +103,10 @@ export async function getProfile(): Promise<User> {
 
     return user;
 }
+
+const url = typeof window !== "undefined"
+    ? new URL(window.location.origin)
+    : new URL("http://localhost:5173");
+
+const appDomain = url.host;
+export const app = treaty<IElysiaApp>(appDomain);

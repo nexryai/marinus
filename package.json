@@ -10,6 +10,7 @@
 		"ci:lint": "eslint"
 	},
 	"devDependencies": {
+		"@elysiajs/eden": "^1.2.0",
 		"@eslint/js": "^9.17.0",
 		"@fontsource/fira-mono": "^5.1.0",
 		"@neoconfetti/svelte": "^2.2.1",
