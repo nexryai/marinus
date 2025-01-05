@@ -39,6 +39,7 @@ describe("UserRepository - User & profiles", () => {
         expect(user!.uid).toBe("test");
         expect(user!.sid).toBe("test");
         expect(user!.name).toBe("test");
+        expect(user!.avatarUrl).toBeUndefined();
     });
 
     it("uidを指定しないでcreateUserを呼び出した場合エラーを返す", async () => {
@@ -109,6 +110,40 @@ describe("UserRepository - User & profiles", () => {
 
     it("uidを指定しないでgetUserProfileを呼び出した場合エラーを返す", async () => {
         await expect(userRepository.getUserProfile("")).rejects.toThrowError("Integrity check failed: uid is required");
+    });
+
+    it("ユーザー名を更新できる", async () => {
+        await userRepository.createUser("test", {
+            uid: "test",
+            sid: "test",
+            name: "test",
+            subscriptions: [],
+            timeline: [],
+        });
+
+        await userRepository.updateUser("test", {
+            name: "test2",
+        });
+
+        const user = await userRepository.getUserProfile("test");
+        expect(user!.name).toBe("test2");
+    });
+
+    it("ユーザー名のavatarUrlを更新できる", async () => {
+        await userRepository.createUser("test", {
+            uid: "test",
+            sid: "test",
+            name: "test",
+            subscriptions: [],
+            timeline: [],
+        });
+
+        await userRepository.updateUser("test", {
+            avatarUrl: "https://example.com",
+        });
+
+        const user = await userRepository.getUserProfile("test");
+        expect(user!.avatarUrl).toBe("https://example.com");
     });
 });
 

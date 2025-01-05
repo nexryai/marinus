@@ -85,6 +85,7 @@ export class UserRepository extends FirestoreRepositoryCore {
                     uid: userDoc.id,
                     sid: data.sid,
                     name: data.name,
+                    avatarUrl: data.avatarUrl,
                     subscriptions: [],
                     timeline: [],
                 };
@@ -93,6 +94,26 @@ export class UserRepository extends FirestoreRepositoryCore {
             }
         } else {
             return null;
+        }
+    }
+
+    public async updateUser(uid: string, data: Partial<User>): Promise<void> {
+        const userDocRef = await this.getUserRef(uid);
+        const userDoc = await getDoc(userDocRef);
+        if (!userDoc.exists()) {
+            throw new Error("User not found");
+        }
+
+        if (data.name) {
+            await setDoc(userDocRef, {
+                name: data.name,
+            }, { merge: true });
+        }
+
+        if (data.avatarUrl) {
+            await setDoc(userDocRef, {
+                avatarUrl: data.avatarUrl,
+            }, { merge: true });
         }
     }
 
