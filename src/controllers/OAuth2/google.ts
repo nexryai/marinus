@@ -20,7 +20,7 @@ export async function configGoogleAuthRouter(
     );
 
     return new Elysia({prefix: "/auth/google"})
-        .get("/", async ({set, cookie: {state}}) => {
+        .get("", async ({set, cookie: {state}}) => {
             const newState = generateState();
             const scopes = ["openid", "profile"];
 
