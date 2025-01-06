@@ -3,6 +3,7 @@ import { Elysia, t } from "elysia";
 import { initializeApp } from "firebase/app";
 import { connectFirestoreEmulator, getFirestore, initializeFirestore } from "firebase/firestore";
 
+import { APP_URL, GOOGLE_OAUTH2_CLIENT_ID, GOOGLE_OAUTH2_CLIENT_SECRET } from "$env/static/private";
 import { configGoogleAuthRouter } from "@/controllers/OAuth2/google";
 import { UserRepository } from "@/repositories/UserRepository";
 import { ExternalAuthService } from "@/services/AuthService";
@@ -45,9 +46,9 @@ const elysia = new Elysia({ aot: false })
             new UserRepository(db),
             new GoogleIdentService()
         ),
-        "google_client_id",
-        "google_client_secret",
-        "http://localhost:3000"
+        GOOGLE_OAUTH2_CLIENT_ID,
+        GOOGLE_OAUTH2_CLIENT_SECRET,
+        APP_URL
     ))
     .use(apiRouter);
 
