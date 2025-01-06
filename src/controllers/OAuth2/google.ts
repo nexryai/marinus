@@ -20,7 +20,7 @@ export async function configGoogleAuthRouter(
     );
 
     return new Elysia({prefix: "/auth/google"})
-        .get("", async ({set, cookie: {state}}) => {
+        .get("", async ({ set, cookie: {state} }) => {
             const newState = generateState();
             const scopes = ["openid", "profile"];
 
@@ -39,7 +39,7 @@ export async function configGoogleAuthRouter(
             return;
         })
 
-        .get("/callback", async ({cookie: {token, state}, query}) => {
+        .get("/callback", async ({ set, cookie: {token, state}, query }) => {
             try {
                 if (query.state !== state.value) {
                     return error(400, "invalid state");
@@ -55,6 +55,9 @@ export async function configGoogleAuthRouter(
                 token.sameSite = "strict";
                 token.expires = new Date(Date.now() + 30 * 60 * 1000);
                 token.path = "/api";
+
+                set.status = 302;
+                set.headers.location = "/";
 
                 return "OK";
             } catch (e) {
