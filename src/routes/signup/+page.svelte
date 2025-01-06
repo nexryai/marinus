@@ -89,7 +89,9 @@
                             </Button>
                         </div>
                         <div class="start-actions mt-8">
-                            <Button variant="outline" data-sveltekit-noscroll>
+                            <Button variant="outline" data-sveltekit-noscroll onclick={() => {
+                                location.href = "/auth/google";
+                            }}>
                                 <IconBrandGoogleFilled />
                                 Continue with Google Account
                             </Button>
