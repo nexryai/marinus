@@ -85,7 +85,7 @@
 
 {#if error}
     <p class="hidden">{error}</p>
-{:else if !weather}
+{:else if isLoading}
     <div class="h-[164px] w-full p-6">
         <Skeleton class="h-6 w-24" />
         <div class="mt-7 grid grid-cols-2 gap-8">
@@ -99,7 +99,7 @@
             </div>
         </div>
     </div>
-{:else}
+{:else if weather}
     <div>
         <div
             class="p-6"
