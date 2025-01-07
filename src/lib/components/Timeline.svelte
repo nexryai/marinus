@@ -1,8 +1,9 @@
 <script lang="ts">
+    import { browser } from "$app/environment";
+
     import { IconEdit } from "@tabler/icons-svelte";
     import InfiniteScroll from "svelte-infinite-scroll";
 
-    import { callApi } from "$lib/api";
     import DiscoverCard from "$lib/components/core/discoverCard.svelte";
     import { Button } from "$lib/components/ui/button";
     import { Skeleton } from "$lib/components/ui/skeleton";
@@ -10,31 +11,21 @@
     import type { UserTimelineArticle } from "@/entities/User";
 
     let isLoading = $state(true);
-    let noNote = $state(true);
+    let noNote = $state(false);
     let articles: UserTimelineArticle[] = $state([]);
-    let page = 0;
 
-    const loadTimeline = (page: number = 0) => { callApi("get", `/api/timeline?page=${page}`).then((response) => {
-        const res = response as UserTimelineArticle[];
-        if (res.length === 0 && page === 0) {
-            noNote = true;
-        } else {
-            articles = [...articles, ...res];
-        }
-    }).catch((error) => {
-        console.error(error);
-    }).finally(() => {
+    const loadTimeline = () => {
+        noNote = true;
         isLoading = false;
-    });};
+    };
 
     const loadMore = () => {
         console.log("load more");
-        page += 1;
         isLoading = true;
-        loadTimeline(page);
+        loadTimeline();
     };
 
-    loadTimeline();
+    browser && loadTimeline();
 </script>
 
 <div class="timeline w-full mt-32">

@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { browser } from "$app/environment";
     import { goto } from "$app/navigation";
 
     import { IconLogin2, IconSparkles } from "@tabler/icons-svelte";
@@ -7,6 +8,7 @@
     import Timeline from "$lib/components/Timeline.svelte";
     import WeatherCard from "$lib/components/cards/WeatherCard.svelte";
     import { Button } from "$lib/components/ui/button";
+    import { Skeleton } from "$lib/components/ui/skeleton";
     import UndrawAbsorbedIn from "$lib/images/undraw_absorbed-in.svg";
     import UndrawAddInformation from "$lib/images/undraw_add-information.svg";
 
@@ -24,12 +26,19 @@
 <section>
     <div class="w-full md:flex justify-between">
         <div class="relative w-full mr-6">
-            <p class="text-lg">
-                {date}
-            </p>
-            <p class="text-2xl">
-                {time}
-            </p>
+            {#if browser}
+                <p class="text-lg">{date}</p>
+            {:else}
+                <Skeleton class="mt-2 h-4 w-36" />
+            {/if}
+
+
+            {#if browser}
+                <p class="text-2xl">{time}</p>
+            {:else}
+                <Skeleton class="mt-3 h-6 w-32" />
+            {/if}
+
             <div class="flex justify-center">
                 <div>
                     <img class="mt-6 h-36" src={UndrawAddInformation} alt="Add information" />

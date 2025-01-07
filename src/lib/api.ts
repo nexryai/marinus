@@ -61,10 +61,7 @@ export function callApi<T>(method: string, url: string, data?: any): Promise<T> 
 }
 
 export async function getProfile(): Promise<UserSummary | null> {
-    console.log("getProfile");
-
     if (!browser) {
-        console.error("This function is only available in the browser");
         return null;
     }
 
