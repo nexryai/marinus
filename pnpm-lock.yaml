@@ -15,8 +15,8 @@ importers:
         specifier: ^2.1.1
         version: 2.1.1
       elysia:
-        specifier: ^1.1.22
-        version: 1.2.9(@sinclair/typebox@0.34.13)(typescript@5.7.2)
+        specifier: ^1.2.10
+        version: 1.2.10(@sinclair/typebox@0.34.13)(typescript@5.7.2)
       globals:
         specifier: ^15.9.0
         version: 15.14.0
@@ -38,7 +38,7 @@ importers:
     devDependencies:
       '@elysiajs/eden':
         specifier: ^1.2.0
-        version: 1.2.0(elysia@1.2.9(@sinclair/typebox@0.34.13)(typescript@5.7.2))
+        version: 1.2.0(elysia@1.2.10(@sinclair/typebox@0.34.13)(typescript@5.7.2))
       '@eslint/js':
         specifier: ^9.17.0
         version: 9.17.0
@@ -1783,8 +1783,8 @@ packages:
   electron-to-chromium@1.5.76:
     resolution: {integrity: sha512-CjVQyG7n7Sr+eBXE86HIulnL5N8xZY1sgmOPGuq/F0Rr0FJq63lg0kEtOIDfZBk44FnDLf6FUJ+dsJcuiUDdDQ==}
 
-  elysia@1.2.9:
-    resolution: {integrity: sha512-UqN0j3K5hVnTbrqy6wsyqw4/F5ZdWlBJGPP1ax3JbcwEkKiWLA7HCPDaD+Tahq+h7kgUNKDT6WuIPAoN3rdXBg==}
+  elysia@1.2.10:
+    resolution: {integrity: sha512-QcNl2FjhHFRpKaqy1NoMpyCjJ7OcKBnHwLUkqGu09QwIV84PFb82ILvYJG4GS1RbGv76OA50luaqBLrM3SLZ2w==}
     peerDependencies:
       '@sinclair/typebox': '>= 0.34.0'
       openapi-types: '>= 12.0.0'
@@ -2065,9 +2065,6 @@ packages:
   external-editor@3.1.0:
     resolution: {integrity: sha512-hMQ4CX1p1izmuLYyZqLMO/qGNw10wSv9QDCPfzXfyFrOaCSSoRfqE1Kf1s5an66J5JZC62NewG+mK49jOCtQew==}
     engines: {node: '>=4'}
-
-  fast-decode-uri-component@1.0.1:
-    resolution: {integrity: sha512-WKgKWg5eUxvRZGwW8FvfbaH7AXSh2cL+3j5fMGzUMCxWBJ3dV3a7Wz8y2f/uQ0e3B6WmodD3oS54jTQ9HVTIIg==}
 
   fast-deep-equal@3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
@@ -4409,9 +4406,9 @@ snapshots:
 
   '@electric-sql/pglite@0.2.15': {}
 
-  '@elysiajs/eden@1.2.0(elysia@1.2.9(@sinclair/typebox@0.34.13)(typescript@5.7.2))':
+  '@elysiajs/eden@1.2.0(elysia@1.2.10(@sinclair/typebox@0.34.13)(typescript@5.7.2))':
     dependencies:
-      elysia: 1.2.9(@sinclair/typebox@0.34.13)(typescript@5.7.2)
+      elysia: 1.2.10(@sinclair/typebox@0.34.13)(typescript@5.7.2)
 
   '@esbuild/aix-ppc64@0.21.5':
     optional: true
@@ -6106,11 +6103,10 @@ snapshots:
 
   electron-to-chromium@1.5.76: {}
 
-  elysia@1.2.9(@sinclair/typebox@0.34.13)(typescript@5.7.2):
+  elysia@1.2.10(@sinclair/typebox@0.34.13)(typescript@5.7.2):
     dependencies:
       '@sinclair/typebox': 0.34.13
       cookie: 1.0.2
-      fast-decode-uri-component: 1.0.1
       memoirist: 0.2.0
     optionalDependencies:
       typescript: 5.7.2
@@ -6525,8 +6521,6 @@ snapshots:
       chardet: 0.7.0
       iconv-lite: 0.4.24
       tmp: 0.0.33
-
-  fast-decode-uri-component@1.0.1: {}
 
   fast-deep-equal@3.1.3: {}
 
