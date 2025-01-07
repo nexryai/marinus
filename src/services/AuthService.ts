@@ -118,10 +118,9 @@ abstract class AuthService {
      This method is used for authentication and stateless session management.
      * @param encryptedData encrypted token
      * @param isChallengeToken whether the token is a challenge token
-     * @param databaseSessionId session id stored in the database. This is used to revoke the session.
      * @returns token data
      ***/
-    public decryptToken(encryptedData: string, isChallengeToken: boolean, databaseSessionId?: string): { uid: string, expireAt: Date, challenge?: string } | null {
+    public decryptToken(encryptedData: string, isChallengeToken: boolean): { uid: string, sid?: string, expireAt: Date, challenge?: string } | null {
         const decryptedData = this.decrypt(encryptedData, isChallengeToken ? this.challengeSecretKey : this.secretKey);
         const parsedData: TokenClaims = JSON.parse(decryptedData);
 
@@ -152,13 +151,9 @@ abstract class AuthService {
                 return null;
             }
 
-            if (parsed.sid !== databaseSessionId || !databaseSessionId) {
-                console.log("Authentication failed: session id does not match, maybe the user has logged out.");
-                return null;
-            }
-
             return {
                 uid: parsed.uid,
+                sid: parsed.sid,
                 expireAt
             };
         }
@@ -173,7 +168,7 @@ export class ExternalAuthService extends AuthService {
         super();
     }
 
-    async signIn(serviceToken: string): Promise<string> {
+    public async signIn(serviceToken: string): Promise<string> {
         const profile = await this.identService.getProfile(serviceToken);
         const uid = profile.uid;
         let sid: string | undefined;
