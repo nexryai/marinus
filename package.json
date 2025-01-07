@@ -20,7 +20,7 @@
 		"@sveltejs/adapter-static": "^3.0.4",
 		"@sveltejs/kit": "^2.5.27",
 		"@sveltejs/vite-plugin-svelte": "^4.0.0",
-		"@tabler/icons-svelte": "^3.26.0",
+		"@tabler/icons-svelte": "^3.27.1",
 		"@types/node": "^22.10.5",
 		"@types/nprogress": "^0.2.3",
 		"@typescript-eslint/eslint-plugin": "^8.10.0",
