@@ -51,7 +51,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"arctic": "^2.2.1",
+		"arctic": "^3.1.0",
 		"clsx": "^2.1.1",
 		"elysia": "^1.1.22",
 		"globals": "^15.9.0",
