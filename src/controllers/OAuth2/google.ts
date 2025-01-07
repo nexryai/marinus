@@ -39,7 +39,7 @@ export async function configGoogleAuthRouter(
             return;
         })
 
-        .get("/callback", async ({ set, cookie: {token, state}, query }) => {
+        .get("/callback", async ({ set, cookie: { token, state, isLoggedIn }, query }) => {
             try {
                 if (query.state !== state.value) {
                     return error(400, "invalid state");
@@ -55,6 +55,12 @@ export async function configGoogleAuthRouter(
                 token.sameSite = "strict";
                 token.expires = new Date(Date.now() + 30 * 60 * 1000);
                 token.path = "/api";
+
+                isLoggedIn.value = "true";
+                isLoggedIn.httpOnly = false;
+                isLoggedIn.secure = true;
+                isLoggedIn.sameSite = "strict";
+                isLoggedIn.path = "/";
 
                 set.status = 302;
                 set.headers.location = "/";
