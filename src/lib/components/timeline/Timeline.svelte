@@ -1,20 +1,21 @@
 <script lang="ts">
+    import { IconEdit } from "@tabler/icons-svelte";
     import InfiniteScroll from "svelte-infinite-scroll";
 
     import { callApi } from "$lib/api";
-    import { AddFeedButton } from "$lib/components/addFeedButton";
     import DiscoverCard from "$lib/components/core/discoverCard.svelte";
+    import { Button } from "$lib/components/ui/button";
     import { Skeleton } from "$lib/components/ui/skeleton";
 
-    import type { Article } from "../../../../../node_modules/@prisma/client";
+    import type { UserTimelineArticle } from "@/entities/User";
 
     let isLoading = $state(true);
-    let noNote = $state(false);
-    let articles: Article[] = $state([]);
+    let noNote = $state(true);
+    let articles: UserTimelineArticle[] = $state([]);
     let page = 0;
 
     const loadTimeline = (page: number = 0) => { callApi("get", `/api/timeline?page=${page}`).then((response) => {
-        const res = response as Article[];
+        const res = response as UserTimelineArticle[];
         if (res.length === 0 && page === 0) {
             noNote = true;
         } else {
@@ -36,26 +37,32 @@
     loadTimeline();
 </script>
 
-<div class="timeline">
+<div class="timeline w-full mt-32">
+    <div class="flex justify-between">
+        <p class="text-lg">
+            News
+        </p>
+        <Button variant="outline">
+            <IconEdit />
+            Manage Feeds
+        </Button>
+    </div>
+
     {#if noNote}
-        <div class="full-message">
-            <h2>No note!</h2>
-            <p>Click the button below to subscribe new feed.</p>
+        <div class="w-full flex justify-center">
+            <div class="text-center mt-32">
+                <h2>No article!</h2>
+                <p>Click the edit button to subscribe new feed.</p>
+                <p>反映まで時間がかかります。</p>
+            </div>
         </div>
-        <DiscoverCard
-            url="https://www.sda1.net"
-            title="Welcome to NewsBoard!"
-            description="Simple and Open-Source modern RSS reader"
-            feedSource="nexryai"
-            imageUrl="https://s3.sda1.net/nnm/contents/b6bcec6c-cb93-4e88-a6d0-46e41260ae20.png"
-        />
     {/if}
 
     {#each articles as article}
         <DiscoverCard
             url={article.url}
             title={article.title}
-            description={article.contents}
+            description={article.content}
             feedSource={article.source}
             imageUrl={article.imageUrl}
         />
@@ -74,9 +81,6 @@
             loadMore();
         }}
     />
-    <div class="floating-button">
-        <AddFeedButton />
-    </div>
 </div>
 
 <style lang="scss">
@@ -87,11 +91,5 @@
         .skeleton {
             margin-top: 64px;
         }
-    }
-
-    .floating-button {
-        position: fixed;
-        right: 8vw;
-        bottom: 8vh;
     }
 </style>
