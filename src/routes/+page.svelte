@@ -4,8 +4,8 @@
     import { IconLogin2, IconSparkles } from "@tabler/icons-svelte";
 
     import { isLoggedIn } from "$lib/account";
+    import Timeline from "$lib/components/Timeline.svelte";
     import WeatherCard from "$lib/components/cards/WeatherCard.svelte";
-    import { Timeline } from "$lib/components/timeline";
     import { Button } from "$lib/components/ui/button";
     import UndrawAbsorbedIn from "$lib/images/undraw_absorbed-in.svg";
     import UndrawAddInformation from "$lib/images/undraw_add-information.svg";
