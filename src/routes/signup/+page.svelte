@@ -55,7 +55,7 @@
                 </span>
             </div>
             <div>
-                <img alt="" src={UndrawFunMoments}>
+                <img alt="Fun moment" src={UndrawFunMoments}>
             </div>
         </div>
         <div>
