@@ -1,6 +1,8 @@
 <script lang="ts">
     import { onMount } from "svelte";
 
+    import { Skeleton } from "$lib/components/ui/skeleton";
+
     const API_URL = "https://workers-weather-api.nexryai.workers.dev/weather";
 
     interface WeatherForecast {
@@ -16,8 +18,9 @@
         min_temp: number;
     }
 
-    let weather: WeatherForecast | null = null;
-    let error: string | null = null;
+    let isLoading = $state(true);
+    let weather: WeatherForecast | null = $state(null);
+    let error: string | null = $state(null);
 
     const fetchWeather = async (lat?: number, lon?: number): Promise<WeatherForecast> => {
         let url = API_URL;
@@ -74,6 +77,8 @@
         } catch (e) {
             // @ts-ignore
             error = e.message;
+        } finally {
+            isLoading = false;
         }
     });
 </script>
@@ -81,9 +86,18 @@
 {#if error}
     <p class="hidden">{error}</p>
 {:else if !weather}
-    <div>
-        <div class="skeleton-avatar"></div>
-        <div class="skeleton-button ml-1"></div>
+    <div class="h-[164px] w-full p-6">
+        <Skeleton class="h-6 w-24" />
+        <div class="mt-7 grid grid-cols-2 gap-8">
+            <div>
+                <Skeleton class="h-4 w-24" />
+                <Skeleton class="mt-3 h-4 w-36" />
+            </div>
+            <div >
+                <Skeleton class="h-4 w-24" />
+                <Skeleton class="mt-3 h-4 w-36" />
+            </div>
+        </div>
     </div>
 {:else}
     <div>

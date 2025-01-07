@@ -29,14 +29,14 @@
             {#if browser}
                 <p class="text-lg">{date}</p>
             {:else}
-                <Skeleton class="mt-2 h-4 w-36" />
+                <Skeleton class="mt-2 w-36 h-4" />
             {/if}
 
 
             {#if browser}
                 <p class="text-2xl">{time}</p>
             {:else}
-                <Skeleton class="mt-3 h-6 w-32" />
+                <Skeleton class="mt-3 w-32 h-6" />
             {/if}
 
             <div class="flex justify-center">
