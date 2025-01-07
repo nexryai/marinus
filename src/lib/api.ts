@@ -3,12 +3,16 @@ import { browser } from "$app/environment";
 import { treaty } from "@elysiajs/eden";
 
 import { IElysiaApp } from "@/controllers/AppController";
-import { type User } from "@/entities/User";
+
 
 enum IdentProvider {
     GOOGLE = "google",
     GITHUB = "github",
+    ABLAZE = "ablaze",
 }
+
+interface UserSummary { uid: string, name: string, avatarUrl: string }
+
 
 function setIdentProvider(provider: IdentProvider) {
     if (!browser) return false;
@@ -24,13 +28,13 @@ function jumpToLogin() {
     const idProvider = getIdentProvider();
     switch (idProvider) {
     case IdentProvider.GOOGLE:
-        window.location.href = "/login/google";
+        window.location.href = "/auth/google";
         break;
-    case IdentProvider.GITHUB:
-        window.location.href = "/login/github";
+    case IdentProvider.ABLAZE:
+        window.location.href = "/auth/ablaze";
         break;
     default:
-        window.location.href = "/signin";
+        window.location.href = "/login";
         break;
     }
 }
@@ -56,12 +60,12 @@ export function callApi<T>(method: string, url: string, data?: any): Promise<T> 
     });
 }
 
-export async function getProfile(): Promise<User> {
+export async function getProfile(): Promise<UserSummary | null> {
     console.log("getProfile");
 
     if (!browser) {
         console.error("This function is only available in the browser");
-        return {} as User;
+        return null;
     }
 
     if (localStorage.getItem("user")) {
@@ -78,30 +82,38 @@ export async function getProfile(): Promise<User> {
                 }
 
                 console.log("User cache hit: ", cachedUser);
-                return JSON.parse(cachedUser) as User;
+                return JSON.parse(cachedUser) as UserSummary;
             }
         }
     }
 
-    const user = await callApi<User>("GET", "/api/account/profile");
-    if (!user) {
-        throw new Error("User not found");
+    const resp = await app.api.account.get();
+    if (!resp || !resp.response.ok) {
+        if (resp.response.status === 401) {
+            jumpToLogin();
+        }
+
+        return null;
     }
 
-    console.log("User:", user);
+    console.log("User:", resp.data);
 
     // cache
-    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("user", JSON.stringify(resp.data));
     localStorage.setItem("userCacheCreatedAt", Date.now().toString());
 
     // セッションが切れた時に適当なログイン画面に飛ばすためにプロバイダを保存
-    if (user.uid.startsWith("google:")) {
+    if (resp.data.uid.startsWith("google:")) {
         setIdentProvider(IdentProvider.GOOGLE);
-    } else if (user.uid.startsWith("github:")) {
-        setIdentProvider(IdentProvider.GITHUB);
+    } else if (resp.data.uid.startsWith("ablaze:")) {
+        setIdentProvider(IdentProvider.ABLAZE);
     }
 
-    return user;
+    return {
+        uid: resp.data.uid,
+        name: resp.data.name,
+        avatarUrl: resp.data.avatarUrl,
+    };
 }
 
 const url = typeof window !== "undefined"
