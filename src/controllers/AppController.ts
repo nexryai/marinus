@@ -9,6 +9,7 @@ import { configGoogleAuthRouter } from "@/controllers/OAuth2/google";
 import { UserRepository } from "@/repositories/UserRepository";
 import { AccountService } from "@/services/AccountService";
 import { ExternalAuthService } from "@/services/AuthService";
+import { SubscriptionService } from "@/services/SubscriptionService";
 import { GoogleIdentService } from "@/services/internal/IdentService";
 
 
@@ -27,6 +28,7 @@ if (process.env.NODE_ENV === "development") {
 
 const userRepository = new UserRepository(db);
 const accountService = new AccountService(userRepository);
+const subscriptionService = new SubscriptionService(userRepository);
 const googleAuthService = new ExternalAuthService(
     userRepository,
     new GoogleIdentService()
@@ -59,7 +61,7 @@ const apiRouter = new Elysia({ prefix: "/api" })
         };
     })
 
-    .get("/account", async({ uid, user }) => {
+    .get("/account", ({ uid, user }) => {
         return {
             uid,
             name: user.name,
@@ -70,6 +72,31 @@ const apiRouter = new Elysia({ prefix: "/api" })
             uid: t.String(),
             name: t.String(),
             avatarUrl: t.String()
+        })
+    })
+
+    .get("/subscriptions", async ({ uid }) => {
+        return await subscriptionService.getSubscriptions(uid);
+    }, {
+        response: t.Array(t.Object({
+            url: t.String(),
+            name: t.String(),
+        }))
+    })
+
+    .post("/subscriptions", async ({ uid, body }) => {
+        await subscriptionService.addSubscription(uid, body);
+
+        return {
+            status: "ok"
+        };
+    }, {
+        body: t.Object({
+            url: t.String(),
+            name: t.String(),
+        }),
+        response: t.Object({
+            status: t.String()
         })
     })
 
