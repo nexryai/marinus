@@ -39,27 +39,6 @@ function jumpToLogin() {
     }
 }
 
-export function callApi<T>(method: string, url: string, data?: any): Promise<T> {
-    console.log("API Called:", method, url);
-    return fetch(url, {
-        method,
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-    }).then((res) => {
-        if (!res.ok) {
-            if (res.status === 401) {
-                jumpToLogin();
-                return;
-            }
-
-            throw new Error(res.statusText);
-        }
-        return res.json();
-    });
-}
-
 export async function getProfile(): Promise<UserSummary | null> {
     if (!browser) {
         return null;
