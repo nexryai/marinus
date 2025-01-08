@@ -2,7 +2,6 @@ import {
     addDoc,
     collection,
     doc,
-    getCountFromServer,
     getDoc,
     getDocs,
     limit,
@@ -10,7 +9,6 @@ import {
     query,
     setDoc,
     startAt,
-    where,
     type Firestore,
 } from "firebase/firestore";
 
@@ -59,14 +57,8 @@ export class UserRepository extends FirestoreRepositoryCore {
             sid: data.sid,
             name: data.name,
             avatarUrl: data.avatarUrl,
+            subscriptions: data.subscriptions,
         });
-
-        // サブスクリプションをサブコレクションとして追加
-        if (data.subscriptions && Array.isArray(data.subscriptions)) {
-            for (const subscription of data.subscriptions) {
-                await addDoc(collection(userDocRef, "subscriptions"), subscription);
-            }
-        }
 
         // タイムラインをサブコレクションとして追加
         if (data.timeline && Array.isArray(data.timeline)) {
@@ -128,35 +120,44 @@ export class UserRepository extends FirestoreRepositoryCore {
         }
 
         const userDocRef = await this.getUserRef(uid);
-        const subscriptionsRef = collection(userDocRef, "subscriptions");
+        const userDoc = await getDoc(userDocRef);
 
-        // 既に同じURLのサブスクリプションが登録されている場合はエラーを返す
-        const q = query(subscriptionsRef, limit(1), where("url", "==", subscription.url));
-        const snapshot = await getDocs(q);
-        if (!snapshot.empty) {
+        if (!userDoc.exists()) {
+            throw new Error("User not found");
+        }
+
+        const userData = userDoc.data();
+        if (!userData) {
+            throw new Error("User data is empty");
+        }
+
+        const subscriptions: UserSubscription[] = userData.subscriptions || [];
+
+        // URLの重複チェック
+        if (subscriptions.some(sub => sub.url === subscription.url)) {
             throw new Error("Subscription already exists");
         }
 
-        // 既に256件以上のサブスクリプションが登録されている場合はエラーを返す
-        const countSnapshot = await getCountFromServer(subscriptionsRef);
-        if (countSnapshot.data().count >= 256) {
+        // サブスクリプションの上限チェック
+        if (subscriptions.length >= 256) {
             throw new Error("Maximum number of subscriptions exceeded");
         }
 
-        await addDoc(collection(userDocRef, "subscriptions"), subscription);
+        subscriptions.push(subscription);
+
+        await setDoc(userDocRef, { subscriptions }, { merge: true });
     }
 
     public async getSubscriptions(uid: string): Promise<UserSubscription[]> {
         const userDocRef = await this.getUserRef(uid);
-        const subscriptionsRef = collection(userDocRef, "subscriptions");
-        const snapshot = await getDocs(subscriptionsRef);
-        const subscriptions: UserSubscription[] = [];
-        snapshot.forEach((doc) => {
-            const subscription: UserSubscription = doc.data() as UserSubscription;
-            subscriptions.push(subscription);
-        });
+        const userDoc = await getDoc(userDocRef);
 
-        return subscriptions;
+        if (!userDoc.exists()) {
+            throw new Error("User not found");
+        }
+
+        const userData = userDoc.data();
+        return userData.subscriptions || [];
     }
 
     public async addTimelineArticle(uid: string, article: UserTimelineArticle): Promise<void> {
