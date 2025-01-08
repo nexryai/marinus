@@ -1,5 +1,6 @@
 <script lang="ts">
     import { browser } from "$app/environment";
+    import { goto } from "$app/navigation";
 
     import { IconEdit } from "@tabler/icons-svelte";
     import InfiniteScroll from "svelte-infinite-scroll";
@@ -33,7 +34,7 @@
         <p class="text-lg">
             News
         </p>
-        <Button variant="outline">
+        <Button variant="outline" onclick={() => {goto("/subscriptions");}}>
             <IconEdit />
             Manage Feeds
         </Button>
