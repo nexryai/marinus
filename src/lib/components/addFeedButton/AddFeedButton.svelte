@@ -69,11 +69,7 @@
     };
 
     $effect(() => {
-        if (feedName && url) {
-            readyToSubmit = true;
-        } else {
-            readyToSubmit = false;
-        }
+        readyToSubmit = !!(feedName && url);
     });
 </script>
 {#if isDesktop.current}
