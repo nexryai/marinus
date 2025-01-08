@@ -7,7 +7,7 @@
     import { MediaQuery } from "svelte/reactivity";
     import { toast } from "svelte-sonner";
 
-    import { callApi } from "$lib/api";
+    import { app } from "$lib/api";
     import {
         Button,
     } from "$lib/components/ui/button/index.js";
@@ -44,23 +44,37 @@
             return;
         }
 
-        console.log("add feed");
-        callApi(
-            "post",
-            "/api/subscriptions/add",
-            {
-                name: feedName,
-                feedUrl: url
+        if (!url.startsWith("https://")) {
+            errorMessage = "Only HTTPS URLs are supported.";
+            showErrorMessage = true;
+            isLoading = false;
+            return;
+        }
+
+        app.api.subscriptions.post({url, name: feedName}).then((res) => {
+            if (!res.response.ok) {
+                if (res.response.status === 409) {
+                    errorMessage = "Feed already exists.";
+                } else if (res.response.status === 400) {
+                    errorMessage = "Invalid feed URL.";
+                } else if (res.response.status === 403) {
+                    errorMessage = "Forbidden to add this url for security reasons.";
+                } else {
+                    errorMessage = "Failed to add feed: " + res.response.statusText;
+                }
+
+                showErrorMessage = true;
+                return;
             }
-        ).catch((error) => {
+
+            open = false;
+            toast.success("Feed added successfully!", {
+                description:"Please reload the page to see the changes."
+            });
+        }).catch((error) => {
             console.error(error);
             errorMessage = "Failed to add feed: " + error;
             showErrorMessage = true;
-        }).then(() => {
-            open = false;
-            toast.success("Feed added successfully!", {
-                description:"Please reload the page to see the changes."}
-            );
         }).finally(() => {
             isLoading = false;
         });
