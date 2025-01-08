@@ -4,7 +4,6 @@ import (
 	"errors"
 	"github.com/mmcdole/gofeed"
 	"github.com/nexryai/archer"
-	"github.com/nexryai/marinus/internal/model"
 	"net/http"
 )
 
@@ -14,7 +13,7 @@ var (
 
 type CommonFeedService struct{}
 
-func (c *CommonFeedService) Fetch(url string) (*model.Feed, error) {
+func (c *CommonFeedService) Fetch(url string) (*Feed, error) {
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
@@ -47,7 +46,7 @@ func (c *CommonFeedService) Fetch(url string) (*model.Feed, error) {
 
 	}
 
-	res := &model.Feed{
+	res := &Feed{
 		Title:       feed.Title,
 		Description: feed.Description,
 		Link:        feed.Link,
@@ -55,15 +54,15 @@ func (c *CommonFeedService) Fetch(url string) (*model.Feed, error) {
 		Links:       feed.Links,
 		UpdatedAt:   feed.UpdatedParsed,
 		PublishedAt: feed.PublishedParsed,
-		Authors:     make([]*model.Person, 0),
+		Authors:     make([]*Person, 0),
 		Language:    feed.Language,
 		ImageUrl:    imageUrl,
 		Copyright:   feed.Copyright,
-		Items:       make([]*model.Item, 0),
+		Items:       make([]*Item, 0),
 	}
 
 	for _, author := range feed.Authors {
-		res.Authors = append(res.Authors, &model.Person{
+		res.Authors = append(res.Authors, &Person{
 			Name:  author.Name,
 			Email: author.Email,
 		})
@@ -78,7 +77,7 @@ func (c *CommonFeedService) Fetch(url string) (*model.Feed, error) {
 			imageUrl = ""
 		}
 
-		res.Items = append(res.Items, &model.Item{
+		res.Items = append(res.Items, &Item{
 			Title:       item.Title,
 			Description: item.Description,
 			Content:     item.Content,
