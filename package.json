@@ -53,7 +53,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"arctic": "^3.1.0",
+		"arctic": "^3.1.1",
 		"clsx": "^2.1.1",
 		"elysia": "^1.2.10",
 		"globals": "^15.9.0",
