@@ -10,5 +10,10 @@ export const handle: Handle = async ({ event, resolve }) => {
         return elysiaHook(request);
     }
 
-    return resolve(event);
+    const response = await resolve(event);
+    if (response.headers.get("Content-Type") == "text/html") {
+        response.headers.set("Content-Type", "text/html; charset=utf-8");
+    }
+
+    return response;
 };
