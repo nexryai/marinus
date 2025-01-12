@@ -18,7 +18,7 @@
 		"@neoconfetti/svelte": "^2.2.1",
 		"@sveltejs/adapter-auto": "^3.2.4",
 		"@sveltejs/adapter-static": "^3.0.4",
-		"@sveltejs/kit": "^2.5.27",
+		"@sveltejs/kit": "^2.15.2",
 		"@sveltejs/vite-plugin-svelte": "^4.0.0",
 		"@tabler/icons-svelte": "^3.27.1",
 		"@types/node": "^22.10.5",
