@@ -34,7 +34,7 @@
 		"eslint-plugin-svelte": "^2.45.1",
 		"firebase": "^11.1.0",
 		"firebase-tools": "^13.29.1",
-		"lucide-svelte": "^0.469.0",
+		"lucide-svelte": "^0.471.0",
 		"magic-string": "^0.30.17",
 		"mode-watcher": "^0.5.0",
 		"postcss": "^8.4.41",
