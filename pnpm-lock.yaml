@@ -103,8 +103,8 @@ importers:
         specifier: ^13.29.1
         version: 13.29.1(encoding@0.1.13)
       lucide-svelte:
-        specifier: ^0.469.0
-        version: 0.469.0(svelte@5.17.3)
+        specifier: ^0.471.0
+        version: 0.471.0(svelte@5.17.3)
       magic-string:
         specifier: ^0.30.17
         version: 0.30.17
@@ -2883,8 +2883,8 @@ packages:
   lsofi@1.0.0:
     resolution: {integrity: sha512-MKr9vM1MSm+TSKfI05IYxpKV1NCxpJaBLnELyIf784zYJ5KV9lGCE1EvpA2DtXDNM3fCuFeCwXUzim/fyQRi+A==}
 
-  lucide-svelte@0.469.0:
-    resolution: {integrity: sha512-PMIJ8jrFqVUsXJz4d1yfAQplaGhNOahwwkzbunha8DhpiD73xqX24n8dE1dPpUk3vcrdWVsHc1y/liHHotOnGQ==}
+  lucide-svelte@0.471.0:
+    resolution: {integrity: sha512-z+C6G2K089iDGbl8HzTdD5G6i5BvuaBxdIPQDa650Kb8TXBJRODa7YfmaIHy78+Y+YaB75N0lzUIQEclzflJrQ==}
     peerDependencies:
       svelte: ^3 || ^4 || ^5.0.0-next.42
 
@@ -7584,7 +7584,7 @@ snapshots:
       is-number: 2.1.0
       through2: 2.0.5
 
-  lucide-svelte@0.469.0(svelte@5.17.3):
+  lucide-svelte@0.471.0(svelte@5.17.3):
     dependencies:
       svelte: 5.17.3
 
